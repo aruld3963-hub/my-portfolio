@@ -99,3 +99,4 @@ async function uploadImageToSupabase(file, folder = 'uploads') {
 window.uploadImageToSupabase = uploadImageToSupabase;
 window.SUPABASE_CONFIG = SUPABASE_CONFIG;
 window.initSupabaseClient = initSupabaseClient;
+

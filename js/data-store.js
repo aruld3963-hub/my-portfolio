@@ -612,3 +612,4 @@ const PortfolioStore = {
 };
 
 window.PortfolioStore = PortfolioStore;
+
