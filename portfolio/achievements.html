@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achievements &amp; Certifications | Arul David Portfolio</title>
+  <meta name="description" content="Dynamic certifications, hackathon victories, and competitive programming achievements of Arul David. Powered by modular JavaScript and ready for Supabase.">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons & Custom Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern relative">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
+
+  <!-- PERSISTENT SIDEBAR -->
+  <aside id="dashboard-sidebar" class="fixed top-0 bottom-0 left-0 w-64 lg:w-72 bg-white border-r border-slate-200 z-50 flex flex-col justify-between transition-transform duration-300 transform -translate-x-full md:translate-x-0 shadow-sm">
+    <div>
+      <!-- User Profile Header -->
+      <div class="p-6 border-b border-slate-100 relative">
+        <button id="mobile-drawer-close" class="absolute top-4 right-4 md:hidden text-slate-400 hover:text-slate-600 p-1" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="flex items-center gap-3.5">
+          <div class="relative">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
+              AD
+            </div>
+            <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
+          </div>
+          <div class="overflow-hidden">
+            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
+            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+            Open to Opportunities
+          </span>
+          <span class="text-[10px] bg-emerald-100/80 px-1.5 py-0.5 rounded text-emerald-800 font-mono">2026</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-4 space-y-1 text-sm" aria-label="Main Navigation">
+        <div class="px-3 py-2 text-[11px] font-bold tracking-wider uppercase text-slate-400">Navigation</div>
+        
+        <a href="index.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Overview</span>
+        </a>
+
+        <a href="about.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-user w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Profile &amp; Journey</span>
+        </a>
+
+        <a href="skills.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-code w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Skills &amp; Tech</span>
+        </a>
+
+        <a href="achievements.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Achievements</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono font-semibold border border-blue-200">9</span>
+        </a>
+
+        <a href="projects.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-layer-group w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Featured Projects</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold">6</span>
+        </a>
+
+        <a href="contact.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-paper-plane w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Get in Touch</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom Info & Socials -->
+    <div class="p-4 border-t border-slate-100 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+        <div class="flex items-center justify-between text-slate-500 font-mono text-[11px] mb-1.5">
+          <span>CREDENTIAL AUDIT</span>
+          <span class="text-blue-600 font-semibold">100% Verified</span>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+          <div class="bg-blue-600 h-1.5 rounded-full" style="width: 100%"></div>
+        </div>
+        <div class="flex justify-between items-center mt-2 text-[10px] text-slate-500">
+          <span class="text-emerald-700 font-medium">AWS &bull; GCP &bull; MS</span>
+          <span class="font-mono text-blue-700 font-semibold">Live IDs</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-around pt-1 text-slate-400">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+          <i class="fa-brands fa-github text-base"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+          <i class="fa-brands fa-linkedin text-base"></i>
+        </a>
+        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
+          <i class="fa-brands fa-hackerrank text-base"></i>
+        </a>
+        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+          <i class="fa-solid fa-envelope text-base"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="md:pl-64 lg:pl-72 flex flex-col min-h-screen">
+    
+    <!-- TOP HEADER BAR -->
+    <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 focus:outline-none" aria-label="Open Sidebar Menu">
+          <i class="fa-solid fa-bars-staggered text-base"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span>Dashboard</span>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
+            <span class="text-blue-600 font-semibold">Achievements &amp; Badges</span>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Verified Credentials &amp; Honors</h2>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono">
+          <i class="fa-regular fa-clock text-blue-600 text-[11px]"></i>
+          <span id="header-live-clock">19:30:00</span>
+        </div>
+
+        <button id="command-palette-trigger" class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-slate-200 text-xs transition-colors" title="Open Command Palette">
+          <i class="fa-solid fa-magnifying-glass text-[11px] text-slate-400"></i>
+          <span>Quick Find...</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-white text-slate-500 text-[10px] font-mono border border-slate-200 shadow-2xs">⌘K</kbd>
+        </button>
+
+        <button class="trigger-resume-modal flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-colors">
+          <i class="fa-solid fa-file-arrow-down text-white"></i>
+          <span>Resume</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">
+
+      <!-- HERO BANNER WITH METRICS -->
+      <div class="dashboard-panel p-6 sm:p-8">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-3 max-w-2xl">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
+              <i class="fa-solid fa-medal text-blue-600"></i>
+              <span>Official Proof of Competence</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+              Verified Certifications, <span class="text-blue-600">Hackathons &amp; Competitions</span>
+            </h1>
+
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Dynamically rendered from structured data via <code class="text-blue-700 font-mono font-semibold">js/achievements.js</code> (engineered for plug-and-play Supabase database queries). Every achievement includes its verification token, tested competencies, and official registry links.
+            </p>
+          </div>
+
+          <!-- Quick Stats Counter Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
+              <span class="text-2xl font-black text-blue-700 font-mono block">4</span>
+              <span class="text-[11px] text-slate-500 font-medium">Cloud Certs</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
+              <span class="text-2xl font-black text-purple-700 font-mono block">2</span>
+              <span class="text-[11px] text-slate-500 font-medium">Hackathons</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
+              <span class="text-2xl font-black text-amber-700 font-mono block">2</span>
+              <span class="text-[11px] text-slate-500 font-medium">Contests</span>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
+              <span class="text-2xl font-black text-emerald-700 font-mono block">1</span>
+              <span class="text-[11px] text-slate-500 font-medium">Dean's Honor</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILTER & SEARCH TOOLBAR -->
+      <div class="dashboard-panel p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <!-- Interactive Category Tabs -->
+        <div class="flex flex-wrap items-center gap-2 text-xs" role="tablist">
+          <button class="filter-tab-btn active-filter px-3.5 py-2 rounded-xl font-semibold bg-blue-50 text-blue-700 border border-blue-500 shadow-sm transition-all flex items-center gap-2" data-category="all">
+            <span>All</span>
+            <span class="px-1.5 py-0.2 rounded-md bg-blue-200/60 text-[10px] font-mono" data-count-cat="all">9</span>
+          </button>
+
+          <button class="filter-tab-btn px-3.5 py-2 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-category="certifications">
+            <span>Certifications</span>
+            <span class="px-1.5 py-0.2 rounded-md bg-slate-100 text-[10px] font-mono text-blue-700 font-semibold" data-count-cat="certifications">4</span>
+          </button>
+
+          <button class="filter-tab-btn px-3.5 py-2 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-category="hackathons">
+            <span>Hackathons</span>
+            <span class="px-1.5 py-0.2 rounded-md bg-slate-100 text-[10px] font-mono text-purple-700 font-semibold" data-count-cat="hackathons">2</span>
+          </button>
+
+          <button class="filter-tab-btn px-3.5 py-2 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-category="competitions">
+            <span>Competitions</span>
+            <span class="px-1.5 py-0.2 rounded-md bg-slate-100 text-[10px] font-mono text-amber-700 font-semibold" data-count-cat="competitions">2</span>
+          </button>
+
+          <button class="filter-tab-btn px-3.5 py-2 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-category="honors">
+            <span>Academic Honors</span>
+            <span class="px-1.5 py-0.2 rounded-md bg-slate-100 text-[10px] font-mono text-emerald-700 font-semibold" data-count-cat="honors">1</span>
+          </button>
+        </div>
+
+        <!-- Search Input & Live Counter -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-full md:w-64">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+            <input id="achievement-search-input" type="text" placeholder="Search issuer, title or skill..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600">
+          </div>
+          <span id="achievements-counter" class="text-xs text-slate-500 font-mono whitespace-nowrap hidden sm:inline">
+            Loading...
+          </span>
+        </div>
+      </div>
+
+      <!-- DYNAMIC ACHIEVEMENTS GRID (Rendered by js/achievements.js) -->
+      <div id="achievements-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="col-span-full py-16 text-center text-slate-400">
+          <i class="fa-solid fa-circle-notch fa-spin text-2xl text-blue-600"></i>
+          <p class="mt-2 text-xs font-mono">Loading credentials...</p>
+        </div>
+      </div>
+
+      <!-- SUPABASE BACKEND READINESS NOTICE -->
+      <div class="dashboard-panel p-4 bg-blue-50/50 border border-blue-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-database text-xs"></i>
+          </div>
+          <div>
+            <span class="font-bold text-slate-900 block">Supabase Modular Architecture</span>
+            <span class="text-slate-600">Rendering is isolated in <code class="text-blue-700 font-mono font-semibold">js/achievements.js</code>. Easily plug in a live Supabase client with zero markup changes.</span>
+          </div>
+        </div>
+        <span class="badge-blue px-2.5 py-1 rounded-lg font-mono text-[10px] font-semibold whitespace-nowrap">
+          API Ready
+        </span>
+      </div>
+
+    </main>
+
+    <!-- DASHBOARD FOOTER -->
+    <footer class="mt-auto border-t border-slate-200 bg-white p-4 sm:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-700">Arul David Portfolio</span>
+        <span>&bull;</span>
+        <span>Achievements &amp; Badges</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-500">
+        <a href="projects.html" class="text-blue-600 hover:text-blue-800 font-semibold">Explore Projects &rarr;</a>
+        <a href="#top" class="hover:text-slate-800 transition-colors">Back to top &uarr;</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- CREDENTIAL DETAILS MODAL -->
+  <div id="credential-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="cred-modal-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="cred-dialog relative z-10 w-full max-w-xl bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <div id="cred-modal-body">
+        <!-- Injected via js/achievements.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Shared Modals -->
+  <div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="resume-modal-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="resume-dialog relative z-10 w-full max-w-lg bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Curriculum Vitae</h3>
+            <span class="text-xs text-slate-500">Arul David &bull; Software Engineer (2026 Edition)</span>
+          </div>
+        </div>
+        <button class="close-resume-modal text-slate-400 hover:text-slate-600 p-1" aria-label="Close modal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="py-5 space-y-4 text-xs sm:text-sm text-slate-600">
+        <p class="leading-relaxed">
+          Download the verified resume detailing academic achievements, production engineering experience, AWS/GCP certifications, and open-source contributions.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-100">
+        <button class="close-resume-modal w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+          Cancel
+        </button>
+        <button id="btn-download-resume-pdf" class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-solid fa-download"></i>
+          <span>Download PDF Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="command-palette-modal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="palette-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="palette-card relative z-10 w-full max-w-xl bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="p-4 border-b border-slate-100 flex items-center gap-3 bg-slate-50">
+        <i class="fa-solid fa-magnifying-glass text-blue-600 text-sm"></i>
+        <input id="palette-search-input" type="text" placeholder="Type a destination or command..." class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 focus:outline-none font-medium">
+        <kbd class="px-2 py-0.5 rounded bg-white text-slate-400 text-[10px] font-mono border border-slate-200 shadow-2xs">ESC</kbd>
+      </div>
+
+      <div class="p-2 max-h-80 overflow-y-auto space-y-1 text-sm font-medium">
+        <div class="px-3 py-1.5 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Pages</div>
+        <a href="index.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-chart-pie text-blue-600"></i> Dashboard Overview</span>
+          <span class="text-xs text-slate-400 font-mono">index.html</span>
+        </a>
+        <a href="about.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-user text-purple-600"></i> Profile &amp; Academic Timeline</span>
+          <span class="text-xs text-slate-400 font-mono">about.html</span>
+        </a>
+        <a href="skills.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-code text-blue-600"></i> Categorized Skills &amp; Stack</span>
+          <span class="text-xs text-slate-400 font-mono">skills.html</span>
+        </a>
+        <a href="achievements.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-award text-amber-600"></i> Achievements &amp; Certifications</span>
+          <span class="text-xs text-slate-400 font-mono">achievements.html</span>
+        </a>
+        <a href="projects.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-layer-group text-indigo-600"></i> Featured Project Grid</span>
+          <span class="text-xs text-slate-400 font-mono">projects.html</span>
+        </a>
+        <a href="contact.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-paper-plane text-emerald-600"></i> Get in Touch &amp; Social Links</span>
+          <span class="text-xs text-slate-400 font-mono">contact.html</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/achievements.js"></script>
+</body>
+</html>

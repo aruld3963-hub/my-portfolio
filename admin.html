@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Admin Control Dashboard | Arul David Portfolio</title>
+  <meta name="description" content="Administrative control dashboard for managing achievements, projects, cloud assets, and portfolio content.">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons & Custom Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Supabase CDN & Data Store Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/data-store.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern">
+
+  <!-- AUTH GUARD CHECK -->
+  <script>
+    if (!PortfolioStore.isAuthenticated()) {
+      window.location.href = 'admin-login.html';
+    }
+  </script>
+
+  <!-- TOP ADMIN BAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-8 py-3 flex items-center justify-between shadow-2xs">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-base shadow-sm">
+          <i class="fa-solid fa-sliders"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            <span>Portfolio Admin Console</span>
+            <span class="badge-blue px-2 py-0.5 rounded text-[10px] font-mono font-semibold">Master</span>
+          </h1>
+          <p class="text-xs text-slate-500">Live CRUD &bull; Supabase Cloud Asset Storage</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-3">
+      <!-- Supabase Cloud Indicator -->
+      <div id="supabase-status-pill" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span id="supabase-status-text">Cloud Engine Active</span>
+      </div>
+
+      <a href="index.html" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs">
+        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+        <span class="hidden sm:inline">View Public Site</span>
+      </a>
+
+      <button id="admin-logout-btn" class="px-3.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-1.5">
+        <i class="fa-solid fa-arrow-right-from-bracket text-[10px]"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN ADMIN DASHBOARD BODY -->
+  <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+    <!-- NAVIGATION TABS -->
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-3">
+      <div class="flex flex-wrap gap-2 text-xs" role="tablist">
+        <button onclick="switchAdminTab('achievements')" class="admin-nav-tab active-tab px-4 py-2 rounded-xl font-bold bg-blue-50 text-blue-700 border border-blue-500 shadow-sm transition-all flex items-center gap-2" data-tab="achievements">
+          <i class="fa-solid fa-award"></i>
+          <span>Achievements &amp; Certifications</span>
+          <span id="tab-count-achievements" class="px-1.5 py-0.2 rounded bg-blue-200 text-blue-800 font-mono text-[10px]">0</span>
+        </button>
+
+        <button onclick="switchAdminTab('projects')" class="admin-nav-tab px-4 py-2 rounded-xl font-medium bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-tab="projects">
+          <i class="fa-solid fa-layer-group"></i>
+          <span>Projects Manager</span>
+          <span id="tab-count-projects" class="px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 font-mono text-[10px]">0</span>
+        </button>
+
+        <button onclick="switchAdminTab('profile')" class="admin-nav-tab px-4 py-2 rounded-xl font-medium bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-tab="profile">
+          <i class="fa-solid fa-user-pen"></i>
+          <span>Profile &amp; Skills</span>
+        </button>
+
+        <button onclick="switchAdminTab('supabase')" class="admin-nav-tab px-4 py-2 rounded-xl font-medium bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-tab="supabase">
+          <i class="fa-solid fa-cloud"></i>
+          <span>Supabase Settings</span>
+        </button>
+      </div>
+
+      <!-- Quick Status -->
+      <span class="text-xs text-slate-500 font-mono hidden md:inline">
+        Instant Auto-Sync Active
+      </span>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- TAB 1: ACHIEVEMENTS & CERTIFICATIONS MANAGER -->
+    <!-- =================================================================== -->
+    <section id="panel-achievements" class="admin-tab-panel space-y-6">
+      
+      <!-- Top Action Hub -->
+      <div class="dashboard-panel p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Manage Credentials &amp; Certifications</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Add new certifications, upload certificates to Supabase storage, or toggle visibility on public site.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openAchievementModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add New Certificate</span>
+          </button>
+          <button onclick="confirmPurgeAchievements()" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-1.5" title="Wipe mock items to upload your real certificates">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Purge Sample Data</span>
+          </button>
+          <button onclick="restoreDefaultAchievements()" class="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 text-xs font-medium transition-colors" title="Restore sample demo data">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Defaults
+          </button>
+        </div>
+      </div>
+
+      <!-- Achievements List / Table -->
+      <div class="dashboard-panel overflow-hidden">
+        <div class="p-4 border-b border-slate-100 flex items-center justify-between gap-4 bg-slate-50/50">
+          <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">All Certificates &amp; Honors</span>
+          <span id="achievements-summary-badge" class="badge-blue px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold">0 Items</span>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold uppercase text-[10px] tracking-wider">
+                <th class="py-3 px-4">Credential Details</th>
+                <th class="py-3 px-4">Issuer &bull; Category</th>
+                <th class="py-3 px-4">Credential ID</th>
+                <th class="py-3 px-4 text-center">Public Visibility</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-achievements-table-body" class="divide-y divide-slate-100 text-slate-700 font-medium">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 2: PROJECTS MANAGER -->
+    <!-- =================================================================== -->
+    <section id="panel-projects" class="admin-tab-panel hidden space-y-6">
+      
+      <!-- Top Action Hub -->
+      <div class="dashboard-panel p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Manage Showcase Projects</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Add projects, upload screenshots to Supabase storage, edit GitHub URLs, and toggle public visibility.</p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openProjectModal()" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            <span>Add New Project</span>
+          </button>
+          <button onclick="confirmPurgeProjects()" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Purge Sample Projects</span>
+          </button>
+          <button onclick="restoreDefaultProjects()" class="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 text-xs font-medium transition-colors">
+            <i class="fa-solid fa-rotate-left mr-1"></i> Defaults
+          </button>
+        </div>
+      </div>
+
+      <!-- Projects Grid in Admin -->
+      <div id="admin-projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 3: PROFILE & SKILLS MANAGER -->
+    <!-- =================================================================== -->
+    <section id="panel-profile" class="admin-tab-panel hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Profile Editor Form (7 cols) -->
+        <div class="lg:col-span-7 dashboard-panel p-6 space-y-5">
+          <div class="pb-3 border-b border-slate-100">
+            <h2 class="text-lg font-bold text-slate-900">Personal &amp; Academic Profile</h2>
+            <p class="text-xs text-slate-500">Update your public headline, biography, location, and availability status.</p>
+          </div>
+
+          <form id="admin-profile-form" class="space-y-4 text-xs">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Full Name</label>
+                <input type="text" id="prof-name" class="form-input-custom w-full rounded-xl px-3 py-2" required>
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Title / Headline Role</label>
+                <input type="text" id="prof-title" class="form-input-custom w-full rounded-xl px-3 py-2" required>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Headline Mission Statement</label>
+              <input type="text" id="prof-headline" class="form-input-custom w-full rounded-xl px-3 py-2" required>
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Professional Biography</label>
+              <textarea id="prof-bio" rows="4" class="form-input-custom w-full rounded-xl p-3 leading-relaxed" required></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Location</label>
+                <input type="text" id="prof-location" class="form-input-custom w-full rounded-xl px-3 py-2">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Contact Email</label>
+                <input type="email" id="prof-email" class="form-input-custom w-full rounded-xl px-3 py-2">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Status Badge</label>
+                <input type="text" id="prof-status" class="form-input-custom w-full rounded-xl px-3 py-2">
+              </div>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+              <button type="submit" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-sm flex items-center gap-2">
+                <i class="fa-solid fa-floppy-disk"></i>
+                <span>Save Profile Changes</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Quick Skills Overview (5 cols) -->
+        <div class="lg:col-span-5 dashboard-panel p-6 space-y-4">
+          <div class="pb-3 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Technical Skills Stack</h3>
+              <p class="text-xs text-slate-500">Live skills synchronized with skills.html</p>
+            </div>
+            <span class="badge-blue px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold">Dynamic</span>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <span class="font-bold text-slate-700 block mb-2 uppercase text-[10px] tracking-wider text-slate-400">Programming Languages</span>
+              <div id="admin-skills-languages" class="flex flex-wrap gap-1.5">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <div>
+              <span class="font-bold text-slate-700 block mb-2 uppercase text-[10px] tracking-wider text-slate-400">Web &amp; Frameworks</span>
+              <div id="admin-skills-web" class="flex flex-wrap gap-1.5">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+
+            <div>
+              <span class="font-bold text-slate-700 block mb-2 uppercase text-[10px] tracking-wider text-slate-400">Core CS &amp; Systems</span>
+              <div id="admin-skills-core" class="space-y-1.5">
+                <!-- Dynamically populated -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- TAB 4: SUPABASE CLOUD SETTINGS -->
+    <!-- =================================================================== -->
+    <section id="panel-supabase" class="admin-tab-panel hidden space-y-6">
+      <div class="dashboard-panel p-6 sm:p-8 max-w-3xl space-y-6">
+        <div class="pb-4 border-b border-slate-100 flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-cloud"></i>
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Supabase Cloud Database &amp; Storage Configuration</h2>
+            <p class="text-xs text-slate-500">Connect your free Supabase project to enable real-time cloud image uploads &amp; global database persistence.</p>
+          </div>
+        </div>
+
+        <!-- Connection Form -->
+        <form id="admin-supabase-config-form" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">
+              Supabase Project URL <span class="text-blue-600">*</span>
+            </label>
+            <input type="url" id="sb-url-input" placeholder="https://yourprojectid.supabase.co" class="form-input-custom w-full rounded-xl px-3.5 py-2.5 font-mono text-xs">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">
+              Supabase Anon / Public Key <span class="text-blue-600">*</span>
+            </label>
+            <input type="password" id="sb-key-input" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." class="form-input-custom w-full rounded-xl px-3.5 py-2.5 font-mono text-xs">
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Storage Bucket Name</label>
+            <input type="text" id="sb-bucket-input" value="portfolio-assets" class="form-input-custom w-full rounded-xl px-3.5 py-2.5 font-mono text-xs" readonly>
+            <span class="text-[11px] text-slate-400 mt-1 block">Ensure you create a public bucket named <code class="text-blue-700 font-mono font-semibold">portfolio-assets</code> in your Supabase dashboard.</span>
+          </div>
+
+          <div class="pt-2 flex items-center justify-between">
+            <span id="sb-test-status" class="text-xs font-mono text-slate-500">Status: Verified &bull; Ready</span>
+            <div class="flex items-center gap-3">
+              <button type="button" onclick="testSupabaseConnection()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors">
+                Test Connection
+              </button>
+              <button type="submit" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-sm">
+                Save &amp; Connect Cloud
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Supabase Quick SQL Guide -->
+        <div class="rounded-xl bg-slate-900 text-slate-200 p-4 font-mono text-xs space-y-2 border border-slate-800">
+          <div class="flex items-center justify-between text-slate-400 border-b border-slate-700 pb-2">
+            <span>SQL SCHEMA FOR SUPABASE TABLES</span>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('sb-sql-sample').innerText); window.showToast('SQL schema copied!');" class="text-blue-400 hover:underline">Copy SQL</button>
+          </div>
+          <pre id="sb-sql-sample" class="text-[11px] text-emerald-400 overflow-x-auto leading-relaxed">
+-- 1. Create Achievements Table
+CREATE TABLE achievements (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  issuer TEXT,
+  category TEXT,
+  date TEXT,
+  verificationId TEXT,
+  credentialUrl TEXT,
+  imageUrl TEXT,
+  skills TEXT[],
+  description TEXT,
+  featured BOOLEAN DEFAULT false,
+  is_visible BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- 2. Create Projects Table
+CREATE TABLE projects (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  category TEXT,
+  description TEXT,
+  skills TEXT[],
+  githubUrl TEXT,
+  liveUrl TEXT,
+  imageUrl TEXT,
+  featured BOOLEAN DEFAULT false,
+  is_visible BOOLEAN DEFAULT true,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);</pre>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =================================================================== -->
+  <!-- ADD / EDIT ACHIEVEMENT MODAL -->
+  <!-- =================================================================== -->
+  <div id="achievement-editor-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeAchievementModal()"></div>
+    <div class="relative z-10 w-full max-w-2xl bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
+      
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 id="ach-modal-title" class="text-lg font-bold text-slate-900">Add New Certificate / Honor</h3>
+          <p class="text-xs text-slate-500">Fill in details and upload proof image to Supabase cloud storage</p>
+        </div>
+        <button onclick="closeAchievementModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="achievement-editor-form" class="py-4 space-y-4 text-xs">
+        <input type="hidden" id="form-ach-id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Credential Title <span class="text-blue-600">*</span></label>
+            <input type="text" id="form-ach-title" required placeholder="e.g. AWS Solutions Architect – Associate" class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Issuer / Organization <span class="text-blue-600">*</span></label>
+            <input type="text" id="form-ach-issuer" required placeholder="e.g. Amazon Web Services" class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Category <span class="text-blue-600">*</span></label>
+            <select id="form-ach-category" class="form-input-custom w-full rounded-xl px-3 py-2" required>
+              <option value="certifications">Certification</option>
+              <option value="hackathons">Hackathon</option>
+              <option value="competitions">Competition</option>
+              <option value="honors">Academic Honor</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Date Issued</label>
+            <input type="text" id="form-ach-date" placeholder="e.g. Dec 2024" class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Verification / ID</label>
+            <input type="text" id="form-ach-verif" placeholder="e.g. AWS-SAA-84920194" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Credential Link (Verify URL)</label>
+            <input type="url" id="form-ach-url" placeholder="https://..." class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Cloud Image / Proof File (Upload to Supabase)</label>
+            <input type="file" id="form-ach-file" accept="image/*" class="form-input-custom w-full rounded-xl px-3 py-1.5 file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+            <input type="hidden" id="form-ach-image-url">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Skills Evaluated (comma-separated)</label>
+          <input type="text" id="form-ach-skills" placeholder="e.g. Cloud Architecture, VPC, S3, IAM" class="form-input-custom w-full rounded-xl px-3 py-2">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Brief Description / Impact</label>
+          <textarea id="form-ach-desc" rows="3" placeholder="Summary of the credential or honor..." class="form-input-custom w-full rounded-xl p-3 leading-relaxed"></textarea>
+        </div>
+
+        <div class="flex items-center gap-6 pt-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="form-ach-featured" class="w-4 h-4 text-blue-600 rounded border-slate-300">
+            <span class="font-semibold text-slate-700">Highlight as Featured</span>
+          </label>
+
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="form-ach-visible" checked class="w-4 h-4 text-blue-600 rounded border-slate-300">
+            <span class="font-semibold text-slate-700">Show on Public Site (Visible)</span>
+          </label>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeAchievementModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="btn-save-achievement" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Save &amp; Publish</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =================================================================== -->
+  <!-- ADD / EDIT PROJECT MODAL -->
+  <!-- =================================================================== -->
+  <div id="project-editor-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeProjectModal()"></div>
+    <div class="relative z-10 w-full max-w-2xl bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
+      
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 id="proj-modal-title" class="text-lg font-bold text-slate-900">Add New Showcase Project</h3>
+          <p class="text-xs text-slate-500">Provide details, tech tags, and upload preview thumbnail to Supabase</p>
+        </div>
+        <button onclick="closeProjectModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="project-editor-form" class="py-4 space-y-4 text-xs">
+        <input type="hidden" id="form-proj-id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Project Name <span class="text-blue-600">*</span></label>
+            <input type="text" id="form-proj-title" required placeholder="e.g. NexusEngine: Telemetry Cluster" class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Category <span class="text-blue-600">*</span></label>
+            <select id="form-proj-category" class="form-input-custom w-full rounded-xl px-3 py-2" required>
+              <option value="backend">Cloud &amp; Backend</option>
+              <option value="fullstack">Full-Stack &amp; Web</option>
+              <option value="ai-dsa">AI &amp; Algorithms</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">GitHub Repository Link</label>
+            <input type="url" id="form-proj-github" placeholder="https://github.com/..." class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Live Demo URL</label>
+            <input type="url" id="form-proj-live" placeholder="https://..." class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Preview Screenshot / Thumbnail (Upload to Supabase)</label>
+          <input type="file" id="form-proj-file" accept="image/*" class="form-input-custom w-full rounded-xl px-3 py-1.5 file:mr-3 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+          <input type="hidden" id="form-proj-image-url">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Tech Stack Tags (comma-separated)</label>
+          <input type="text" id="form-proj-skills" placeholder="e.g. Python, FastAPI, PostgreSQL, Redis, Docker" class="form-input-custom w-full rounded-xl px-3 py-2">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Project Description &amp; Highlights</label>
+          <textarea id="form-proj-desc" rows="3" placeholder="Architecture highlights, problem solved, throughput..." class="form-input-custom w-full rounded-xl p-3 leading-relaxed" required></textarea>
+        </div>
+
+        <div class="flex items-center gap-6 pt-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="form-proj-featured" class="w-4 h-4 text-blue-600 rounded border-slate-300">
+            <span class="font-semibold text-slate-700">Flagship / Featured Bento Card</span>
+          </label>
+
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="form-proj-visible" checked class="w-4 h-4 text-blue-600 rounded border-slate-300">
+            <span class="font-semibold text-slate-700">Show on Public Site (Visible)</span>
+          </label>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeProjectModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="btn-save-project" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span>Save &amp; Publish Project</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    // ==========================================
+    // ADMIN DASHBOARD CONTROLLER SCRIPT
+    // ==========================================
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Logout Handler
+      document.getElementById('admin-logout-btn').addEventListener('click', () => {
+        PortfolioStore.logout();
+        window.location.href = 'admin-login.html';
+      });
+
+      // Load data
+      await loadAdminAchievements();
+      await loadAdminProjects();
+      loadAdminProfile();
+      loadSupabaseSettingsUI();
+    });
+
+    // Tab Navigation
+    function switchAdminTab(tabName) {
+      document.querySelectorAll('.admin-nav-tab').forEach(t => {
+        if (t.getAttribute('data-tab') === tabName) {
+          t.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-500', 'shadow-sm', 'font-bold');
+          t.classList.remove('bg-white', 'text-slate-600', 'border-slate-200', 'font-medium');
+        } else {
+          t.classList.remove('bg-blue-50', 'text-blue-700', 'border-blue-500', 'shadow-sm', 'font-bold');
+          t.classList.add('bg-white', 'text-slate-600', 'border-slate-200', 'font-medium');
+        }
+      });
+
+      document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.add('hidden'));
+      const activePanel = document.getElementById(`panel-${tabName}`);
+      if (activePanel) activePanel.classList.remove('hidden');
+    }
+
+    // ==========================================
+    // ACHIEVEMENTS CRUD
+    // ==========================================
+    async function loadAdminAchievements() {
+      const achievements = await PortfolioStore.getAchievements(false); // get all including hidden
+      const tbody = document.getElementById('admin-achievements-table-body');
+      const countEl = document.getElementById('tab-count-achievements');
+      const summaryEl = document.getElementById('achievements-summary-badge');
+
+      if (countEl) countEl.textContent = achievements.length;
+      if (summaryEl) summaryEl.textContent = `${achievements.length} Total Credentials`;
+
+      if (!tbody) return;
+
+      if (achievements.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="5" class="py-12 text-center text-slate-400">
+              <i class="fa-solid fa-folder-open text-2xl mb-2 text-slate-300 block"></i>
+              <span>No credentials in database. Click "Add New Certificate" or "Defaults".</span>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = achievements.map(item => `
+        <tr class="hover:bg-slate-50/80 transition-colors">
+          <td class="py-3 px-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg border ${item.issuerColor || 'bg-blue-50 text-blue-700 border-blue-200'} flex-shrink-0">
+                ${item.imageUrl ? `<img src="${item.imageUrl}" class="w-full h-full object-cover rounded-xl" alt="">` : `<i class="${item.issuerLogo || 'fa-solid fa-award'}"></i>`}
+              </div>
+              <div class="max-w-xs">
+                <span class="font-bold text-slate-900 block truncate" title="${item.title}">${item.title}</span>
+                <span class="text-[11px] text-slate-500 font-mono">${item.date || ''}</span>
+              </div>
+            </div>
+          </td>
+          <td class="py-3 px-4">
+            <span class="font-semibold text-slate-700 block">${item.issuer}</span>
+            <span class="text-[10px] uppercase font-bold tracking-wider text-blue-700">${item.category}</span>
+          </td>
+          <td class="py-3 px-4 font-mono text-slate-500">
+            ${item.verificationId || '—'}
+          </td>
+          <td class="py-3 px-4 text-center">
+            <button onclick="toggleAchievementVisibility('${item.id}')" class="px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${item.is_visible !== false ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-400 border border-slate-200'}">
+              ${item.is_visible !== false ? '<i class="fa-solid fa-eye mr-1"></i> Visible' : '<i class="fa-solid fa-eye-slash mr-1"></i> Hidden'}
+            </button>
+          </td>
+          <td class="py-3 px-4 text-right space-x-2">
+            <button onclick="editAchievement('${item.id}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors" title="Edit">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button onclick="deleteAchievement('${item.id}')" class="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold transition-colors" title="Delete">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function openAchievementModal(editItem = null) {
+      const modal = document.getElementById('achievement-editor-modal');
+      const form = document.getElementById('achievement-editor-form');
+      const titleEl = document.getElementById('ach-modal-title');
+      if (!modal || !form) return;
+
+      form.reset();
+      document.getElementById('form-ach-id').value = '';
+      document.getElementById('form-ach-image-url').value = '';
+
+      if (editItem) {
+        titleEl.textContent = 'Edit Certificate / Honor';
+        document.getElementById('form-ach-id').value = editItem.id;
+        document.getElementById('form-ach-title').value = editItem.title || '';
+        document.getElementById('form-ach-issuer').value = editItem.issuer || '';
+        document.getElementById('form-ach-category').value = editItem.category || 'certifications';
+        document.getElementById('form-ach-date').value = editItem.date || '';
+        document.getElementById('form-ach-verif').value = editItem.verificationId || '';
+        document.getElementById('form-ach-url').value = editItem.credentialUrl || '';
+        document.getElementById('form-ach-image-url').value = editItem.imageUrl || '';
+        document.getElementById('form-ach-skills').value = Array.isArray(editItem.skills) ? editItem.skills.join(', ') : (editItem.skills || '');
+        document.getElementById('form-ach-desc').value = editItem.description || '';
+        document.getElementById('form-ach-featured').checked = !!editItem.featured;
+        document.getElementById('form-ach-visible').checked = editItem.is_visible !== false;
+      } else {
+        titleEl.textContent = 'Add New Certificate / Honor';
+      }
+
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        const d = modal.querySelector('div:nth-child(2)');
+        if (d) d.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    }
+
+    function closeAchievementModal() {
+      const modal = document.getElementById('achievement-editor-modal');
+      if (!modal) return;
+      modal.classList.add('opacity-0');
+      setTimeout(() => modal.classList.add('hidden'), 200);
+    }
+
+    // Submit Achievement Form (Upload to Supabase)
+    document.getElementById('achievement-editor-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const saveBtn = document.getElementById('btn-save-achievement');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Uploading to Supabase...</span>';
+
+      try {
+        const id = document.getElementById('form-ach-id').value;
+        const fileInput = document.getElementById('form-ach-file');
+        let imageUrl = document.getElementById('form-ach-image-url').value;
+
+        // Upload actual file to Supabase Storage if selected
+        if (fileInput.files && fileInput.files[0]) {
+          const uploadedUrl = await window.uploadImageToSupabase(fileInput.files[0], 'certificates');
+          if (uploadedUrl) imageUrl = uploadedUrl;
+        }
+
+        const data = {
+          title: document.getElementById('form-ach-title').value.trim(),
+          issuer: document.getElementById('form-ach-issuer').value.trim(),
+          category: document.getElementById('form-ach-category').value,
+          date: document.getElementById('form-ach-date').value.trim(),
+          verificationId: document.getElementById('form-ach-verif').value.trim(),
+          credentialUrl: document.getElementById('form-ach-url').value.trim(),
+          imageUrl: imageUrl,
+          skills: document.getElementById('form-ach-skills').value,
+          description: document.getElementById('form-ach-desc').value.trim(),
+          featured: document.getElementById('form-ach-featured').checked,
+          is_visible: document.getElementById('form-ach-visible').checked
+        };
+
+        if (id) {
+          await PortfolioStore.updateAchievement(id, data);
+          window.showToast('Certificate updated successfully!', 'success');
+        } else {
+          await PortfolioStore.addAchievement(data);
+          window.showToast('New certificate published to database!', 'success');
+        }
+
+        closeAchievementModal();
+        await loadAdminAchievements();
+      } catch (err) {
+        console.error(err);
+        window.showToast('Error saving certificate.', 'error');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> <span>Save &amp; Publish</span>';
+      }
+    });
+
+    async function editAchievement(id) {
+      const achievements = await PortfolioStore.getAchievements(false);
+      const item = achievements.find(a => a.id === id);
+      if (item) openAchievementModal(item);
+    }
+
+    async function toggleAchievementVisibility(id) {
+      await PortfolioStore.toggleAchievementVisibility(id);
+      window.showToast('Public visibility toggled.', 'info');
+      await loadAdminAchievements();
+    }
+
+    async function deleteAchievement(id) {
+      if (confirm('Are you sure you want to delete this achievement?')) {
+        await PortfolioStore.deleteAchievement(id);
+        window.showToast('Achievement removed.', 'success');
+        await loadAdminAchievements();
+      }
+    }
+
+    async function confirmPurgeAchievements() {
+      if (confirm('Are you sure you want to PURGE all placeholder certificates? This clears the list so you can upload your real certificates.')) {
+        await PortfolioStore.purgeSampleAchievements();
+        window.showToast('Sample achievements purged. Database is now clean!', 'info');
+        await loadAdminAchievements();
+      }
+    }
+
+    async function restoreDefaultAchievements() {
+      PortfolioStore.resetAchievementsToDefault();
+      window.showToast('Default achievements restored.', 'success');
+      await loadAdminAchievements();
+    }
+
+    // ==========================================
+    // PROJECTS CRUD
+    // ==========================================
+    async function loadAdminProjects() {
+      const projects = await PortfolioStore.getProjects(false);
+      const container = document.getElementById('admin-projects-grid');
+      const countEl = document.getElementById('tab-count-projects');
+
+      if (countEl) countEl.textContent = projects.length;
+      if (!container) return;
+
+      if (projects.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 dashboard-panel p-6">
+            <i class="fa-solid fa-folder-open text-2xl mb-2 text-slate-300 block"></i>
+            <span>No projects found. Click "Add New Project" to create one.</span>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = projects.map(p => `
+        <div class="dashboard-card p-5 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-start justify-between gap-2 mb-3">
+              <span class="badge-blue px-2.5 py-0.5 rounded text-[10px] font-bold uppercase">${p.category}</span>
+              <button onclick="toggleProjectVisibility('${p.id}')" class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${p.is_visible !== false ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-400 border border-slate-200'}">
+                ${p.is_visible !== false ? 'Visible' : 'Hidden'}
+              </button>
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-base mb-1.5">${p.title}</h4>
+            <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed mb-3">${p.description}</p>
+
+            <div class="flex flex-wrap gap-1">
+              ${(p.skills || []).map(s => `<span class="badge-slate px-2 py-0.5 rounded text-[10px] font-mono">${s}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-mono text-[11px]">${p.featured ? '★ Featured' : 'Standard'}</span>
+            <div class="flex items-center gap-2">
+              <button onclick="editProject('${p.id}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors">
+                Edit
+              </button>
+              <button onclick="deleteProject('${p.id}')" class="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold transition-colors">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openProjectModal(editItem = null) {
+      const modal = document.getElementById('project-editor-modal');
+      const form = document.getElementById('project-editor-form');
+      const titleEl = document.getElementById('proj-modal-title');
+      if (!modal || !form) return;
+
+      form.reset();
+      document.getElementById('form-proj-id').value = '';
+      document.getElementById('form-proj-image-url').value = '';
+
+      if (editItem) {
+        titleEl.textContent = 'Edit Project';
+        document.getElementById('form-proj-id').value = editItem.id;
+        document.getElementById('form-proj-title').value = editItem.title || '';
+        document.getElementById('form-proj-category').value = editItem.category || 'backend';
+        document.getElementById('form-proj-github').value = editItem.githubUrl || '';
+        document.getElementById('form-proj-live').value = editItem.liveUrl || '';
+        document.getElementById('form-proj-image-url').value = editItem.imageUrl || '';
+        document.getElementById('form-proj-skills').value = Array.isArray(editItem.skills) ? editItem.skills.join(', ') : (editItem.skills || '');
+        document.getElementById('form-proj-desc').value = editItem.description || '';
+        document.getElementById('form-proj-featured').checked = !!editItem.featured;
+        document.getElementById('form-proj-visible').checked = editItem.is_visible !== false;
+      } else {
+        titleEl.textContent = 'Add New Showcase Project';
+      }
+
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        const d = modal.querySelector('div:nth-child(2)');
+        if (d) d.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    }
+
+    function closeProjectModal() {
+      const modal = document.getElementById('project-editor-modal');
+      if (!modal) return;
+      modal.classList.add('opacity-0');
+      setTimeout(() => modal.classList.add('hidden'), 200);
+    }
+
+    // Submit Project Form
+    document.getElementById('project-editor-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const saveBtn = document.getElementById('btn-save-project');
+      saveBtn.disabled = true;
+      saveBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Uploading & Saving...</span>';
+
+      try {
+        const id = document.getElementById('form-proj-id').value;
+        const fileInput = document.getElementById('form-proj-file');
+        let imageUrl = document.getElementById('form-proj-image-url').value;
+
+        if (fileInput.files && fileInput.files[0]) {
+          const uploaded = await window.uploadImageToSupabase(fileInput.files[0], 'projects');
+          if (uploaded) imageUrl = uploaded;
+        }
+
+        const data = {
+          title: document.getElementById('form-proj-title').value.trim(),
+          category: document.getElementById('form-proj-category').value,
+          githubUrl: document.getElementById('form-proj-github').value.trim(),
+          liveUrl: document.getElementById('form-proj-live').value.trim(),
+          imageUrl: imageUrl,
+          skills: document.getElementById('form-proj-skills').value,
+          description: document.getElementById('form-proj-desc').value.trim(),
+          featured: document.getElementById('form-proj-featured').checked,
+          is_visible: document.getElementById('form-proj-visible').checked
+        };
+
+        if (id) {
+          await PortfolioStore.updateProject(id, data);
+          window.showToast('Project updated successfully!', 'success');
+        } else {
+          await PortfolioStore.addProject(data);
+          window.showToast('New project added to portfolio!', 'success');
+        }
+
+        closeProjectModal();
+        await loadAdminProjects();
+      } catch (err) {
+        console.error(err);
+        window.showToast('Error saving project.', 'error');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> <span>Save &amp; Publish Project</span>';
+      }
+    });
+
+    async function editProject(id) {
+      const projects = await PortfolioStore.getProjects(false);
+      const item = projects.find(p => p.id === id);
+      if (item) openProjectModal(item);
+    }
+
+    async function toggleProjectVisibility(id) {
+      await PortfolioStore.toggleProjectVisibility(id);
+      window.showToast('Project visibility toggled.', 'info');
+      await loadAdminProjects();
+    }
+
+    async function deleteProject(id) {
+      if (confirm('Delete this project?')) {
+        await PortfolioStore.deleteProject(id);
+        window.showToast('Project removed.', 'success');
+        await loadAdminProjects();
+      }
+    }
+
+    async function confirmPurgeProjects() {
+      if (confirm('Purge all sample projects?')) {
+        await PortfolioStore.purgeSampleProjects();
+        window.showToast('Sample projects purged.', 'info');
+        await loadAdminProjects();
+      }
+    }
+
+    function restoreDefaultProjects() {
+      PortfolioStore.resetProjectsToDefault();
+      window.showToast('Default projects restored.', 'success');
+      loadAdminProjects();
+    }
+
+    // ==========================================
+    // PROFILE & SKILLS
+    // ==========================================
+    function loadAdminProfile() {
+      const profile = PortfolioStore.getProfile();
+      document.getElementById('prof-name').value = profile.name || '';
+      document.getElementById('prof-title').value = profile.title || '';
+      document.getElementById('prof-headline').value = profile.headline || '';
+      document.getElementById('prof-bio').value = profile.bio || '';
+      document.getElementById('prof-location').value = profile.location || '';
+      document.getElementById('prof-email').value = profile.email || '';
+      document.getElementById('prof-status').value = profile.status || '';
+
+      const skills = PortfolioStore.getSkills();
+      const langContainer = document.getElementById('admin-skills-languages');
+      const webContainer = document.getElementById('admin-skills-web');
+      const coreContainer = document.getElementById('admin-skills-core');
+
+      if (langContainer) {
+        langContainer.innerHTML = (skills.languages || []).map(s => `
+          <span class="badge-blue px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1.5">
+            ${s.name} (${s.mastery}%)
+          </span>
+        `).join('');
+      }
+
+      if (webContainer) {
+        webContainer.innerHTML = (skills.webDb || []).map(s => `
+          <span class="badge-purple px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1.5">
+            ${s.name}
+          </span>
+        `).join('');
+      }
+
+      if (coreContainer) {
+        coreContainer.innerHTML = (skills.coreDsa || []).map(s => `
+          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200">
+            <strong class="text-slate-800 block">${s.name}</strong>
+            <span class="text-slate-500 text-[11px]">${s.desc}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    document.getElementById('admin-profile-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      PortfolioStore.updateProfile({
+        name: document.getElementById('prof-name').value.trim(),
+        title: document.getElementById('prof-title').value.trim(),
+        headline: document.getElementById('prof-headline').value.trim(),
+        bio: document.getElementById('prof-bio').value.trim(),
+        location: document.getElementById('prof-location').value.trim(),
+        email: document.getElementById('prof-email').value.trim(),
+        status: document.getElementById('prof-status').value.trim()
+      });
+      window.showToast('Profile configuration updated!', 'success');
+    });
+
+    // ==========================================
+    // SUPABASE SETTINGS
+    // ==========================================
+    function loadSupabaseSettingsUI() {
+      const url = localStorage.getItem('supabase_custom_url') || SUPABASE_CONFIG.url || '';
+      const key = localStorage.getItem('supabase_custom_key') || SUPABASE_CONFIG.anonKey || '';
+
+      const urlInput = document.getElementById('sb-url-input');
+      const keyInput = document.getElementById('sb-key-input');
+      if (urlInput) urlInput.value = url;
+      if (keyInput) keyInput.value = key;
+
+      updateSupabasePill();
+    }
+
+    function updateSupabasePill() {
+      const text = document.getElementById('supabase-status-text');
+      const pill = document.getElementById('supabase-status-pill');
+      if (!text || !pill) return;
+
+      if (window.supabaseClient) {
+        text.textContent = 'Supabase Cloud Active';
+        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-mono';
+      } else {
+        text.textContent = 'Local Storage Mode';
+        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-mono';
+      }
+    }
+
+    document.getElementById('admin-supabase-config-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const url = document.getElementById('sb-url-input').value.trim();
+      const key = document.getElementById('sb-key-input').value.trim();
+
+      localStorage.setItem('supabase_custom_url', url);
+      localStorage.setItem('supabase_custom_key', key);
+      SUPABASE_CONFIG.url = url;
+      SUPABASE_CONFIG.anonKey = key;
+
+      window.initSupabaseClient();
+      updateSupabasePill();
+      window.showToast('Supabase settings saved and client re-initialized!', 'success');
+    });
+
+    async function testSupabaseConnection() {
+      const status = document.getElementById('sb-test-status');
+      status.textContent = 'Testing connection to Supabase...';
+      status.className = 'text-xs font-mono text-blue-600';
+
+      const url = document.getElementById('sb-url-input').value.trim();
+      const key = document.getElementById('sb-key-input').value.trim();
+
+      if (!url || !key) {
+        status.textContent = 'Status: Please enter both URL and Anon Key';
+        status.className = 'text-xs font-mono text-rose-600';
+        return;
+      }
+
+      try {
+        const testClient = window.supabase.createClient(url, key);
+        const { error } = await testClient.from('achievements').select('id').limit(1);
+
+        if (error && error.code !== 'PGRST116') {
+          status.textContent = `Status: Connected with warning (${error.message || 'check tables'})`;
+          status.className = 'text-xs font-mono text-amber-600';
+          window.showToast('Connected to Supabase! Make sure tables are created.', 'warning');
+        } else {
+          status.textContent = 'Status: 100% Connected to Supabase Cloud!';
+          status.className = 'text-xs font-mono text-emerald-600';
+          window.showToast('Supabase Cloud connection verified successfully!', 'success');
+        }
+      } catch (err) {
+        status.textContent = `Status: Connection failed (${err.message})`;
+        status.className = 'text-xs font-mono text-rose-600';
+      }
+    }
+  </script>
+</body>
+</html>

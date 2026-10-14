@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get in Touch &amp; Connect | Arul David Portfolio</title>
+  <meta name="description" content="Contact Arul David for software engineering roles, distributed systems consulting, and technical collaborations.">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons & Custom Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern relative">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
+
+  <!-- PERSISTENT SIDEBAR -->
+  <aside id="dashboard-sidebar" class="fixed top-0 bottom-0 left-0 w-64 lg:w-72 bg-white border-r border-slate-200 z-50 flex flex-col justify-between transition-transform duration-300 transform -translate-x-full md:translate-x-0 shadow-sm">
+    <div>
+      <!-- User Profile Header -->
+      <div class="p-6 border-b border-slate-100 relative">
+        <button id="mobile-drawer-close" class="absolute top-4 right-4 md:hidden text-slate-400 hover:text-slate-600 p-1" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="flex items-center gap-3.5">
+          <div class="relative">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
+              AD
+            </div>
+            <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
+          </div>
+          <div class="overflow-hidden">
+            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
+            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+            Open to Opportunities
+          </span>
+          <span class="text-[10px] bg-emerald-100/80 px-1.5 py-0.5 rounded text-emerald-800 font-mono">2026</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-4 space-y-1 text-sm" aria-label="Main Navigation">
+        <div class="px-3 py-2 text-[11px] font-bold tracking-wider uppercase text-slate-400">Navigation</div>
+        
+        <a href="index.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Overview</span>
+        </a>
+
+        <a href="about.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-user w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Profile &amp; Journey</span>
+        </a>
+
+        <a href="skills.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-code w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Skills &amp; Tech</span>
+        </a>
+
+        <a href="achievements.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Achievements</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono font-semibold border border-blue-200">9</span>
+        </a>
+
+        <a href="projects.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-layer-group w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Featured Projects</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold">6</span>
+        </a>
+
+        <a href="contact.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-paper-plane w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Get in Touch</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom Info & Socials -->
+    <div class="p-4 border-t border-slate-100 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+        <div class="flex items-center justify-between text-slate-500 font-mono text-[11px] mb-1.5">
+          <span>RESPONSE DISPATCH</span>
+          <span class="text-blue-600 font-semibold">&lt; 12 hrs</span>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+          <div class="bg-blue-600 h-1.5 rounded-full" style="width: 98%"></div>
+        </div>
+        <div class="flex justify-between items-center mt-2 text-[10px] text-slate-500">
+          <span class="text-emerald-700 font-medium">Direct Inquiries</span>
+          <span class="font-mono text-blue-700 font-semibold">Active Inbox</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-around pt-1 text-slate-400">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+          <i class="fa-brands fa-github text-base"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+          <i class="fa-brands fa-linkedin text-base"></i>
+        </a>
+        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
+          <i class="fa-brands fa-hackerrank text-base"></i>
+        </a>
+        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+          <i class="fa-solid fa-envelope text-base"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="md:pl-64 lg:pl-72 flex flex-col min-h-screen">
+    
+    <!-- TOP HEADER BAR -->
+    <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 focus:outline-none" aria-label="Open Sidebar Menu">
+          <i class="fa-solid fa-bars-staggered text-base"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span>Dashboard</span>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
+            <span class="text-blue-600 font-semibold">Get in Touch</span>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Direct Transmission &amp; Channels</h2>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono">
+          <i class="fa-regular fa-clock text-blue-600 text-[11px]"></i>
+          <span id="header-live-clock">19:30:00</span>
+        </div>
+
+        <button id="command-palette-trigger" class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-slate-200 text-xs transition-colors" title="Open Command Palette">
+          <i class="fa-solid fa-magnifying-glass text-[11px] text-slate-400"></i>
+          <span>Quick Find...</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-white text-slate-500 text-[10px] font-mono border border-slate-200 shadow-2xs">⌘K</kbd>
+        </button>
+
+        <button class="trigger-resume-modal flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-colors">
+          <i class="fa-solid fa-file-arrow-down text-white"></i>
+          <span>Resume</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-8">
+
+      <!-- HERO BANNER -->
+      <div class="dashboard-panel p-6 sm:p-8">
+        <div class="max-w-3xl space-y-3">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 status-dot-pulse"></span>
+            <span>Available for Full-Time Roles &amp; High-Impact Opportunities</span>
+          </div>
+
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            Initiate a Conversation &bull; <span class="text-blue-600">Let's Build Great Software</span>
+          </h1>
+
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Whether you have an engineering opening, an ambitious cloud infrastructure project, or simply want to talk algorithms and distributed architecture, my inbox is open and responsive.
+          </p>
+        </div>
+      </div>
+
+      <!-- MAIN SECTION: FORM + QUICK CONTACT CARDS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- LEFT (7 cols): INTERACTIVE CONTACT FORM -->
+        <div class="lg:col-span-7 dashboard-panel p-6 sm:p-8 space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2.5">
+                <i class="fa-solid fa-paper-plane text-blue-600"></i>
+                <span>Direct Message Dispatch</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-0.5">Send a message directly into my personal communication queue</p>
+            </div>
+            <span class="badge-blue px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold">Verified</span>
+          </div>
+
+          <!-- Form -->
+          <form id="portfolio-contact-form" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="contact-name" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                  Your Full Name <span class="text-blue-600">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fa-regular fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                  <input type="text" id="contact-name" required placeholder="e.g. Alex Morgan" class="form-input-custom w-full rounded-xl pl-9 pr-3.5 py-2.5 text-xs">
+                </div>
+              </div>
+
+              <div>
+                <label for="contact-email" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                  Email Address <span class="text-blue-600">*</span>
+                </label>
+                <div class="relative">
+                  <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                  <input type="email" id="contact-email" required placeholder="alex@company.com" class="form-input-custom w-full rounded-xl pl-9 pr-3.5 py-2.5 text-xs">
+                </div>
+              </div>
+            </div>
+
+            <!-- Inquiry Category Chips -->
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-2">
+                Inquiry Nature / Topic
+              </label>
+              <div class="flex flex-wrap gap-2 text-xs" id="inquiry-chips">
+                <button type="button" class="chip-btn px-3 py-1.5 rounded-xl border border-blue-500 bg-blue-50 text-blue-700 font-semibold shadow-sm transition-all" data-value="Job Opportunity">
+                  <i class="fa-solid fa-briefcase mr-1 text-[10px]"></i> Job Opportunity
+                </button>
+                <button type="button" class="chip-btn px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-slate-600 font-medium hover:bg-slate-50 transition-all" data-value="Contract & Freelance">
+                  <i class="fa-solid fa-code mr-1 text-[10px]"></i> Contract / Freelance
+                </button>
+                <button type="button" class="chip-btn px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-slate-600 font-medium hover:bg-slate-50 transition-all" data-value="Open Source">
+                  <i class="fa-brands fa-github mr-1 text-[10px]"></i> Open Source Collab
+                </button>
+                <button type="button" class="chip-btn px-3 py-1.5 rounded-xl border border-slate-200 bg-white text-slate-600 font-medium hover:bg-slate-50 transition-all" data-value="Coffee Chat">
+                  <i class="fa-solid fa-mug-saucer mr-1 text-[10px]"></i> Tech Chat
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label for="contact-subject" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                Subject Line <span class="text-blue-600">*</span>
+              </label>
+              <div class="relative">
+                <i class="fa-regular fa-comment-dots absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" id="contact-subject" required placeholder="e.g. Software Engineer Opportunity at TechCorp" class="form-input-custom w-full rounded-xl pl-9 pr-3.5 py-2.5 text-xs">
+              </div>
+            </div>
+
+            <div>
+              <label for="contact-message" class="block text-xs font-semibold text-slate-700 mb-1.5">
+                Your Message <span class="text-blue-600">*</span>
+              </label>
+              <textarea id="contact-message" required rows="5" placeholder="Share details about the role, project requirements, or what you'd like to collaborate on..." class="form-input-custom w-full rounded-xl p-3 text-xs leading-relaxed"></textarea>
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span class="text-[11px] text-slate-500 flex items-center gap-1.5">
+                <i class="fa-solid fa-shield-halved text-blue-600"></i> Dispatched to personal mailbox
+              </span>
+
+              <button type="submit" id="submit-contact-btn" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-sm flex items-center justify-center gap-2">
+                <span>Transmit Message</span>
+                <i class="fa-solid fa-paper-plane text-[11px]"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- RIGHT (5 cols): QUICK CHANNELS & SOCIAL CARDS -->
+        <div class="lg:col-span-5 space-y-4">
+
+          <!-- Direct Inquiries Quick Card -->
+          <div class="dashboard-panel p-6 space-y-4">
+            <h4 class="text-sm font-bold text-slate-900 flex items-center justify-between pb-2 border-b border-slate-100">
+              <span>Direct Communication</span>
+              <span class="text-emerald-700 font-semibold text-xs flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Online
+              </span>
+            </h4>
+
+            <div class="space-y-3 text-xs">
+              <!-- Email -->
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-sm">
+                    <i class="fa-regular fa-envelope"></i>
+                  </div>
+                  <div>
+                    <span class="text-[10px] text-slate-500 uppercase font-semibold block">Primary Email</span>
+                    <span class="text-slate-800 font-mono text-[11px] font-semibold">aruldavid.dev@gmail.com</span>
+                  </div>
+                </div>
+                <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-blue-700 text-xs font-semibold border border-slate-200 transition-colors shadow-2xs">
+                  Copy
+                </button>
+              </div>
+
+              <!-- Location -->
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-purple-50 text-purple-700 border border-purple-200 flex items-center justify-center text-sm">
+                  <i class="fa-solid fa-location-dot"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase font-semibold block">Base Location</span>
+                  <span class="text-slate-800 text-xs font-medium">Bengaluru, India (IST &bull; UTC+5:30)</span>
+                </div>
+              </div>
+
+              <!-- Work Preference -->
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center text-sm">
+                  <i class="fa-solid fa-globe"></i>
+                </div>
+                <div>
+                  <span class="text-[10px] text-slate-500 uppercase font-semibold block">Mobility &amp; Relocation</span>
+                  <span class="text-slate-800 text-xs font-medium">Open to Relocation &bull; Global Remote Friendly</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Network Cards Grid -->
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <!-- GitHub -->
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="dashboard-card p-4 group flex flex-col justify-between space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg group-hover:text-blue-600 transition-colors">
+                  <i class="fa-brands fa-github"></i>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-blue-600"></i>
+              </div>
+              <div>
+                <span class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">GitHub</span>
+                <span class="text-[11px] text-slate-500 font-mono">1.4k+ Commits</span>
+              </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="dashboard-card p-4 group flex flex-col justify-between space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-700 border border-blue-100 flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
+                  <i class="fa-brands fa-linkedin-in"></i>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-blue-600"></i>
+              </div>
+              <div>
+                <span class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">LinkedIn</span>
+                <span class="text-[11px] text-slate-500 font-mono">500+ Network</span>
+              </div>
+            </a>
+
+            <!-- HackerRank -->
+            <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="dashboard-card p-4 group flex flex-col justify-between space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
+                  <i class="fa-brands fa-hackerrank"></i>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-blue-600"></i>
+              </div>
+              <div>
+                <span class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">HackerRank</span>
+                <span class="text-[11px] text-slate-500 font-mono">5-Star Gold DSA</span>
+              </div>
+            </a>
+
+            <!-- LeetCode -->
+            <a href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="dashboard-card p-4 group flex flex-col justify-between space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 border border-amber-100 flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-code"></i>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-slate-400 group-hover:text-blue-600"></i>
+              </div>
+              <div>
+                <span class="font-bold text-slate-900 group-hover:text-blue-600 transition-colors block">LeetCode</span>
+                <span class="text-[11px] text-slate-500 font-mono">Top 4% Global</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- Response SLA Commitment Widget -->
+          <div class="p-4 rounded-2xl bg-blue-50/70 border border-blue-200 text-xs space-y-1.5">
+            <span class="font-bold text-blue-800 flex items-center gap-2">
+              <i class="fa-solid fa-bolt-lightning text-blue-600"></i>
+              <span>High Priority Dispatch SLA</span>
+            </span>
+            <p class="text-slate-600 leading-relaxed text-[11px]">
+              Recruiters and hiring managers receive expedited responses within 12 hours. Calendar invitations will be provided upon review of role specifications.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- DASHBOARD FOOTER -->
+    <footer class="mt-auto border-t border-slate-200 bg-white p-4 sm:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-700">Arul David Portfolio</span>
+        <span>&bull;</span>
+        <span>Get in Touch</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-500">
+        <a href="index.html" class="text-blue-600 hover:text-blue-800 font-semibold">&larr; Return to Dashboard Overview</a>
+        <a href="#top" class="hover:text-slate-800 transition-colors">Back to top &uarr;</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Shared Modals -->
+  <div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="resume-modal-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="resume-dialog relative z-10 w-full max-w-lg bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Curriculum Vitae</h3>
+            <span class="text-xs text-slate-500">Arul David &bull; Software Engineer (2026 Edition)</span>
+          </div>
+        </div>
+        <button class="close-resume-modal text-slate-400 hover:text-slate-600 p-1" aria-label="Close modal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="py-5 space-y-4 text-xs sm:text-sm text-slate-600">
+        <p class="leading-relaxed">
+          Download the verified resume detailing academic achievements, production engineering experience, AWS/GCP certifications, and open-source contributions.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-100">
+        <button class="close-resume-modal w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+          Cancel
+        </button>
+        <button id="btn-download-resume-pdf" class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-solid fa-download"></i>
+          <span>Download PDF Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="command-palette-modal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="palette-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="palette-card relative z-10 w-full max-w-xl bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="p-4 border-b border-slate-100 flex items-center gap-3 bg-slate-50">
+        <i class="fa-solid fa-magnifying-glass text-blue-600 text-sm"></i>
+        <input id="palette-search-input" type="text" placeholder="Type a destination or command..." class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 focus:outline-none font-medium">
+        <kbd class="px-2 py-0.5 rounded bg-white text-slate-400 text-[10px] font-mono border border-slate-200 shadow-2xs">ESC</kbd>
+      </div>
+
+      <div class="p-2 max-h-80 overflow-y-auto space-y-1 text-sm font-medium">
+        <div class="px-3 py-1.5 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Pages</div>
+        <a href="index.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-chart-pie text-blue-600"></i> Dashboard Overview</span>
+          <span class="text-xs text-slate-400 font-mono">index.html</span>
+        </a>
+        <a href="about.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-user text-purple-600"></i> Profile &amp; Academic Timeline</span>
+          <span class="text-xs text-slate-400 font-mono">about.html</span>
+        </a>
+        <a href="skills.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-code text-blue-600"></i> Categorized Skills &amp; Stack</span>
+          <span class="text-xs text-slate-400 font-mono">skills.html</span>
+        </a>
+        <a href="achievements.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-award text-amber-600"></i> Achievements &amp; Certifications</span>
+          <span class="text-xs text-slate-400 font-mono">achievements.html</span>
+        </a>
+        <a href="projects.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-layer-group text-indigo-600"></i> Featured Project Grid</span>
+          <span class="text-xs text-slate-400 font-mono">projects.html</span>
+        </a>
+        <a href="contact.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-paper-plane text-emerald-600"></i> Get in Touch &amp; Social Links</span>
+          <span class="text-xs text-slate-400 font-mono">contact.html</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    const chipBtns = document.querySelectorAll('.chip-btn');
+    let selectedInquiryType = 'Job Opportunity';
+
+    chipBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        chipBtns.forEach(b => {
+          b.classList.remove('border-blue-500', 'bg-blue-50', 'text-blue-700', 'shadow-sm', 'font-semibold');
+          b.classList.add('border-slate-200', 'bg-white', 'text-slate-600', 'font-medium');
+        });
+        btn.classList.add('border-blue-500', 'bg-blue-50', 'text-blue-700', 'shadow-sm', 'font-semibold');
+        btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-600', 'font-medium');
+        selectedInquiryType = btn.getAttribute('data-value');
+      });
+    });
+
+    const contactForm = document.getElementById('portfolio-contact-form');
+    const submitBtn = document.getElementById('submit-contact-btn');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('contact-name').value.trim();
+        const email = document.getElementById('contact-email').value.trim();
+        const subject = document.getElementById('contact-subject').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+
+        if (!name || !email || !subject || !message) {
+          window.showToast('Please fill out all required fields.', 'warning');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <i class="fa-solid fa-circle-notch fa-spin text-xs"></i>
+          <span>Transmitting...</span>
+        `;
+
+        setTimeout(() => {
+          window.showToast(`Thank you, ${name}! Your dispatch was transmitted successfully.`, 'success');
+          contactForm.reset();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span>Transmit Message</span>
+            <i class="fa-solid fa-paper-plane text-[11px]"></i>
+          `;
+        }, 1000);
+      });
+    }
+  </script>
+</body>
+</html>

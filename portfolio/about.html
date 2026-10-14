@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile &amp; Journey | Arul David Portfolio</title>
+  <meta name="description" content="Biography, academic background, educational timeline, leadership, and extracurricular honors of Arul David.">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons & Custom Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern relative">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
+
+  <!-- PERSISTENT SIDEBAR -->
+  <aside id="dashboard-sidebar" class="fixed top-0 bottom-0 left-0 w-64 lg:w-72 bg-white border-r border-slate-200 z-50 flex flex-col justify-between transition-transform duration-300 transform -translate-x-full md:translate-x-0 shadow-sm">
+    <div>
+      <!-- User Profile Header -->
+      <div class="p-6 border-b border-slate-100 relative">
+        <button id="mobile-drawer-close" class="absolute top-4 right-4 md:hidden text-slate-400 hover:text-slate-600 p-1" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="flex items-center gap-3.5">
+          <div class="relative">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
+              AD
+            </div>
+            <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
+          </div>
+          <div class="overflow-hidden">
+            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
+            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+            Open to Opportunities
+          </span>
+          <span class="text-[10px] bg-emerald-100/80 px-1.5 py-0.5 rounded text-emerald-800 font-mono">2026</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-4 space-y-1 text-sm" aria-label="Main Navigation">
+        <div class="px-3 py-2 text-[11px] font-bold tracking-wider uppercase text-slate-400">Navigation</div>
+        
+        <a href="index.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Overview</span>
+        </a>
+
+        <a href="about.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-user w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Profile &amp; Journey</span>
+        </a>
+
+        <a href="skills.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-code w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Skills &amp; Tech</span>
+        </a>
+
+        <a href="achievements.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Achievements</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono font-semibold border border-blue-200">9</span>
+        </a>
+
+        <a href="projects.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-layer-group w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Featured Projects</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold">6</span>
+        </a>
+
+        <a href="contact.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-paper-plane w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Get in Touch</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom Info & Socials -->
+    <div class="p-4 border-t border-slate-100 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+        <div class="flex items-center justify-between text-slate-500 font-mono text-[11px] mb-1.5">
+          <span>CAREER TIMELINE</span>
+          <span class="text-blue-600 font-semibold">Class of '26</span>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+          <div class="bg-blue-600 h-1.5 rounded-full" style="width: 95%"></div>
+        </div>
+        <div class="flex justify-between items-center mt-2 text-[10px] text-slate-500">
+          <span class="text-emerald-700 font-medium">B.Tech Honors</span>
+          <span class="font-mono text-blue-700 font-semibold">CGPA 9.6</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-around pt-1 text-slate-400">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+          <i class="fa-brands fa-github text-base"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+          <i class="fa-brands fa-linkedin text-base"></i>
+        </a>
+        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
+          <i class="fa-brands fa-hackerrank text-base"></i>
+        </a>
+        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+          <i class="fa-solid fa-envelope text-base"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="md:pl-64 lg:pl-72 flex flex-col min-h-screen">
+    
+    <!-- TOP HEADER BAR -->
+    <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 focus:outline-none" aria-label="Open Sidebar Menu">
+          <i class="fa-solid fa-bars-staggered text-base"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span>Dashboard</span>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
+            <span class="text-blue-600 font-semibold">Profile &amp; Journey</span>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Biography, Academia &amp; Leadership</h2>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono">
+          <i class="fa-regular fa-clock text-blue-600 text-[11px]"></i>
+          <span id="header-live-clock">19:30:00</span>
+        </div>
+
+        <button id="command-palette-trigger" class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-slate-200 text-xs transition-colors" title="Open Command Palette">
+          <i class="fa-solid fa-magnifying-glass text-[11px] text-slate-400"></i>
+          <span>Quick Find...</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-white text-slate-500 text-[10px] font-mono border border-slate-200 shadow-2xs">⌘K</kbd>
+        </button>
+
+        <button class="trigger-resume-modal flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-colors">
+          <i class="fa-solid fa-file-arrow-down text-white"></i>
+          <span>Resume</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-8">
+
+      <!-- SECTION 1: DETAILED BIOGRAPHY -->
+      <div class="dashboard-panel p-6 sm:p-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div class="lg:col-span-8 space-y-4">
+            <div class="flex items-center gap-2 text-blue-600 text-xs font-semibold uppercase tracking-wider">
+              <i class="fa-solid fa-compass"></i>
+              <span>Professional Biography &amp; Engineering Philosophy</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-snug">
+              Designing Scalable Architectures with <span class="text-blue-600">Simplicity, Speed &amp; Rigor</span>
+            </h1>
+
+            <div class="text-slate-600 text-sm sm:text-base leading-relaxed space-y-3.5">
+              <p>
+                I am a Computer Science &amp; Engineering scholar and full-stack software engineer passionate about designing fault-tolerant backend pipelines, low-latency microservices, and reactive user interfaces that delight developers and end-users alike.
+              </p>
+              <p>
+                My engineering ethos centers on deep algorithmic problem-solving and architectural rigor. Whether profiling database query execution plans, architecting distributed cache invalidation strategies, or implementing clean component hierarchies with Tailwind CSS, I approach software as both a mathematical science and an artisan craft.
+              </p>
+              <p>
+                Beyond writing code, I actively empower my student community. Having served as the President of our university's ACM Student Chapter, I have led hackathons, organized workshops, and mentored dozens of aspiring software engineers to build their first production-grade projects.
+              </p>
+            </div>
+
+            <div class="pt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="text-[11px] text-slate-500 block">Location</span>
+                <span class="font-bold text-slate-800 mt-0.5 block">Bengaluru, IN</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="text-[11px] text-slate-500 block">Focus Areas</span>
+                <span class="font-bold text-blue-700 mt-0.5 block">Cloud &amp; Full-Stack</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="text-[11px] text-slate-500 block">Graduation</span>
+                <span class="font-bold text-slate-800 mt-0.5 block">May 2026</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="text-[11px] text-slate-500 block">Status</span>
+                <span class="font-bold text-emerald-700 mt-0.5 block">Open for Roles</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Key Honors Highlight Card -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="rounded-2xl bg-slate-50 p-5 border border-slate-200 space-y-4 shadow-sm">
+              <div class="flex items-center gap-3 pb-3 border-b border-slate-200">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 text-lg font-mono">
+                  <i class="fa-solid fa-award"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-slate-900">Key Accolades</h4>
+                  <span class="text-xs text-slate-500">Excellence in Engineering</span>
+                </div>
+              </div>
+
+              <div class="space-y-3 text-xs">
+                <div class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-circle-check text-blue-600 mt-0.5 text-xs"></i>
+                  <div>
+                    <strong class="text-slate-800 block">Rank 1 / 180 Students</strong>
+                    <span class="text-slate-500">Consecutive Dean's Academic Honor List</span>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-circle-check text-blue-600 mt-0.5 text-xs"></i>
+                  <div>
+                    <strong class="text-slate-800 block">National Hackathon Finalist</strong>
+                    <span class="text-slate-500">Ministry of Education Smart India Hackathon</span>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-circle-check text-blue-600 mt-0.5 text-xs"></i>
+                  <div>
+                    <strong class="text-slate-800 block">AWS &amp; GCP Dual Certified</strong>
+                    <span class="text-slate-500">Associate Solutions Architect &amp; Cloud Engineer</span>
+                  </div>
+                </div>
+
+                <div class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-circle-check text-blue-600 mt-0.5 text-xs"></i>
+                  <div>
+                    <strong class="text-slate-800 block">HackerRank 5-Star Problem Solver</strong>
+                    <span class="text-slate-500">Gold Badges in Algorithms &amp; Data Structures</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2 border-t border-slate-200">
+                <a href="achievements.html" class="w-full block text-center py-2 rounded-xl bg-white hover:bg-slate-100 text-blue-700 font-semibold text-xs border border-slate-200 transition-colors shadow-2xs">
+                  View All Verified Credentials &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 2: ACADEMIC BACKGROUND -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2.5">
+              <i class="fa-solid fa-graduation-cap text-blue-600"></i>
+              <span>Academic Background &amp; Coursework</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">Foundational education and coursework in Computer Science</p>
+          </div>
+          <span class="badge-emerald px-3 py-1 rounded-full text-xs font-semibold">CGPA: 9.6 / 10.0</span>
+        </div>
+
+        <div class="dashboard-panel p-6 sm:p-7 space-y-6">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-2xl text-blue-700 flex-shrink-0">
+                <i class="fa-solid fa-university"></i>
+              </div>
+              <div>
+                <span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Undergraduate Degree</span>
+                <h4 class="text-lg font-bold text-slate-900 mt-1">Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</h4>
+                <p class="text-xs sm:text-sm text-slate-500">Department of Computer Science &bull; Expected Graduation: May 2026</p>
+              </div>
+            </div>
+            <div class="flex flex-col sm:items-end text-xs font-mono">
+              <span class="text-blue-700 font-bold">2022 &mdash; 2026 (Full-Time)</span>
+              <span class="text-slate-500 mt-0.5">Honors Specialization in Systems</span>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-book-bookmark text-blue-600"></i>
+              <span>Core Academic Curriculum &amp; Laboratory Coursework</span>
+            </h5>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block">Data Structures &amp; Algorithms</span>
+                <span class="text-[11px] text-slate-500">Trees, Graphs, Dynamic Programming, Greedy</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block">Database Management Systems</span>
+                <span class="text-[11px] text-slate-500">Relational SQL, Normalization, ACID Transactions</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block">Operating Systems &amp; Concurrency</span>
+                <span class="text-[11px] text-slate-500">Process Scheduling, Threading, Virtual Memory</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block">Object-Oriented Design (OOD)</span>
+                <span class="text-[11px] text-slate-500">SOLID Principles, Gang-of-Four Design Patterns</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block">Computer Networks &amp; Security</span>
+                <span class="text-[11px] text-slate-500">TCP/IP, HTTP/3, TLS/SSL, Socket Programming</span>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-bold text-slate-800 block">Cloud Computing Architecture</span>
+                <span class="text-[11px] text-slate-500">Distributed Storage, Virtualization, Containers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: CAREER & LEADERSHIP TIMELINE -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2.5">
+            <i class="fa-solid fa-timeline text-blue-600"></i>
+            <span>Engineering Odyssey &amp; Milestones</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">Chronological progression across software engineering, research, and leadership</p>
+        </div>
+
+        <div class="dashboard-panel p-6 sm:p-8 relative">
+          <!-- Timeline Vertical Line -->
+          <div class="absolute left-9 sm:left-11 top-10 bottom-10 w-0.5 bg-slate-200"></div>
+
+          <div class="space-y-8 relative">
+            <!-- Timeline Item 1 -->
+            <div class="flex items-start gap-5 sm:gap-6">
+              <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0 z-10">
+                <i class="fa-solid fa-briefcase text-[11px]"></i>
+              </div>
+              <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex-1 space-y-2">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h4 class="text-base font-bold text-slate-900">Software Engineering Intern &bull; Cloud Infrastructure</h4>
+                  <span class="text-xs font-mono text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 font-semibold w-max">2025 &mdash; Present</span>
+                </div>
+                <span class="text-xs font-semibold text-slate-600 block">HyperScale Systems Labs &bull; Cloud Backend</span>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Architected asynchronous message processing pipelines in Python (FastAPI, Celery) and C# (.NET Core). Reduced database locking contention by 40% using Redis distributed locks and optimized SQL Server stored procedures.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="badge-slate px-2 py-0.5 rounded text-[10px] font-mono font-medium">Python</span>
+                  <span class="badge-slate px-2 py-0.5 rounded text-[10px] font-mono font-medium">C# .NET</span>
+                  <span class="badge-slate px-2 py-0.5 rounded text-[10px] font-mono font-medium">Docker</span>
+                  <span class="badge-slate px-2 py-0.5 rounded text-[10px] font-mono font-medium">PostgreSQL</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="flex items-start gap-5 sm:gap-6">
+              <div class="w-8 h-8 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0 z-10">
+                <i class="fa-solid fa-users-gear text-[11px]"></i>
+              </div>
+              <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex-1 space-y-2">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h4 class="text-base font-bold text-slate-900">President &amp; Technical Chapter Lead</h4>
+                  <span class="text-xs font-mono text-purple-700 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200 font-semibold w-max">2024 &mdash; 2025</span>
+                </div>
+                <span class="text-xs font-semibold text-slate-600 block">ACM Student Chapter &bull; University Chapter</span>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Spearheaded a 45-member executive committee, orchestrated hackathons with 600+ registrants, and led twice-weekly algorithmic coaching workshops focusing on competitive programming and system design.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="badge-purple px-2 py-0.5 rounded text-[10px] font-mono font-medium">Leadership</span>
+                  <span class="badge-purple px-2 py-0.5 rounded text-[10px] font-mono font-medium">DSA Mentorship</span>
+                  <span class="badge-purple px-2 py-0.5 rounded text-[10px] font-mono font-medium">Event Direction</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="flex items-start gap-5 sm:gap-6">
+              <div class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0 z-10">
+                <i class="fa-solid fa-trophy text-[11px]"></i>
+              </div>
+              <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex-1 space-y-2">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h4 class="text-base font-bold text-slate-900">Smart India Hackathon &bull; 1st Runner Up (National Finalist)</h4>
+                  <span class="text-xs font-mono text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 font-semibold w-max">Aug 2024</span>
+                </div>
+                <span class="text-xs font-semibold text-slate-600 block">Ministry of Education &amp; AICTE</span>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Competed 36-hours continuously in national finals. Built an intelligent disaster management telemetry dashboard connecting real-time drone data feeds to municipal response centers.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="badge-amber px-2 py-0.5 rounded text-[10px] font-mono font-medium">FastAPI</span>
+                  <span class="badge-amber px-2 py-0.5 rounded text-[10px] font-mono font-medium">WebSockets</span>
+                  <span class="badge-amber px-2 py-0.5 rounded text-[10px] font-mono font-medium">PostGIS</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Timeline Item 4 -->
+            <div class="flex items-start gap-5 sm:gap-6">
+              <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shadow-sm flex-shrink-0 z-10">
+                <i class="fa-solid fa-seedling text-[11px]"></i>
+              </div>
+              <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 flex-1 space-y-2">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                  <h4 class="text-base font-bold text-slate-900">Entered Computer Science &amp; Engineering</h4>
+                  <span class="text-xs font-mono text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 font-semibold w-max">2022</span>
+                </div>
+                <span class="text-xs font-semibold text-slate-600 block">Undergraduate Journey Begins</span>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Embarked on formal engineering studies. Mastered C++, Java, and Python fundamentals, and initiated daily competitive algorithmic training on LeetCode and Codeforces.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: CLUB LEADERSHIP -->
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2.5">
+            <i class="fa-solid fa-people-roof text-blue-600"></i>
+            <span>Leadership &amp; Community Impact</span>
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">Empowering developers, organizing tech events, and open-source contributions</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Card 1 -->
+          <div class="dashboard-card p-6 space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 border border-purple-200 flex items-center justify-center text-xl">
+              <i class="fa-solid fa-crown"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">ACM Chapter President</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Spearheaded university's premier technical association. Led weekly hands-on code labs in Python, Git, and Docker. Increased active chapter membership by 140%.
+            </p>
+            <div class="pt-2 text-[11px] text-purple-700 font-mono font-semibold">
+              <span>&bull; 14 Workshops Hosted</span>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="dashboard-card p-6 space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-xl">
+              <i class="fa-solid fa-laptop-code"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Flagship Hackathon Lead</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Chief organizer for "InnovateX 2024", securing \$6,000+ in corporate developer sponsorships, setting up judge review portals, and handling logistics for 600+ builders.
+            </p>
+            <div class="pt-2 text-[11px] text-blue-700 font-mono font-semibold">
+              <span>&bull; 120+ Teams Evaluated</span>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="dashboard-card p-6 space-y-3">
+            <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center text-xl">
+              <i class="fa-solid fa-code-merge"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Open Source Contributor</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Regular contributor to developer tools and frameworks across GitHub. Authored documentation translations, optimized CI/CD GitHub Actions workflows, and resolved unit test gaps.
+            </p>
+            <div class="pt-2 text-[11px] text-emerald-700 font-mono font-semibold">
+              <span>&bull; 35+ Merged Pull Requests</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- DASHBOARD FOOTER -->
+    <footer class="mt-auto border-t border-slate-200 bg-white p-4 sm:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-700">Arul David Portfolio</span>
+        <span>&bull;</span>
+        <span>Profile &amp; Journey</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-500">
+        <a href="skills.html" class="text-blue-600 hover:text-blue-800 font-semibold">Explore Skills &rarr;</a>
+        <a href="#top" class="hover:text-slate-800 transition-colors">Back to top &uarr;</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Shared Modals -->
+  <div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="resume-modal-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="resume-dialog relative z-10 w-full max-w-lg bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Curriculum Vitae</h3>
+            <span class="text-xs text-slate-500">Arul David &bull; Software Engineer (2026 Edition)</span>
+          </div>
+        </div>
+        <button class="close-resume-modal text-slate-400 hover:text-slate-600 p-1" aria-label="Close modal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="py-5 space-y-4 text-xs sm:text-sm text-slate-600">
+        <p class="leading-relaxed">
+          Download the verified resume detailing academic achievements, production engineering experience, AWS/GCP certifications, and open-source contributions.
+        </p>
+
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 font-mono text-xs">
+          <div class="flex justify-between text-slate-500">
+            <span>Degree:</span>
+            <span class="text-slate-800 font-semibold">B.Tech Computer Science (CGPA: 9.6)</span>
+          </div>
+          <div class="flex justify-between text-slate-500">
+            <span>Specialization:</span>
+            <span class="text-slate-800 font-semibold">Distributed Cloud Systems</span>
+          </div>
+          <div class="flex justify-between text-slate-500">
+            <span>Format:</span>
+            <span class="text-blue-700 font-semibold">PDF (ATS-Optimized)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-100">
+        <button class="close-resume-modal w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+          Cancel
+        </button>
+        <button id="btn-download-resume-pdf" class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-solid fa-download"></i>
+          <span>Download PDF Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="command-palette-modal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="palette-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="palette-card relative z-10 w-full max-w-xl bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="p-4 border-b border-slate-100 flex items-center gap-3 bg-slate-50">
+        <i class="fa-solid fa-magnifying-glass text-blue-600 text-sm"></i>
+        <input id="palette-search-input" type="text" placeholder="Type a destination or command..." class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 focus:outline-none font-medium">
+        <kbd class="px-2 py-0.5 rounded bg-white text-slate-400 text-[10px] font-mono border border-slate-200 shadow-2xs">ESC</kbd>
+      </div>
+
+      <div class="p-2 max-h-80 overflow-y-auto space-y-1 text-sm font-medium">
+        <div class="px-3 py-1.5 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Pages</div>
+        <a href="index.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-chart-pie text-blue-600"></i> Dashboard Overview</span>
+          <span class="text-xs text-slate-400 font-mono">index.html</span>
+        </a>
+        <a href="about.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-user text-purple-600"></i> Profile &amp; Academic Timeline</span>
+          <span class="text-xs text-slate-400 font-mono">about.html</span>
+        </a>
+        <a href="skills.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-code text-blue-600"></i> Categorized Skills &amp; Stack</span>
+          <span class="text-xs text-slate-400 font-mono">skills.html</span>
+        </a>
+        <a href="achievements.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-award text-amber-600"></i> Achievements &amp; Certifications</span>
+          <span class="text-xs text-slate-400 font-mono">achievements.html</span>
+        </a>
+        <a href="projects.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-layer-group text-indigo-600"></i> Featured Project Grid</span>
+          <span class="text-xs text-slate-400 font-mono">projects.html</span>
+        </a>
+        <a href="contact.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-paper-plane text-emerald-600"></i> Get in Touch &amp; Social Links</span>
+          <span class="text-xs text-slate-400 font-mono">contact.html</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

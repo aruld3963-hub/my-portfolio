@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills &amp; Tech Stack | Arul David Portfolio</title>
+  <meta name="description" content="Categorized technical skills of Arul David: Python, Java, C#, SQL, ASP.NET Core, Tailwind CSS, RDBMS, and Data Structures & Algorithms.">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- FontAwesome Icons & Custom Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern relative">
+
+  <!-- Mobile Backdrop -->
+  <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
+
+  <!-- PERSISTENT SIDEBAR -->
+  <aside id="dashboard-sidebar" class="fixed top-0 bottom-0 left-0 w-64 lg:w-72 bg-white border-r border-slate-200 z-50 flex flex-col justify-between transition-transform duration-300 transform -translate-x-full md:translate-x-0 shadow-sm">
+    <div>
+      <!-- User Profile Header -->
+      <div class="p-6 border-b border-slate-100 relative">
+        <button id="mobile-drawer-close" class="absolute top-4 right-4 md:hidden text-slate-400 hover:text-slate-600 p-1" aria-label="Close Sidebar">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+
+        <div class="flex items-center gap-3.5">
+          <div class="relative">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
+              AD
+            </div>
+            <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
+          </div>
+          <div class="overflow-hidden">
+            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
+            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center justify-between px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span>
+            Open to Opportunities
+          </span>
+          <span class="text-[10px] bg-emerald-100/80 px-1.5 py-0.5 rounded text-emerald-800 font-mono">2026</span>
+        </div>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="p-4 space-y-1 text-sm" aria-label="Main Navigation">
+        <div class="px-3 py-2 text-[11px] font-bold tracking-wider uppercase text-slate-400">Navigation</div>
+        
+        <a href="index.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-chart-pie w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Overview</span>
+        </a>
+
+        <a href="about.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-user w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Profile &amp; Journey</span>
+        </a>
+
+        <a href="skills.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-code w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Skills &amp; Tech</span>
+        </a>
+
+        <a href="achievements.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Achievements</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono font-semibold border border-blue-200">9</span>
+        </a>
+
+        <a href="projects.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-layer-group w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span class="flex-1">Featured Projects</span>
+          <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold">6</span>
+        </a>
+
+        <a href="contact.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
+          <i class="fa-solid fa-paper-plane w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <span>Get in Touch</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom Info & Socials -->
+    <div class="p-4 border-t border-slate-100 space-y-3">
+      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
+        <div class="flex items-center justify-between text-slate-500 font-mono text-[11px] mb-1.5">
+          <span>ALGORITHMIC RANK</span>
+          <span class="text-blue-600 font-semibold">850+ Solved</span>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
+          <div class="bg-blue-600 h-1.5 rounded-full" style="width: 94%"></div>
+        </div>
+        <div class="flex justify-between items-center mt-2 text-[10px] text-slate-500">
+          <span class="text-amber-700 font-semibold">5-Star Gold</span>
+          <span class="font-mono text-blue-700 font-semibold">LeetCode Top 4%</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-around pt-1 text-slate-400">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+          <i class="fa-brands fa-github text-base"></i>
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+          <i class="fa-brands fa-linkedin text-base"></i>
+        </a>
+        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
+          <i class="fa-brands fa-hackerrank text-base"></i>
+        </a>
+        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+          <i class="fa-solid fa-envelope text-base"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="md:pl-64 lg:pl-72 flex flex-col min-h-screen">
+    
+    <!-- TOP HEADER BAR -->
+    <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 focus:outline-none" aria-label="Open Sidebar Menu">
+          <i class="fa-solid fa-bars-staggered text-base"></i>
+        </button>
+
+        <div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span>Dashboard</span>
+            <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
+            <span class="text-blue-600 font-semibold">Skills &amp; Tech</span>
+          </div>
+          <h2 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Technical Stack &amp; Core Competencies</h2>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono">
+          <i class="fa-regular fa-clock text-blue-600 text-[11px]"></i>
+          <span id="header-live-clock">19:30:00</span>
+        </div>
+
+        <button id="command-palette-trigger" class="hidden lg:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-500 hover:text-slate-700 border border-slate-200 text-xs transition-colors" title="Open Command Palette">
+          <i class="fa-solid fa-magnifying-glass text-[11px] text-slate-400"></i>
+          <span>Quick Find...</span>
+          <kbd class="px-1.5 py-0.5 rounded bg-white text-slate-500 text-[10px] font-mono border border-slate-200 shadow-2xs">⌘K</kbd>
+        </button>
+
+        <button class="trigger-resume-modal flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-sm transition-colors">
+          <i class="fa-solid fa-file-arrow-down text-white"></i>
+          <span>Resume</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-8">
+
+      <!-- HERO HEADER & FILTER BAR -->
+      <div class="dashboard-panel p-6 sm:p-8 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
+          <i class="fa-solid fa-microchip text-blue-600"></i>
+          <span>Engineering Architecture &amp; Tooling</span>
+        </div>
+
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Categorized Technical Arsenal &amp; <span class="text-blue-600">Production Proficiencies</span>
+        </h1>
+
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-3xl">
+          A comprehensive matrix of programming languages, modern frameworks, database management systems, and core algorithmic disciplines cultivated through production software engineering, competitive contests, and cloud certifications.
+        </p>
+
+        <!-- Interactive Category Filter Buttons -->
+        <div class="pt-2 flex flex-wrap gap-2 text-xs">
+          <button onclick="filterSkills('all')" class="skill-category-tab active-tab px-3.5 py-1.5 rounded-xl font-semibold bg-blue-50 text-blue-700 border border-blue-500 shadow-sm transition-all" data-target="all">
+            All Skills (16)
+          </button>
+          <button onclick="filterSkills('languages')" class="skill-category-tab px-3.5 py-1.5 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" data-target="languages">
+            Programming Languages
+          </button>
+          <button onclick="filterSkills('web-db')" class="skill-category-tab px-3.5 py-1.5 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" data-target="web-db">
+            Web &amp; Databases
+          </button>
+          <button onclick="filterSkills('core-dsa')" class="skill-category-tab px-3.5 py-1.5 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" data-target="core-dsa">
+            Core CS &amp; DSA
+          </button>
+        </div>
+      </div>
+
+      <!-- CATEGORY 1: PROGRAMMING LANGUAGES -->
+      <section class="skill-group-section space-y-4" data-group="languages">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-700 text-lg">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Programming Languages</h3>
+              <p class="text-xs text-slate-500">Core syntaxes used for backend services, algorithms, and applications</p>
+            </div>
+          </div>
+          <span class="badge-blue px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold">4 Core Languages</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Python -->
+          <div class="dashboard-card p-5 space-y-4 group">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
+                <i class="fa-brands fa-python"></i>
+              </div>
+              <span class="badge-emerald px-2 py-0.5 rounded text-[10px] font-mono font-bold">95% Mastery</span>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Python</h4>
+              <span class="text-xs text-slate-500 block mt-0.5">FastAPI &bull; AsyncIO &bull; PyTest &bull; NumPy</span>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Primary language for asynchronous cloud microservices, AI agents, data engineering pipelines, and rapid prototyping.
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 space-y-1.5">
+              <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                <span>Production Experience</span>
+                <span class="text-blue-700 font-semibold">4+ Years</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-1.5 rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Java -->
+          <div class="dashboard-card p-5 space-y-4 group">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
+                <i class="fa-brands fa-java"></i>
+              </div>
+              <span class="badge-blue px-2 py-0.5 rounded text-[10px] font-mono font-bold">90% Mastery</span>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Java</h4>
+              <span class="text-xs text-slate-500 block mt-0.5">Spring Boot &bull; JVM &bull; JUnit 5 &bull; Maven</span>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Object-oriented enterprise engineering, robust multithreading, concurrency patterns, and academic coursework foundation.
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 space-y-1.5">
+              <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                <span>Production Experience</span>
+                <span class="text-blue-700 font-semibold">3+ Years</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-1.5 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- C# -->
+          <div class="dashboard-card p-5 space-y-4 group">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200 text-purple-700 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-code"></i>
+              </div>
+              <span class="badge-purple px-2 py-0.5 rounded text-[10px] font-mono font-bold">92% Mastery</span>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">C# (.NET)</h4>
+              <span class="text-xs text-slate-500 block mt-0.5">ASP.NET Core &bull; EF Core &bull; LINQ &bull; REST</span>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Building strongly typed, high-performance Web APIs, clean architecture layers, repository patterns, and background workers.
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 space-y-1.5">
+              <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                <span>Production Experience</span>
+                <span class="text-blue-700 font-semibold">3+ Years</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-1.5 rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SQL -->
+          <div class="dashboard-card p-5 space-y-4 group">
+            <div class="flex items-start justify-between">
+              <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-2xl group-hover:scale-105 transition-transform">
+                <i class="fa-solid fa-database"></i>
+              </div>
+              <span class="badge-emerald px-2 py-0.5 rounded text-[10px] font-mono font-bold">94% Mastery</span>
+            </div>
+            <div>
+              <h4 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors">SQL</h4>
+              <span class="text-xs text-slate-500 block mt-0.5">PostgreSQL &bull; T-SQL &bull; MySQL &bull; Tuning</span>
+              <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                Complex joins, indexing (B-Tree, GIN, BRIN), EXPLAIN ANALYZE query optimization, transactions, and stored procedures.
+              </p>
+            </div>
+            <div class="pt-2 border-t border-slate-100 space-y-1.5">
+              <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                <span>Production Experience</span>
+                <span class="text-blue-700 font-semibold">3+ Years</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-1.5 rounded-full" style="width: 94%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY 2: WEB & DATABASES -->
+      <section class="skill-group-section space-y-4" data-group="web-db">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-700 text-lg">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Web Engineering &amp; Database Systems</h3>
+              <p class="text-xs text-slate-500">Front-end design systems, modern web frameworks, and persistence engines</p>
+            </div>
+          </div>
+          <span class="badge-purple px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold">Web &amp; RDBMS</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- HTML5 & CSS3 -->
+          <div class="dashboard-card p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-xl bg-orange-50 border border-orange-200 text-orange-700 flex items-center justify-center text-xl">
+                <i class="fa-brands fa-html5"></i>
+              </div>
+              <span class="text-xs font-mono text-blue-700 font-bold">96%</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">HTML5 / CSS3</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Semantic markup, CSS Flexbox &amp; Grid layouts, responsive viewports, accessibility (WCAG 2.1 AA), and fluid typography.
+            </p>
+            <div class="flex flex-wrap gap-1 pt-1">
+              <span class="badge-slate px-2 py-0.5 rounded text-[10px]">Semantic</span>
+              <span class="badge-slate px-2 py-0.5 rounded text-[10px]">a11y</span>
+              <span class="badge-slate px-2 py-0.5 rounded text-[10px]">CSS Grid</span>
+            </div>
+          </div>
+
+          <!-- Tailwind CSS -->
+          <div class="dashboard-card p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-200 text-sky-700 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-wind"></i>
+              </div>
+              <span class="text-xs font-mono text-blue-700 font-bold">98%</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Tailwind CSS</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Modern SaaS dashboards, custom theme configurations, responsive utility classes, and consistent design tokens.
+            </p>
+            <div class="flex flex-wrap gap-1 pt-1">
+              <span class="badge-blue px-2 py-0.5 rounded text-[10px] font-medium">SaaS Layouts</span>
+              <span class="badge-blue px-2 py-0.5 rounded text-[10px] font-medium">Responsive</span>
+            </div>
+          </div>
+
+          <!-- ASP.NET Core -->
+          <div class="dashboard-card p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-server"></i>
+              </div>
+              <span class="text-xs font-mono text-blue-700 font-bold">91%</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">ASP.NET Core</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Enterprise Web APIs, Dependency Injection, Middleware pipelines, JWT token authentication, and microservice decoupling.
+            </p>
+            <div class="flex flex-wrap gap-1 pt-1">
+              <span class="badge-purple px-2 py-0.5 rounded text-[10px] font-medium">Web API</span>
+              <span class="badge-purple px-2 py-0.5 rounded text-[10px] font-medium">EF Core</span>
+            </div>
+          </div>
+
+          <!-- RDBMS & Persistence -->
+          <div class="dashboard-card p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 flex items-center justify-center text-xl">
+                <i class="fa-solid fa-hard-drive"></i>
+              </div>
+              <span class="text-xs font-mono text-blue-700 font-bold">93%</span>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">RDBMS &amp; Cloud DBs</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              PostgreSQL, MySQL, SQL Server, Supabase, and Redis caching. Relational schema design, foreign keys, and ACID transactions.
+            </p>
+            <div class="flex flex-wrap gap-1 pt-1">
+              <span class="badge-emerald px-2 py-0.5 rounded text-[10px] font-medium">Postgres</span>
+              <span class="badge-emerald px-2 py-0.5 rounded text-[10px] font-medium">Redis</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CATEGORY 3: CORE CS & DSA -->
+      <section class="skill-group-section space-y-4" data-group="core-dsa">
+        <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 text-lg">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Core Computer Science &amp; DSA</h3>
+              <p class="text-xs text-slate-500">Algorithmic efficiency, time/space complexity analysis, and architectural principles</p>
+            </div>
+          </div>
+          <span class="badge-amber px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold">850+ Solved</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- DSA Card -->
+          <div class="dashboard-card p-6 space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 text-amber-700 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-network-wired"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Data Structures &amp; Algorithms</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Extensive problem-solving mastery in Graphs (BFS/DFS, Dijkstra, Minimum Spanning Trees), Dynamic Programming (1D, 2D, Bitmask), Segment Trees, Binary Search, and Heaps.
+            </p>
+            <div class="space-y-1.5 pt-2 text-xs">
+              <div class="flex justify-between text-slate-600">
+                <span>LeetCode &amp; HackerRank</span>
+                <span class="text-amber-700 font-mono font-bold">850+ Challenges</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-amber-500 h-1.5 rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Design Card -->
+          <div class="dashboard-card p-6 space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-cubes"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">System Architecture &amp; OOP</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              Designing scalable distributed architectures: load balancing, horizontal autoscaling, message queuing (Kafka/RabbitMQ), rate limiting, caching hierarchies, and SOLID OOP design.
+            </p>
+            <div class="space-y-1.5 pt-2 text-xs">
+              <div class="flex justify-between text-slate-600">
+                <span>Microservices &amp; REST</span>
+                <span class="text-blue-700 font-mono font-bold">Production Ready</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-blue-600 h-1.5 rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cloud & DevOps Card -->
+          <div class="dashboard-card p-6 space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-200 text-indigo-700 flex items-center justify-center text-2xl">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <h4 class="text-base font-bold text-slate-900">Cloud Infrastructure &amp; DevOps</h4>
+            <p class="text-xs text-slate-600 leading-relaxed">
+              AWS (EC2, S3, RDS, Lambda, VPC) and Google Cloud (Cloud Run, GKE, IAM). Containerization with multi-stage Dockerfiles and automated CI/CD deployment with GitHub Actions.
+            </p>
+            <div class="space-y-1.5 pt-2 text-xs">
+              <div class="flex justify-between text-slate-600">
+                <span>AWS &amp; GCP Certified</span>
+                <span class="text-indigo-700 font-mono font-bold">Dual Associate</span>
+              </div>
+              <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                <div class="bg-indigo-600 h-1.5 rounded-full" style="width: 88%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- APPLIED SKILLS IN PRODUCTION -->
+      <div class="dashboard-panel p-6 sm:p-8 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-wrench text-blue-600"></i>
+              <span>How These Skills Translate into Real Production Software</span>
+            </h3>
+            <p class="text-xs text-slate-500 mt-0.5">Direct mapping from technical competencies to live featured projects</p>
+          </div>
+          <a href="projects.html" class="px-4 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-semibold border border-blue-200 transition-colors w-max">
+            Browse All Projects &rarr;
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <span class="text-blue-700 font-mono font-bold">1. High-Throughput Ingestion</span>
+            <h5 class="font-bold text-slate-900">Python + FastAPI + PostgreSQL</h5>
+            <p class="text-slate-600 leading-relaxed">
+              Applied async I/O and PgBouncer connection pooling to process 14,000+ events/sec with sub-20ms database queries in NexusEngine.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <span class="text-purple-700 font-mono font-bold">2. Resilient Microservices</span>
+            <h5 class="font-bold text-slate-900">C# (.NET Core) + Docker + Redis</h5>
+            <p class="text-slate-600 leading-relaxed">
+              Implemented clean repository patterns, distributed caching, and containerized deployment pipelines for zero-downtime releases.
+            </p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            <span class="text-amber-700 font-mono font-bold">3. Algorithmic Optimization</span>
+            <h5 class="font-bold text-slate-900">Graph Theory + C++ / Python</h5>
+            <p class="text-slate-600 leading-relaxed">
+              Engineered Dijkstra-based routing algorithms for emergency dispatch in the Smart India Hackathon, cutting response pathing latency by 45%.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- DASHBOARD FOOTER -->
+    <footer class="mt-auto border-t border-slate-200 bg-white p-4 sm:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold text-slate-700">Arul David Portfolio</span>
+        <span>&bull;</span>
+        <span>Skills &amp; Tech Stack</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-500">
+        <a href="achievements.html" class="text-blue-600 hover:text-blue-800 font-semibold">View Achievements &rarr;</a>
+        <a href="#top" class="hover:text-slate-800 transition-colors">Back to top &uarr;</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Shared Modals -->
+  <div id="resume-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="resume-modal-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="resume-dialog relative z-10 w-full max-w-lg bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-2xl">
+            <i class="fa-solid fa-file-pdf"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Curriculum Vitae</h3>
+            <span class="text-xs text-slate-500">Arul David &bull; Software Engineer (2026 Edition)</span>
+          </div>
+        </div>
+        <button class="close-resume-modal text-slate-400 hover:text-slate-600 p-1" aria-label="Close modal">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="py-5 space-y-4 text-xs sm:text-sm text-slate-600">
+        <p class="leading-relaxed">
+          Download the verified resume detailing academic achievements, production engineering experience, AWS/GCP certifications, and open-source contributions.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-4 border-t border-slate-100">
+        <button class="close-resume-modal w-full sm:w-auto px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+          Cancel
+        </button>
+        <button id="btn-download-resume-pdf" class="w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center justify-center gap-2 shadow-sm">
+          <i class="fa-solid fa-download"></i>
+          <span>Download PDF Now</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="command-palette-modal" class="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="palette-backdrop fixed inset-0 bg-slate-900/40 backdrop-blur-sm"></div>
+    <div class="palette-card relative z-10 w-full max-w-xl bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <div class="p-4 border-b border-slate-100 flex items-center gap-3 bg-slate-50">
+        <i class="fa-solid fa-magnifying-glass text-blue-600 text-sm"></i>
+        <input id="palette-search-input" type="text" placeholder="Type a destination or command..." class="w-full bg-transparent text-sm text-slate-800 placeholder-slate-400 focus:outline-none font-medium">
+        <kbd class="px-2 py-0.5 rounded bg-white text-slate-400 text-[10px] font-mono border border-slate-200 shadow-2xs">ESC</kbd>
+      </div>
+
+      <div class="p-2 max-h-80 overflow-y-auto space-y-1 text-sm font-medium">
+        <div class="px-3 py-1.5 text-[10px] font-bold tracking-wider text-slate-400 uppercase">Pages</div>
+        <a href="index.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-chart-pie text-blue-600"></i> Dashboard Overview</span>
+          <span class="text-xs text-slate-400 font-mono">index.html</span>
+        </a>
+        <a href="about.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-user text-purple-600"></i> Profile &amp; Academic Timeline</span>
+          <span class="text-xs text-slate-400 font-mono">about.html</span>
+        </a>
+        <a href="skills.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-code text-blue-600"></i> Categorized Skills &amp; Stack</span>
+          <span class="text-xs text-slate-400 font-mono">skills.html</span>
+        </a>
+        <a href="achievements.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-award text-amber-600"></i> Achievements &amp; Certifications</span>
+          <span class="text-xs text-slate-400 font-mono">achievements.html</span>
+        </a>
+        <a href="projects.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-layer-group text-indigo-600"></i> Featured Project Grid</span>
+          <span class="text-xs text-slate-400 font-mono">projects.html</span>
+        </a>
+        <a href="contact.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+          <span class="flex items-center gap-3"><i class="fa-solid fa-paper-plane text-emerald-600"></i> Get in Touch &amp; Social Links</span>
+          <span class="text-xs text-slate-400 font-mono">contact.html</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    function filterSkills(target) {
+      const tabs = document.querySelectorAll('.skill-category-tab');
+      tabs.forEach(tab => {
+        if (tab.getAttribute('data-target') === target) {
+          tab.classList.add('bg-blue-50', 'text-blue-700', 'border-blue-500', 'shadow-sm');
+          tab.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+        } else {
+          tab.classList.remove('bg-blue-50', 'text-blue-700', 'border-blue-500', 'shadow-sm');
+          tab.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+        }
+      });
+
+      const sections = document.querySelectorAll('.skill-group-section');
+      sections.forEach(sec => {
+        if (target === 'all' || sec.getAttribute('data-group') === target) {
+          sec.style.display = 'block';
+        } else {
+          sec.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
