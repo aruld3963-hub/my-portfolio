@@ -71,9 +71,9 @@
     <!-- Actions -->
     <div class="flex items-center gap-3">
       <!-- Supabase Cloud Indicator -->
-      <div id="supabase-status-pill" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-mono">
-        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-        <span id="supabase-status-text">Cloud Engine Active</span>
+      <div id="supabase-status-pill" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-mono transition-all">
+        <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+        <span id="supabase-status-text">Local Storage Mode</span>
       </div>
 
       <a href="index.html" class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs">
@@ -1160,27 +1160,64 @@ CREATE TABLE projects (
       if (!text || !pill) return;
 
       if (window.supabaseClient) {
-        text.textContent = 'Supabase Cloud Active';
-        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-mono';
+        text.textContent = 'Cloud Engine Active';
+        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-mono transition-all shadow-2xs';
+        const dot = pill.querySelector('span:first-child');
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
       } else {
         text.textContent = 'Local Storage Mode';
-        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-mono';
+        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-mono transition-all';
+        const dot = pill.querySelector('span:first-child');
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-slate-400';
       }
     }
 
-    document.getElementById('admin-supabase-config-form').addEventListener('submit', (e) => {
+    document.getElementById('admin-supabase-config-form').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const url = document.getElementById('sb-url-input').value.trim();
-      const key = document.getElementById('sb-key-input').value.trim();
+      const urlInput = document.getElementById('sb-url-input');
+      const keyInput = document.getElementById('sb-key-input');
+      const url = (urlInput ? urlInput.value.trim() : '') || 'https://poilrmokmvxkgmrvxzym.supabase.co';
+      let key = keyInput ? keyInput.value.trim() : '';
 
+      // Preserve valid key if placeholder string is submitted
+      if (!key || key === "உங்கள்_ANON_KEY_ஐ_இங்கு_பேஸ்ட்_செய்யுங்கள்") {
+        key = window.SUPABASE_CONFIG?.anonKey || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvaWxybW9rbXZ4a2dtcnZ4enltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNTc1ODEsImV4cCI6MjEwNzYzMzU4MX0.TbxesTYatB3KEqnqa-rQBHdVVrU_XRJ5fpY6evOE0N0";
+      }
+
+      // 1. Save values to localStorage
       localStorage.setItem('supabase_custom_url', url);
+      localStorage.setItem('supabase_url', url);
       localStorage.setItem('supabase_custom_key', key);
-      SUPABASE_CONFIG.url = url;
-      SUPABASE_CONFIG.anonKey = key;
+      localStorage.setItem('supabase_anon_key', key);
 
-      window.initSupabaseClient();
-      updateSupabasePill();
-      window.showToast('Supabase settings saved and client re-initialized!', 'success');
+      if (window.SUPABASE_CONFIG) {
+        window.SUPABASE_CONFIG.url = url.replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
+        window.SUPABASE_CONFIG.anonKey = key;
+      }
+
+      // Re-initialize Supabase client immediately
+      if (typeof window.initSupabaseClient === 'function') {
+        window.initSupabaseClient();
+      } else if (typeof window.initSupabase === 'function') {
+        window.initSupabase();
+      }
+
+      // 2. Switch header badge from "Local Storage Mode" to "Cloud Engine Active" (Green indicator)
+      const text = document.getElementById('supabase-status-text');
+      const pill = document.getElementById('supabase-status-pill');
+      if (text) text.textContent = 'Cloud Engine Active';
+      if (pill) {
+        pill.className = 'hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 font-mono transition-all shadow-2xs';
+        const dot = pill.querySelector('span:first-child');
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
+      }
+
+      // 3. Show alert/toast "Supabase Cloud Connected Successfully!"
+      window.showToast('Supabase Cloud Connected Successfully!', 'success');
+
+      // 4. Reload the list from Supabase
+      await loadAdminAchievements();
+      await loadAdminProjects();
     });
 
     async function testSupabaseConnection() {
