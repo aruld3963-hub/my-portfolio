@@ -6,120 +6,19 @@
  * ============================================================================
  */
 
-// Fallback project data if store is unavailable
-const PROJECTS_FALLBACK_DATA = [
-  {
-    id: "nexus-engine",
-    title: "NexusEngine: Distributed Event Ingestion",
-    category: "backend",
-    badgeLabel: "Distributed Event Ingestion",
-    description: "High-throughput asynchronous telemetry ingestion pipeline capable of sustaining 14,000+ events/sec with sub-20ms p99 query latency. Features PgBouncer connection pooling, Redis distributed lock invalidation, and Docker Compose orchestration.",
-    skills: ["Python 3.12", "FastAPI", "PostgreSQL", "Redis", "Docker"],
-    githubUrl: "https://github.com/aruldavid/nexus-engine",
-    liveUrl: "https://nexus-demo.aruldavid.dev",
-    imageUrl: "",
-    stars: 342,
-    forks: 58,
-    branch: "main",
-    featured: true,
-    is_visible: true,
-    metrics: {
-      tps: "14.2k ops/s",
-      latency: "18.4 ms",
-      uptime: "99.98%"
-    }
-  },
-  {
-    id: "clean-dotnet",
-    title: "CleanArchitecture.NET 8",
-    category: "backend",
-    badgeLabel: "Microservices Template",
-    description: "Enterprise boilerplate featuring CQRS pattern via MediatR, FluentValidation, Entity Framework Core with SQL Server, JWT authentication, and Swagger OpenAPI generation.",
-    skills: ["C# .NET 8", "EF Core", "SQL Server", "Docker"],
-    githubUrl: "https://github.com/aruldavid/clean-architecture-dotnet",
-    liveUrl: "https://github.com/aruldavid/clean-architecture-dotnet",
-    imageUrl: "",
-    stars: 184,
-    forks: 32,
-    branch: "main",
-    featured: false,
-    is_visible: true,
-    metrics: {}
-  },
-  {
-    id: "trustproof-ai",
-    title: "TrustProof AI Scholar",
-    category: "ai-dsa",
-    badgeLabel: "Hackathon Winner (1st Place)",
-    description: "Autonomous verification agent cross-referencing preprint claims with computational code reproducibility and citation graph integrity. Built with Python and FastAPI.",
-    skills: ["Python", "FastAPI", "Tailwind CSS", "Zero-Knowledge"],
-    githubUrl: "https://github.com/aruldavid/trustproof-ai",
-    liveUrl: "https://trustproof-demo.aruldavid.dev",
-    imageUrl: "",
-    stars: 129,
-    forks: 21,
-    branch: "main",
-    featured: false,
-    is_visible: true,
-    metrics: {}
-  },
-  {
-    id: "cloudpulse",
-    title: "CloudPulse Dashboard",
-    category: "fullstack",
-    badgeLabel: "Full-Stack • Real-Time UI",
-    description: "Clean responsive real-time monitoring dashboard with WebSockets live telemetry streaming and interactive charts styled with Tailwind CSS.",
-    skills: ["Tailwind CSS", "Vanilla JS", "WebSockets", "Chart.js"],
-    githubUrl: "https://github.com/aruldavid/cloudpulse-dashboard",
-    liveUrl: "https://cloudpulse.aruldavid.dev",
-    imageUrl: "",
-    stars: 96,
-    forks: 14,
-    branch: "main",
-    featured: false,
-    is_visible: true,
-    metrics: {}
-  },
-  {
-    id: "smart-dispatch",
-    title: "SmartDispatch GIS Router",
-    category: "ai-dsa",
-    badgeLabel: "Algorithmic Optimization",
-    description: "Dynamic shortest-path calculation engine for emergency services under real-time traffic road network graphs using Dijkstra and A* heuristics in C++ & Python.",
-    skills: ["C++20", "Graph DSA", "PostGIS", "FastAPI"],
-    githubUrl: "https://github.com/aruldavid/smart-dispatch-gis",
-    liveUrl: "https://github.com/aruldavid/smart-dispatch-gis",
-    imageUrl: "",
-    stars: 112,
-    forks: 19,
-    branch: "main",
-    featured: false,
-    is_visible: true,
-    metrics: {}
-  },
-  {
-    id: "algo-codex",
-    title: "The Algorithmic Codex: LeetCode & HackerRank",
-    category: "ai-dsa",
-    badgeLabel: "Competitive Programming",
-    description: "Open-source repository containing rigorously documented algorithmic solutions across Dynamic Programming, Graph Theory, Segment Trees, Bit Manipulation, and Concurrency in Python, C++, and Java with mathematical complexity proofs.",
-    skills: ["Dynamic Programming", "Graphs", "Trees", "Bitmask", "C++"],
-    githubUrl: "https://github.com/aruldavid/algorithmic-codex",
-    liveUrl: "https://github.com/aruldavid/algorithmic-codex",
-    imageUrl: "",
-    stars: 420,
-    forks: 85,
-    branch: "main",
-    featured: true,
-    is_visible: true,
-    metrics: {}
-  }
-];
-
 let activeProjectCategory = 'all';
 let allProjects = [];
 
 async function getProjectsData() {
+  if (window.supabaseClient) {
+    try {
+      const { data, error } = await window.supabaseClient.from('projects').select('*').eq('is_visible', true);
+      if (!error && Array.isArray(data)) return data;
+    } catch (e) {
+      console.warn("Direct Supabase projects fetch error:", e);
+    }
+  }
+
   if (window.PortfolioStore && typeof window.PortfolioStore.getProjects === 'function') {
     try {
       const data = await window.PortfolioStore.getProjects(true); // only visible
@@ -129,17 +28,7 @@ async function getProjectsData() {
     }
   }
 
-  // Fallback to direct Supabase
-  if (window.supabaseClient) {
-    try {
-      const { data, error } = await window.supabaseClient.from('projects').select('*').eq('is_visible', true);
-      if (!error && data && data.length > 0) return data;
-    } catch (e) {
-      console.warn("Direct Supabase projects fetch error:", e);
-    }
-  }
-
-  return PROJECTS_FALLBACK_DATA;
+  return [];
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

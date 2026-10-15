@@ -210,19 +210,19 @@
           <!-- Quick Stats Counter Strip -->
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
-              <span class="text-2xl font-black text-blue-700 font-mono block">4</span>
+              <span id="stat-count-certs" class="text-2xl font-black text-blue-700 font-mono block">0</span>
               <span class="text-[11px] text-slate-500 font-medium">Cloud Certs</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
-              <span class="text-2xl font-black text-purple-700 font-mono block">2</span>
+              <span id="stat-count-hackathons" class="text-2xl font-black text-purple-700 font-mono block">0</span>
               <span class="text-[11px] text-slate-500 font-medium">Hackathons</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
-              <span class="text-2xl font-black text-amber-700 font-mono block">2</span>
+              <span id="stat-count-contests" class="text-2xl font-black text-amber-700 font-mono block">0</span>
               <span class="text-[11px] text-slate-500 font-medium">Contests</span>
             </div>
             <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-center">
-              <span class="text-2xl font-black text-emerald-700 font-mono block">1</span>
+              <span id="stat-count-honors" class="text-2xl font-black text-emerald-700 font-mono block">0</span>
               <span class="text-[11px] text-slate-500 font-medium">Dean's Honor</span>
             </div>
           </div>
@@ -279,20 +279,26 @@
         </div>
       </div>
 
-      <!-- SUPABASE BACKEND READINESS NOTICE -->
-      <div class="dashboard-panel p-4 bg-blue-50/50 border border-blue-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+      <!-- SUPABASE BACKEND LIVE CONNECTION STATUS -->
+      <div class="dashboard-panel p-4 bg-emerald-50/50 border border-emerald-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
         <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center flex-shrink-0">
-            <i class="fa-solid fa-database text-xs"></i>
+          <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-cloud-check text-xs"></i>
           </div>
           <div>
-            <span class="font-bold text-slate-900 block">Supabase Modular Architecture</span>
-            <span class="text-slate-600">Rendering is isolated in <code class="text-blue-700 font-mono font-semibold">js/achievements.js</code>. Easily plug in a live Supabase client with zero markup changes.</span>
+            <span class="font-bold text-slate-900 block flex items-center gap-2">
+              Supabase Cloud Database Connected
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live
+              </span>
+            </span>
+            <span class="text-slate-600">Dynamic credentials fetched in real time from table <code class="text-emerald-700 font-mono font-semibold">achievements</code> (bucket: <code class="text-emerald-700 font-mono font-semibold">portfolio-assets</code>).</span>
           </div>
         </div>
-        <span class="badge-blue px-2.5 py-1 rounded-lg font-mono text-[10px] font-semibold whitespace-nowrap">
-          API Ready
-        </span>
+        <a href="admin.html" class="px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-slate-700 hover:text-blue-600 hover:border-blue-300 font-semibold text-[11px] shadow-2xs transition-colors flex items-center gap-1.5 whitespace-nowrap">
+          <i class="fa-solid fa-gear text-slate-400"></i>
+          <span>Manage Credentials</span>
+        </a>
       </div>
 
     </main>

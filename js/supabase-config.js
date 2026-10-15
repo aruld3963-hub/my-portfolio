@@ -1,102 +1,121 @@
 /**
  * ============================================================================
  * SUPABASE CONFIGURATION (js/supabase-config.js)
- * Cloud Database & Storage Connector with Dual-Mode Local/Offline Fallback
+ * Official Supabase Client Integration & Storage Asset Management
  * ============================================================================
  */
 
-// Replace these placeholders with your actual Supabase project credentials
-// Or configure them in the Admin Settings panel inside admin.html
-const SUPABASE_CONFIG = {
-  // e.g. "https://xyzcompany.supabase.co"
-  url: window.localStorage.getItem('supabase_custom_url') || "https://your-supabase-project.supabase.co",
-  // e.g. "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-  anonKey: window.localStorage.getItem('supabase_custom_key') || "your-supabase-anon-key",
-  // Cloud Storage bucket name for images & certificate uploads
-  bucketName: "portfolio-assets"
-};
+// Provided Supabase Project Credentials
+const SUPABASE_RAW_URL = "https://poilrmokmvxkgmrvxzym.supabase.co/rest/v1/";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvaWxybW9rbXZ4a2dtcnZ4enltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNTc1ODEsImV4cCI6MjEwNzYzMzU4MX0.TbxesTYatB3KEqnqa-rQBHdVVrU_XRJ5fpY6evOE0N0";
 
-// Global Supabase client instance
-window.supabaseClient = null;
+// Normalize to root project URL for SDK compatibility (removes trailing /rest/v1/)
+const SUPABASE_URL = SUPABASE_RAW_URL.replace(/\/rest\/v1\/?$/, '').replace(/\/+$/, '');
+const SUPABASE_BUCKET = "portfolio-assets";
+
+// Global client reference
+let supabaseClient = null;
 
 /**
- * Initializes the Supabase client if valid credentials and the SDK are present
+ * Initializes the Supabase client using createClient from the loaded Supabase JS SDK
  */
-function initSupabaseClient() {
-  const isDefaultOrPlaceholder = 
-    !SUPABASE_CONFIG.url || 
-    SUPABASE_CONFIG.url.includes("your-supabase-project") || 
-    !SUPABASE_CONFIG.anonKey || 
-    SUPABASE_CONFIG.anonKey.includes("your-supabase-anon-key");
-
-  if (!isDefaultOrPlaceholder && window.supabase && typeof window.supabase.createClient === 'function') {
-    try {
-      window.supabaseClient = window.supabase.createClient(SUPABASE_CONFIG.url, SUPABASE_CONFIG.anonKey);
-      console.log("⚡ Supabase Client initialized successfully.");
-    } catch (err) {
-      console.warn("⚠️ Failed to initialize Supabase client, running in local storage fallback mode:", err);
-      window.supabaseClient = null;
+function initSupabase() {
+  try {
+    if (typeof window !== 'undefined' && window.supabase && typeof window.supabase.createClient === 'function') {
+      supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true
+        }
+      });
+      window.supabaseClient = supabaseClient;
+      console.log("⚡ Supabase Client initialized successfully:", SUPABASE_URL);
+    } else {
+      console.warn("⚠️ Supabase JS SDK not loaded yet. Make sure https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2 is included.");
     }
-  } else {
-    // Graceful fallback to LocalStorage engine
-    window.supabaseClient = null;
+  } catch (err) {
+    console.error("❌ Failed to initialize Supabase client:", err);
   }
+  return supabaseClient;
 }
 
-// Auto initialize when loaded
+// Auto-initialize immediately
 if (typeof window !== 'undefined') {
-  initSupabaseClient();
+  initSupabase();
 }
 
 /**
- * Helper to upload an image file to Supabase Storage bucket 'portfolio-assets'
- * Falls back to local Base64 Data URL if Supabase is not configured
+ * Upload an image file directly to the Supabase 'portfolio-assets' storage bucket.
+ * Retrieves and returns the public CDN URL.
+ * 
  * @param {File} file - Browser File object from <input type="file">
- * @param {string} folder - Destination subfolder, e.g. 'certificates' or 'projects'
+ * @param {string} folder - Subfolder inside the bucket (default: 'certificates')
  * @returns {Promise<string>} Public URL of the uploaded image
  */
-async function uploadImageToSupabase(file, folder = 'uploads') {
-  if (!file) return null;
+async function uploadImageToSupabase(file, folder = 'certificates') {
+  if (!file) return '';
 
-  // 1. Try Supabase Cloud Storage if client is active
-  if (window.supabaseClient) {
+  if (!supabaseClient) {
+    initSupabase();
+  }
+
+  if (supabaseClient) {
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+      const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const filePath = `${folder}/${Date.now()}-${Math.random().toString(36).substring(2, 8)}_${cleanName}`;
 
-      const { data, error } = await window.supabaseClient.storage
-        .from(SUPABASE_CONFIG.bucketName)
-        .upload(fileName, file, {
+      console.log(`Uploading ${file.name} to ${SUPABASE_BUCKET}/${filePath}...`);
+      
+      const { data, error } = await supabaseClient.storage
+        .from(SUPABASE_BUCKET)
+        .upload(filePath, file, {
           cacheControl: '3600',
           upsert: false
         });
 
       if (error) {
-        console.warn("Supabase Storage upload error, falling back to local storage:", error);
-      } else {
-        const { data: publicUrlData } = window.supabaseClient.storage
-          .from(SUPABASE_CONFIG.bucketName)
-          .getPublicUrl(fileName);
-
-        if (publicUrlData && publicUrlData.publicUrl) {
-          return publicUrlData.publicUrl;
-        }
+        console.error("Supabase Storage upload error:", error);
+        throw error;
       }
-    } catch (e) {
-      console.warn("Cloud upload exception, falling back to local encoding:", e);
+
+      const { data: urlData } = supabaseClient.storage
+        .from(SUPABASE_BUCKET)
+        .getPublicUrl(filePath);
+
+      if (urlData && urlData.publicUrl) {
+        console.log("Uploaded successfully. Public URL:", urlData.publicUrl);
+        return urlData.publicUrl;
+      }
+    } catch (storageError) {
+      console.warn("Cloud storage upload encountered an issue:", storageError.message || storageError);
+      // Fallback: If bucket does not exist or has restrictive RLS, use Base64 data URL
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => resolve('');
+        reader.readAsDataURL(file);
+      });
     }
   }
 
-  // 2. Resilient Fallback: Convert File to Base64 Data URL for instant local display & localStorage persistence
-  return new Promise((resolve, reject) => {
+  // Local fallback if Supabase client is offline
+  return new Promise((resolve) => {
     const reader = new FileReader();
     reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
+    reader.onerror = () => resolve('');
     reader.readAsDataURL(file);
   });
 }
 
-window.uploadImageToSupabase = uploadImageToSupabase;
-window.SUPABASE_CONFIG = SUPABASE_CONFIG;
-window.initSupabaseClient = initSupabaseClient;
-
+// Global exports
+if (typeof window !== 'undefined') {
+  window.SUPABASE_CONFIG = {
+    url: SUPABASE_URL,
+    rawUrl: SUPABASE_RAW_URL,
+    anonKey: SUPABASE_ANON_KEY,
+    bucketName: SUPABASE_BUCKET
+  };
+  window.supabaseClient = supabaseClient;
+  window.uploadImageToSupabase = uploadImageToSupabase;
+  window.initSupabase = initSupabase;
+}

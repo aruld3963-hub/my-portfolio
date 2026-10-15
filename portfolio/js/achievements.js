@@ -1,190 +1,51 @@
 /**
  * ============================================================================
  * ACHIEVEMENTS MODULE (js/achievements.js)
- * Clean Light SaaS Theme: Dynamic data rendering, Supabase cloud image integration,
- * category filters, search, and credential verification modal.
+ * Clean Light SaaS Theme: Live Supabase Data Fetching, Cloud Image Display,
+ * Category Filtering, Real-Time Search, and Credential Verification Modal.
+ * Zero hardcoded mock cards.
  * ============================================================================
  */
 
-// Local fallback dataset if store is not available
-const ACHIEVEMENTS_FALLBACK_DATA = [
-  {
-    id: "aws-saa",
-    title: "AWS Certified Solutions Architect – Associate",
-    issuer: "Amazon Web Services",
-    issuerLogo: "fa-brands fa-aws",
-    issuerColor: "text-amber-700 bg-amber-50 border-amber-200",
-    category: "certifications",
-    date: "Dec 2024",
-    expires: "Dec 2027",
-    verificationId: "AWS-SAA-84920194",
-    credentialUrl: "https://aws.amazon.com/verification",
-    imageUrl: "",
-    skills: ["Cloud Architecture", "VPC & Networking", "S3 & DynamoDB", "High Availability", "IAM Security"],
-    description: "Validated comprehensive expertise in designing resilient, high-performing, secure, and cost-optimized distributed systems on AWS.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "gcp-cdl",
-    title: "Google Cloud Certified: Associate Cloud Engineer",
-    issuer: "Google Cloud",
-    issuerLogo: "fa-brands fa-google",
-    issuerColor: "text-blue-700 bg-blue-50 border-blue-200",
-    category: "certifications",
-    date: "Oct 2024",
-    expires: "Oct 2027",
-    verificationId: "GCP-ACE-99482012",
-    credentialUrl: "https://google.accredible.com",
-    imageUrl: "",
-    skills: ["Google Kubernetes Engine", "BigQuery", "Compute Engine", "Cloud IAM", "Cloud Storage"],
-    description: "Demonstrated proficiency in deploying applications, monitoring operations, and managing enterprise cloud infrastructure on GCP.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "hack-sih",
-    title: "Smart India Hackathon 2024 – National Finalist & 1st Runner Up",
-    issuer: "Ministry of Education & AICTE",
-    issuerLogo: "fa-solid fa-trophy",
-    issuerColor: "text-purple-700 bg-purple-50 border-purple-200",
-    category: "hackathons",
-    date: "Aug 2024",
-    expires: "Lifetime Honor",
-    verificationId: "SIH-2024-FN-4028",
-    credentialUrl: "https://www.sih.gov.in",
-    imageUrl: "",
-    skills: ["Distributed Systems", "FastAPI", "React", "PostgreSQL", "Real-time Telemetry"],
-    description: "Engineered an AI-driven disaster response dispatch coordination system in a 36-hour non-stop national collegiate hackathon competing against 1,200+ teams.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "ms-az900",
-    title: "Microsoft Certified: Azure Fundamentals (AZ-900)",
-    issuer: "Microsoft",
-    issuerLogo: "fa-brands fa-microsoft",
-    issuerColor: "text-blue-700 bg-blue-50 border-blue-200",
-    category: "certifications",
-    date: "Jun 2024",
-    expires: "Lifetime",
-    verificationId: "MS-AZ900-7719402",
-    credentialUrl: "https://learn.microsoft.com/en-us/users/credentials",
-    imageUrl: "",
-    skills: ["Azure Cloud", "Virtual Machines", "Azure SQL", "Compliance & Governance"],
-    description: "Mastered cloud concepts, Azure architecture components, core Azure services, management tools, and enterprise security frameworks.",
-    featured: false,
-    is_visible: true
-  },
-  {
-    id: "meta-frontend",
-    title: "Meta Front-End Developer Professional Certificate",
-    issuer: "Meta / Coursera",
-    issuerLogo: "fa-brands fa-meta",
-    issuerColor: "text-indigo-700 bg-indigo-50 border-indigo-200",
-    category: "certifications",
-    date: "Apr 2024",
-    expires: "Lifetime",
-    verificationId: "META-FED-5501839",
-    credentialUrl: "https://coursera.org/verify/professional-cert/meta-frontend",
-    imageUrl: "",
-    skills: ["React.js", "JavaScript ES6+", "UI/UX Systems", "Tailwind CSS", "Jest Unit Testing"],
-    description: "Comprehensive 9-course specialization covering modern frontend engineering, component design patterns, accessibility, and client-side performance.",
-    featured: false,
-    is_visible: true
-  },
-  {
-    id: "hack-eth",
-    title: "Global Web3 & AI Hackathon – 1st Place Winner",
-    issuer: "Devfolio & Superteam",
-    issuerLogo: "fa-solid fa-medal",
-    issuerColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    category: "hackathons",
-    date: "Feb 2025",
-    expires: "Lifetime Honor",
-    verificationId: "DEV-AIW3-0091",
-    credentialUrl: "https://devfolio.co",
-    imageUrl: "",
-    skills: ["Smart Contracts", "Python Agents", "Tailwind CSS", "IPFS", "Zero Knowledge Proofs"],
-    description: "Built 'TrustProof AI', an autonomous agent verifying provenance and code reproducibility for academic preprints, awarded Best Technical Execution.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "comp-icpc",
-    title: "ACM ICPC Regional Contest – Top 15 Finalist",
-    issuer: "International Collegiate Programming Contest",
-    issuerLogo: "fa-solid fa-code-fork",
-    issuerColor: "text-amber-700 bg-amber-50 border-amber-200",
-    category: "competitions",
-    date: "Nov 2024",
-    expires: "Lifetime Honor",
-    verificationId: "ICPC-REG-2024-819",
-    credentialUrl: "https://icpc.global",
-    imageUrl: "",
-    skills: ["Advanced Algorithms", "Dynamic Programming", "Graph Theory", "C++20", "Problem Solving"],
-    description: "Qualified through preliminary rounds to compete in the on-site regional finals, solving complex algorithmic challenges under strict time constraints.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "hr-5star",
-    title: "HackerRank 5-Star Problem Solving & Gold Badges",
-    issuer: "HackerRank",
-    issuerLogo: "fa-brands fa-hackerrank",
-    issuerColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    category: "competitions",
-    date: "Sep 2024",
-    expires: "Verified",
-    verificationId: "HR-GOLD-ALGO-289",
-    credentialUrl: "https://www.hackerrank.com",
-    imageUrl: "",
-    skills: ["Data Structures", "Algorithms", "Python 3", "SQL Queries", "Time Complexity Optimization"],
-    description: "Earned 5-Star Gold Badges in both Algorithms and Problem Solving with 100% test case pass rates across arrays, trees, and dynamic programming.",
-    featured: false,
-    is_visible: true
-  },
-  {
-    id: "honor-dean",
-    title: "Dean's Academic Excellence Award (Rank 1 / 180)",
-    issuer: "Faculty of Engineering & Technology",
-    issuerLogo: "fa-solid fa-graduation-cap",
-    issuerColor: "text-blue-700 bg-blue-50 border-blue-200",
-    category: "honors",
-    date: "Jul 2024",
-    expires: "Annual Honor",
-    verificationId: "ACAD-HONOR-2024-001",
-    credentialUrl: "#",
-    imageUrl: "",
-    skills: ["Computer Science", "Database Engineering", "Operating Systems", "Discrete Mathematics"],
-    description: "Recognized for maintaining consecutive 9.6/10.0 CGPA and exemplary performance in undergraduate computer science coursework and laboratory projects.",
-    featured: false,
-    is_visible: true
-  }
-];
-
-// Fetch visible achievements from Centralized Data Store (Supabase + localStorage)
+// Fetch visible achievements directly from Supabase 'achievements' table where is_visible == true
 async function getAchievementsData() {
-  if (window.PortfolioStore && typeof window.PortfolioStore.getAchievements === 'function') {
-    try {
-      const data = await window.PortfolioStore.getAchievements(true); // only visible items
-      if (Array.isArray(data)) return data;
-    } catch (e) {
-      console.warn("PortfolioStore achievements fetch error, falling back:", e);
-    }
-  }
-
-  // Fallback to Supabase directly if available
   if (window.supabaseClient) {
     try {
-      const { data, error } = await window.supabaseClient.from('achievements').select('*').eq('is_visible', true);
-      if (!error && data && data.length > 0) return data;
-    } catch (e) {
-      console.warn("Direct Supabase fetch error:", e);
+      const { data, error } = await window.supabaseClient
+        .from('achievements')
+        .select('*')
+        .eq('is_visible', true);
+
+      if (!error && Array.isArray(data)) {
+        console.log(`⚡ Fetched ${data.length} live achievements from Supabase`);
+        return data.map(item => ({
+          ...item,
+          id: item.id || `ach-${Math.random().toString(36).substring(2, 7)}`,
+          credential_link: item.credential_link || item.credentialUrl || '',
+          credentialUrl: item.credential_link || item.credentialUrl || '',
+          image_url: item.image_url || item.imageUrl || '',
+          imageUrl: item.image_url || item.imageUrl || '',
+          verificationId: item.verificationId || (item.id ? `CRED-${item.id}` : 'VERIFIED')
+        }));
+      } else if (error) {
+        console.warn("Supabase live achievements query error:", error.message || error);
+      }
+    } catch (err) {
+      console.warn("Supabase fetch exception, trying local store cache:", err);
     }
   }
 
-  return ACHIEVEMENTS_FALLBACK_DATA;
+  // Fallback to PortfolioStore cache if Supabase query is unavailable
+  if (window.PortfolioStore && typeof window.PortfolioStore.getAchievements === 'function') {
+    try {
+      const cached = await window.PortfolioStore.getAchievements(true);
+      if (Array.isArray(cached)) return cached;
+    } catch (e) {
+      console.warn("PortfolioStore cache error:", e);
+    }
+  }
+
+  return [];
 }
 
 // Runtime State
@@ -210,12 +71,24 @@ function updateCategoryCounts() {
     honors: allAchievements.filter(a => a.category === 'honors').length
   };
 
+  // Update category tab count pills
   for (const [cat, count] of Object.entries(counts)) {
     const badge = document.querySelector(`[data-count-cat="${cat}"]`);
     if (badge) badge.textContent = count;
   }
 
-  // Also update sidebar achievements badge if present
+  // Update top quick stat cards
+  const statCerts = document.getElementById('stat-count-certs');
+  const statHacks = document.getElementById('stat-count-hackathons');
+  const statContests = document.getElementById('stat-count-contests');
+  const statHonors = document.getElementById('stat-count-honors');
+
+  if (statCerts) statCerts.textContent = counts.certifications;
+  if (statHacks) statHacks.textContent = counts.hackathons;
+  if (statContests) statContests.textContent = counts.competitions;
+  if (statHonors) statHonors.textContent = counts.honors;
+
+  // Update sidebar count badge
   const sidebarCountBadge = document.querySelector('nav a[href="achievements.html"] span:last-child');
   if (sidebarCountBadge) {
     sidebarCountBadge.textContent = allAchievements.length;
@@ -255,7 +128,7 @@ function renderAchievements() {
   const counterEl = document.getElementById('achievements-counter');
   if (!container) return;
 
-  // Handle completely empty database (e.g. purged sample data)
+  // Zero achievements empty state
   if (allAchievements.length === 0) {
     if (counterEl) counterEl.textContent = '0 credentials published';
     container.innerHTML = `
@@ -263,18 +136,15 @@ function renderAchievements() {
         <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-2xl shadow-sm">
           <i class="fa-solid fa-cloud-arrow-up"></i>
         </div>
-        <h4 class="text-lg font-bold text-slate-900">No Credentials Published Yet</h4>
+        <h4 class="text-lg font-bold text-slate-900">No Achievements Published Yet</h4>
         <p class="text-xs text-slate-500 mt-2 max-w-md mx-auto leading-relaxed">
-          The database has been cleared. Log in to the Admin Control Portal to upload your real certificates and sync them to Supabase cloud storage.
+          Connected to your live Supabase database (<code class="text-blue-700 font-mono">achievements</code> table). Use the Admin Control Portal to upload your certificates and images.
         </p>
         <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
           <a href="admin-login.html" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors shadow-sm flex items-center gap-2">
             <i class="fa-solid fa-lock"></i>
-            <span>Access Admin Portal</span>
+            <span>Open Admin Portal</span>
           </a>
-          <button onclick="restoreDefaultsAndReload()" class="px-4 py-2.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
-            <i class="fa-solid fa-rotate-left mr-1"></i> Restore Sample Demo
-          </button>
         </div>
       </div>
     `;
@@ -284,7 +154,6 @@ function renderAchievements() {
   const filtered = allAchievements.filter(item => {
     const matchesCategory = (activeCategory === 'all' || item.category === activeCategory);
     
-    // Normalize skills to string array
     const skillsList = Array.isArray(item.skills) 
       ? item.skills 
       : (typeof item.skills === 'string' ? item.skills.split(',') : []);
@@ -293,7 +162,7 @@ function renderAchievements() {
       (item.title && item.title.toLowerCase().includes(currentSearchQuery)) ||
       (item.issuer && item.issuer.toLowerCase().includes(currentSearchQuery)) ||
       skillsList.some(s => s.toLowerCase().includes(currentSearchQuery)) ||
-      (item.description && item.description.toLowerCase().includes(currentSearchQuery));
+      (item.category && item.category.toLowerCase().includes(currentSearchQuery));
 
     return matchesCategory && matchesSearch;
   });
@@ -309,7 +178,7 @@ function renderAchievements() {
           <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <h4 class="text-base font-bold text-slate-800">No credentials found</h4>
-        <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">No matching achievements in "${activeCategory}" with the current search query.</p>
+        <p class="text-xs text-slate-500 mt-1 max-w-md mx-auto">No matching items in "${activeCategory}" with the search query "${currentSearchQuery}".</p>
         <button onclick="resetAchievementFilters()" class="mt-4 px-4 py-2 rounded-xl text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition-colors">
           Reset Filters
         </button>
@@ -331,85 +200,105 @@ window.resetAchievementFilters = function() {
   if (allTabBtn) allTabBtn.click();
 };
 
-window.restoreDefaultsAndReload = function() {
-  if (window.PortfolioStore) {
-    window.PortfolioStore.resetAchievementsToDefault();
-    window.location.reload();
-  }
-};
-
 function createAchievementCardHTML(item) {
   const categoryPills = {
     certifications: '<span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Certification</span>',
     hackathons: '<span class="badge-purple px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Hackathon</span>',
     competitions: '<span class="badge-amber px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Competition</span>',
-    honors: '<span class="badge-emerald px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Honors &amp; Awards</span>'
+    honors: '<span class="badge-emerald px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Academic Honor</span>'
   };
 
-  const skillsList = Array.isArray(item.skills) 
-    ? item.skills 
-    : (typeof item.skills === 'string' ? item.skills.split(',').map(s => s.trim()).filter(Boolean) : []);
+  const categoryIcons = {
+    certifications: 'fa-solid fa-certificate',
+    hackathons: 'fa-solid fa-trophy',
+    competitions: 'fa-solid fa-medal',
+    honors: 'fa-solid fa-graduation-cap'
+  };
 
-  const issuerColor = item.issuerColor || 'text-blue-700 bg-blue-50 border-blue-200';
-  const issuerLogo = item.issuerLogo || 'fa-solid fa-award';
+  const imgUrl = item.image_url || item.imageUrl || '';
+  const credLink = item.credential_link || item.credentialUrl || '#';
+  const categoryIcon = categoryIcons[item.category] || 'fa-solid fa-award';
+  const badgeHtml = categoryPills[item.category] || '<span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Verified</span>';
+
+  // Construct tags
+  let tags = [];
+  if (Array.isArray(item.skills) && item.skills.length > 0) {
+    tags = item.skills;
+  } else if (typeof item.skills === 'string' && item.skills.trim()) {
+    tags = item.skills.split(',').map(s => s.trim()).filter(Boolean);
+  } else {
+    // Generate graceful tags from issuer & category
+    tags = [item.issuer, item.category ? item.category.toUpperCase() : 'VERIFIED'];
+  }
 
   return `
     <div class="dashboard-card p-6 flex flex-col justify-between relative overflow-hidden group">
-      ${item.featured ? `
-        <div class="absolute top-0 right-0 bg-blue-600 text-[10px] uppercase font-bold tracking-wider text-white px-3 py-1 rounded-bl-xl shadow-sm">
-          <i class="fa-solid fa-star mr-1"></i> Featured
-        </div>
-      ` : ''}
-
       <div>
-        <div class="flex items-start justify-between gap-4 mb-4 ${item.featured ? 'pr-20' : ''}">
-          <div class="flex items-center gap-3">
-            ${item.imageUrl ? `
-              <div class="w-12 h-12 rounded-xl overflow-hidden border border-slate-200 shadow-2xs flex-shrink-0 bg-slate-50 flex items-center justify-center">
-                <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.outerHTML='<div class=\\'w-12 h-12 rounded-xl flex items-center justify-center text-xl border ${issuerColor}\\'><i class=\\'${issuerLogo}\\'></i></div>'">
-              </div>
-            ` : `
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl border ${issuerColor} flex-shrink-0">
-                <i class="${issuerLogo}"></i>
-              </div>
-            `}
-            <div>
-              <span class="text-xs font-semibold text-slate-700 block">${item.issuer || 'Official Credential'}</span>
-              <span class="text-[11px] text-slate-500 font-mono">${item.date || ''}</span>
+        <!-- Cloud Storage Image Preview Banner -->
+        ${imgUrl ? `
+          <div class="h-44 w-full overflow-hidden rounded-xl bg-slate-100 border border-slate-200 mb-4 flex items-center justify-center relative cursor-pointer" onclick="openCredentialModal('${item.id}')">
+            <img src="${imgUrl}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.outerHTML='<div class=\\'flex items-center justify-center h-full text-slate-400 text-3xl\\'><i class=\\'${categoryIcon}\\'></i></div>'">
+            <div class="absolute top-2.5 right-2.5">
+              ${badgeHtml}
             </div>
           </div>
-          ${categoryPills[item.category] || '<span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-semibold tracking-wider uppercase">Credential</span>'}
+        ` : ''}
+
+        <!-- Header Row (Issuer & Date) -->
+        <div class="flex items-start justify-between gap-3 mb-3">
+          <div class="flex items-center gap-2.5">
+            ${!imgUrl ? `
+              <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center text-lg flex-shrink-0">
+                <i class="${categoryIcon}"></i>
+              </div>
+            ` : ''}
+            <div>
+              <span class="text-xs font-bold text-slate-800 block">${item.issuer || 'Official Organization'}</span>
+              <span class="text-[11px] text-slate-500 font-mono">${item.date || 'Verified'}</span>
+            </div>
+          </div>
+          ${!imgUrl ? badgeHtml : ''}
         </div>
 
+        <!-- Title -->
         <h3 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug">
           ${item.title}
         </h3>
-        <p class="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-3">
-          ${item.description || 'Verified credential demonstrating engineering competencies, cloud architecture, and problem solving.'}
-        </p>
 
+        <!-- Description (if provided) -->
+        ${item.description ? `
+          <p class="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-2">
+            ${item.description}
+          </p>
+        ` : ''}
+
+        <!-- Tags / Badges -->
         <div class="flex flex-wrap gap-1.5 mb-5">
-          ${skillsList.map(s => `
-            <span class="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-700 text-[10px] font-medium">
-              ${s}
+          ${tags.slice(0, 4).map(t => `
+            <span class="px-2 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-slate-700 text-[10px] font-medium font-mono">
+              ${t}
             </span>
           `).join('')}
         </div>
       </div>
 
+      <!-- Action Strip -->
       <div class="pt-4 border-t border-slate-100 flex items-center justify-between gap-2 text-xs">
-        <div class="font-mono text-[11px] text-slate-500 truncate max-w-[140px] sm:max-w-[160px]" title="Credential ID: ${item.verificationId || 'Verified'}">
-          <i class="fa-solid fa-fingerprint text-blue-600 mr-1"></i> ${item.verificationId || 'VERIFIED'}
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="openCredentialModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold border border-slate-200 transition-colors">
-            Details
-          </button>
-          <a href="${item.credentialUrl || '#'}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm">
-            <span>Verify</span>
+        <button onclick="openCredentialModal('${item.id}')" class="px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 font-semibold border border-slate-200 transition-colors flex items-center gap-1.5">
+          <i class="fa-regular fa-eye text-[11px]"></i>
+          <span>Details</span>
+        </button>
+
+        ${credLink && credLink !== '#' ? `
+          <a href="${credLink}" target="_blank" rel="noopener noreferrer" class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm">
+            <span>Verify Credential</span>
             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
           </a>
-        </div>
+        ` : `
+          <span class="text-slate-400 font-mono text-[11px] flex items-center gap-1">
+            <i class="fa-solid fa-check text-emerald-500"></i> Active
+          </span>
+        `}
       </div>
     </div>
   `;
@@ -443,7 +332,7 @@ function initCredentialModal() {
 }
 
 window.openCredentialModal = function(id) {
-  const item = allAchievements.find(a => a.id === id);
+  const item = allAchievements.find(a => a.id == id);
   if (!item) return;
 
   const modal = document.getElementById('credential-modal');
@@ -451,29 +340,15 @@ window.openCredentialModal = function(id) {
 
   const modalContent = document.getElementById('cred-modal-body');
   if (modalContent) {
-    const issuerColor = item.issuerColor || 'text-blue-700 bg-blue-50 border-blue-200';
-    const issuerLogo = item.issuerLogo || 'fa-solid fa-award';
-    const skillsList = Array.isArray(item.skills) 
-      ? item.skills 
-      : (typeof item.skills === 'string' ? item.skills.split(',').map(s => s.trim()).filter(Boolean) : []);
+    const imgUrl = item.image_url || item.imageUrl || '';
+    const credLink = item.credential_link || item.credentialUrl || '#';
 
     modalContent.innerHTML = `
-      <div class="flex items-start justify-between gap-4 mb-5">
-        <div class="flex items-center gap-3.5">
-          ${item.imageUrl ? `
-            <div class="w-14 h-14 rounded-xl overflow-hidden border border-slate-200 shadow-2xs flex-shrink-0 bg-slate-50 flex items-center justify-center">
-              <img src="${item.imageUrl}" alt="${item.title}" class="w-full h-full object-cover">
-            </div>
-          ` : `
-            <div class="w-14 h-14 rounded-xl flex items-center justify-center text-2xl border ${issuerColor} flex-shrink-0">
-              <i class="${issuerLogo}"></i>
-            </div>
-          `}
-          <div>
-            <span class="text-[11px] font-semibold text-blue-600 uppercase tracking-wider">${item.category}</span>
-            <h3 class="text-lg font-bold text-slate-900 leading-snug">${item.title}</h3>
-            <span class="text-xs text-slate-500">${item.issuer} &bull; Issued: ${item.date || 'Active'}</span>
-          </div>
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <span class="text-[11px] font-bold text-blue-600 uppercase tracking-wider">${item.category || 'Credential'}</span>
+          <h3 class="text-lg font-bold text-slate-900 leading-snug mt-0.5">${item.title}</h3>
+          <span class="text-xs text-slate-500">${item.issuer} &bull; Issued: ${item.date || 'Active'}</span>
         </div>
         <button class="close-cred-modal text-slate-400 hover:text-slate-600 p-1">
           <i class="fa-solid fa-xmark text-base"></i>
@@ -481,52 +356,33 @@ window.openCredentialModal = function(id) {
       </div>
 
       <!-- Cloud Uploaded Certificate Preview -->
-      ${item.imageUrl ? `
+      ${imgUrl ? `
         <div class="mb-4">
-          <h4 class="text-[11px] uppercase font-bold text-slate-500 tracking-wider mb-2">Credential Certificate (Cloud Asset)</h4>
           <div class="rounded-xl overflow-hidden border border-slate-200 bg-slate-50 p-2 text-center">
-            <img src="${item.imageUrl}" alt="${item.title}" class="max-h-60 mx-auto rounded-lg object-contain shadow-sm">
+            <img src="${imgUrl}" alt="${item.title}" class="max-h-64 mx-auto rounded-lg object-contain shadow-sm">
           </div>
         </div>
       ` : ''}
 
-      <div class="space-y-4 text-xs text-slate-700">
-        <div>
-          <h4 class="text-[11px] uppercase font-bold text-slate-500 tracking-wider mb-1.5">Overview &amp; Scope</h4>
-          <p class="leading-relaxed bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-slate-700">
-            ${item.description || 'Official achievement credential.'}
-          </p>
-        </div>
-
-        ${skillsList.length > 0 ? `
-          <div>
-            <h4 class="text-[11px] uppercase font-bold text-slate-500 tracking-wider mb-2">Evaluated Competencies</h4>
-            <div class="flex flex-wrap gap-2">
-              ${skillsList.map(s => `
-                <span class="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 text-xs font-medium">
-                  <i class="fa-solid fa-check text-[10px] mr-1 text-blue-600"></i> ${s}
-                </span>
-              `).join('')}
-            </div>
+      <div class="space-y-3 text-xs text-slate-700">
+        ${item.description ? `
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+            <span class="text-[10px] text-slate-500 uppercase font-bold block mb-1">Overview</span>
+            <p class="leading-relaxed text-slate-700">${item.description}</p>
           </div>
         ` : ''}
 
-        <div class="grid grid-cols-2 gap-3 pt-1">
+        <div class="grid grid-cols-2 gap-3">
           <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-            <span class="text-[10px] text-slate-500 uppercase font-semibold block">Credential ID</span>
+            <span class="text-[10px] text-slate-500 uppercase font-semibold block">Credential ID / Ref</span>
             <div class="flex items-center justify-between mt-1">
-              <span class="font-mono text-xs font-semibold text-slate-800 select-all">${item.verificationId || 'VERIFIED'}</span>
-              ${item.verificationId ? `
-                <button onclick="navigator.clipboard.writeText('${item.verificationId}'); window.showToast('Credential ID copied!');" class="text-blue-600 hover:text-blue-800 text-xs p-1" title="Copy ID">
-                  <i class="fa-regular fa-copy"></i>
-                </button>
-              ` : ''}
+              <span class="font-mono text-xs font-semibold text-slate-800 select-all">${item.verificationId || (item.id ? `ID: ${item.id}` : 'VERIFIED')}</span>
             </div>
           </div>
           <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
-            <span class="text-[10px] text-slate-500 uppercase font-semibold block">Credential Status</span>
+            <span class="text-[10px] text-slate-500 uppercase font-semibold block">Database Status</span>
             <span class="font-semibold text-xs text-emerald-700 flex items-center gap-1.5 mt-1">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Active &amp; Verified
+              <span class="w-2 h-2 rounded-full bg-emerald-500 inline-block"></span> Live in Supabase
             </span>
           </div>
         </div>
@@ -536,10 +392,12 @@ window.openCredentialModal = function(id) {
         <button class="close-cred-modal px-4 py-2 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
           Close
         </button>
-        <a href="${item.credentialUrl || '#'}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center gap-2 shadow-sm">
-          <span>Official Registry Verification</span>
-          <i class="fa-solid fa-arrow-up-right-from-square"></i>
-        </a>
+        ${credLink && credLink !== '#' ? `
+          <a href="${credLink}" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 hover:bg-blue-700 text-white transition-colors flex items-center gap-2 shadow-sm">
+            <span>Official Credential Registry</span>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        ` : ''}
       </div>
     `;
 

@@ -338,68 +338,119 @@ const PortfolioStore = {
   // ==========================================
   // ACHIEVEMENTS CRUD
   // ==========================================
+  // ==========================================
+  // ACHIEVEMENTS CRUD (SUPABASE LIVE + CACHE)
+  // ==========================================
   async getAchievements(onlyVisible = true) {
-    // 1. Try Supabase cloud fetch first if available
+    // 1. Live Supabase fetch
     if (window.supabaseClient) {
       try {
-        let query = window.supabaseClient.from('achievements').select('*').order('created_at', { ascending: false });
+        let query = window.supabaseClient.from('achievements').select('*');
         if (onlyVisible) query = query.eq('is_visible', true);
         const { data, error } = await query;
-        if (!error && data && data.length > 0) {
-          // Sync into localStorage
-          localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(data));
-          return data;
+        if (!error && Array.isArray(data)) {
+          // Normalize fields for UI rendering
+          const normalized = data.map(item => ({
+            ...item,
+            credentialUrl: item.credential_link || item.credentialUrl || '#',
+            imageUrl: item.image_url || item.imageUrl || '',
+            verificationId: item.verificationId || (item.id ? `CRED-${item.id}` : 'VERIFIED')
+          }));
+          localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(normalized));
+          return normalized;
+        } else if (error) {
+          console.warn("Supabase query returned error:", error.message || error);
         }
       } catch (e) {
-        console.warn("Supabase fetch fallback to local store:", e);
+        console.warn("Supabase fetch exception:", e);
       }
     }
 
-    // 2. Read from localStorage
+    // 2. Read from localStorage cache (if offline)
     const raw = localStorage.getItem(STORE_KEYS.ACHIEVEMENTS);
-    let list = raw ? JSON.parse(raw) : DEFAULT_ACHIEVEMENTS;
-    if (!raw) {
-      localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(DEFAULT_ACHIEVEMENTS));
+    if (raw) {
+      const list = JSON.parse(raw);
+      if (onlyVisible) {
+        return list.filter(item => item.is_visible !== false);
+      }
+      return list;
     }
 
-    if (onlyVisible) {
-      return list.filter(item => item.is_visible !== false);
-    }
-    return list;
+    // Default to empty array if no live data or cache
+    return [];
   },
 
   async addAchievement(item) {
-    item.id = item.id || `ach-${Date.now()}`;
     if (item.is_visible === undefined) item.is_visible = true;
-    if (typeof item.skills === 'string') {
-      item.skills = item.skills.split(',').map(s => s.trim()).filter(Boolean);
-    }
 
-    // Cloud insert
+    // Strict Supabase fields mapping
+    const supabasePayload = {
+      title: item.title || '',
+      category: item.category || 'certifications',
+      issuer: item.issuer || '',
+      date: item.date || '',
+      credential_link: item.credential_link || item.credentialUrl || '',
+      image_url: item.image_url || item.imageUrl || '',
+      is_visible: item.is_visible !== false
+    };
+
+    let createdId = item.id;
+
+    // Cloud insert to Supabase 'achievements' table
     if (window.supabaseClient) {
       try {
-        await window.supabaseClient.from('achievements').insert([item]);
+        const { data, error } = await window.supabaseClient
+          .from('achievements')
+          .insert([supabasePayload])
+          .select();
+
+        if (error) {
+          console.error("Supabase insert error:", error);
+          throw error;
+        } else if (data && data[0]) {
+          createdId = data[0].id || createdId;
+          supabasePayload.id = createdId;
+        }
       } catch (e) {
-        console.warn("Supabase insert error:", e);
+        console.warn("Supabase cloud insert error:", e);
       }
     }
 
-    // Local insert
+    // Local sync
+    const finalItem = {
+      ...supabasePayload,
+      id: createdId || `ach-${Date.now()}`,
+      credentialUrl: supabasePayload.credential_link,
+      imageUrl: supabasePayload.image_url
+    };
+
     const list = await this.getAchievements(false);
-    list.unshift(item);
+    list.unshift(finalItem);
     localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(list));
-    return item;
+    return finalItem;
   },
 
   async updateAchievement(id, updates) {
-    if (typeof updates.skills === 'string') {
-      updates.skills = updates.skills.split(',').map(s => s.trim()).filter(Boolean);
-    }
+    const updatePayload = {};
+    if (updates.title !== undefined) updatePayload.title = updates.title;
+    if (updates.category !== undefined) updatePayload.category = updates.category;
+    if (updates.issuer !== undefined) updatePayload.issuer = updates.issuer;
+    if (updates.date !== undefined) updatePayload.date = updates.date;
+    if (updates.credential_link !== undefined) updatePayload.credential_link = updates.credential_link;
+    if (updates.credentialUrl !== undefined && !updates.credential_link) updatePayload.credential_link = updates.credentialUrl;
+    if (updates.image_url !== undefined) updatePayload.image_url = updates.image_url;
+    if (updates.imageUrl !== undefined && !updates.image_url) updatePayload.image_url = updates.imageUrl;
+    if (updates.is_visible !== undefined) updatePayload.is_visible = updates.is_visible;
 
-    // Cloud update
+    // Cloud update in Supabase
     if (window.supabaseClient) {
       try {
-        await window.supabaseClient.from('achievements').update(updates).eq('id', id);
+        const { error } = await window.supabaseClient
+          .from('achievements')
+          .update(updatePayload)
+          .eq('id', id);
+
+        if (error) console.error("Supabase update error:", error);
       } catch (e) {
         console.warn("Supabase update error:", e);
       }
@@ -407,9 +458,14 @@ const PortfolioStore = {
 
     // Local update
     const list = await this.getAchievements(false);
-    const index = list.findIndex(a => a.id === id);
+    const index = list.findIndex(a => a.id == id);
     if (index !== -1) {
-      list[index] = { ...list[index], ...updates };
+      list[index] = { 
+        ...list[index], 
+        ...updates,
+        credentialUrl: updatePayload.credential_link || list[index].credentialUrl,
+        imageUrl: updatePayload.image_url || list[index].imageUrl
+      };
       localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(list));
       return list[index];
     }
@@ -417,10 +473,15 @@ const PortfolioStore = {
   },
 
   async deleteAchievement(id) {
-    // Cloud delete
+    // Cloud delete from Supabase
     if (window.supabaseClient) {
       try {
-        await window.supabaseClient.from('achievements').delete().eq('id', id);
+        const { error } = await window.supabaseClient
+          .from('achievements')
+          .delete()
+          .eq('id', id);
+
+        if (error) console.error("Supabase delete error:", error);
       } catch (e) {
         console.warn("Supabase delete error:", e);
       }
@@ -428,14 +489,14 @@ const PortfolioStore = {
 
     // Local delete
     const list = await this.getAchievements(false);
-    const filtered = list.filter(a => a.id !== id);
+    const filtered = list.filter(a => a.id != id);
     localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(filtered));
     return true;
   },
 
   async toggleAchievementVisibility(id) {
     const list = await this.getAchievements(false);
-    const item = list.find(a => a.id === id);
+    const item = list.find(a => a.id == id);
     if (item) {
       const newStatus = !item.is_visible;
       return await this.updateAchievement(id, { is_visible: newStatus });
