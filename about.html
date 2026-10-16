@@ -53,14 +53,15 @@
 
         <div class="flex items-center gap-3.5">
           <div class="relative">
-            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
-              AD
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm overflow-hidden">
+              <img src="assets/profile.jpg" alt="ARULDAVID A" class="cms-avatar-img w-full h-full object-cover object-top" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+              <span class="hidden font-mono font-bold text-blue-700">AD</span>
             </div>
             <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
           </div>
           <div class="overflow-hidden">
-            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
-            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+            <h1 class="cms-full-name font-bold text-base text-slate-900 truncate tracking-tight">ARULDAVID A</h1>
+            <p class="cms-headline-badge text-xs text-blue-600 font-semibold truncate">MCA Postgraduate Scholar</p>
           </div>
         </div>
 
@@ -128,16 +129,16 @@
       </div>
 
       <div class="flex items-center justify-around pt-1 text-slate-400">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="cms-github-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
           <i class="fa-brands fa-github text-base"></i>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="cms-linkedin-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
           <i class="fa-brands fa-linkedin text-base"></i>
         </a>
-        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
-          <i class="fa-brands fa-hackerrank text-base"></i>
+        <a href="tel:+918610471539" class="p-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 text-emerald-600 transition-colors" title="Call Me: +91 8610471539">
+          <i class="fa-solid fa-phone text-base"></i>
         </a>
-        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+        <button data-copy="aruld3963@gmail.com" data-copy-label="Email copied!" class="cms-email-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email: aruld3963@gmail.com">
           <i class="fa-solid fa-envelope text-base"></i>
         </button>
         <a href="admin-login.html" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Admin Portal">
@@ -297,61 +298,48 @@
           <div>
             <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2.5">
               <i class="fa-solid fa-graduation-cap text-blue-600"></i>
-              <span>Academic Background &amp; Coursework</span>
+              <span>Academic Background &amp; Degrees</span>
             </h3>
-            <p class="text-xs text-slate-500 mt-0.5">Foundational education and coursework in Computer Science</p>
+            <p class="text-xs text-slate-500 mt-0.5">Foundational milestones and degrees managed dynamically via Admin CMS</p>
           </div>
-          <span class="badge-emerald px-3 py-1 rounded-full text-xs font-semibold">CGPA: 9.6 / 10.0</span>
+          <span class="badge-emerald px-3 py-1 rounded-full text-xs font-semibold">Postgraduate Scholar</span>
         </div>
 
-        <div class="dashboard-panel p-6 sm:p-7 space-y-6">
-          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-            <div class="flex items-start gap-4">
-              <div class="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-2xl text-blue-700 flex-shrink-0">
-                <i class="fa-solid fa-university"></i>
-              </div>
-              <div>
-                <span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">Undergraduate Degree</span>
-                <h4 class="text-lg font-bold text-slate-900 mt-1">Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</h4>
-                <p class="text-xs sm:text-sm text-slate-500">Department of Computer Science &bull; Expected Graduation: May 2026</p>
-              </div>
-            </div>
-            <div class="flex flex-col sm:items-end text-xs font-mono">
-              <span class="text-blue-700 font-bold">2022 &mdash; 2026 (Full-Time)</span>
-              <span class="text-slate-500 mt-0.5">Honors Specialization in Systems</span>
-            </div>
-          </div>
+        <!-- Dynamic Education Milestones -->
+        <div id="cms-education-timeline" class="space-y-4">
+          <!-- Populated from Supabase site_profile.education_journey -->
+        </div>
 
-          <div class="space-y-3">
-            <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-              <i class="fa-solid fa-book-bookmark text-blue-600"></i>
-              <span>Core Academic Curriculum &amp; Laboratory Coursework</span>
-            </h5>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <span class="font-bold text-slate-800 block">Data Structures &amp; Algorithms</span>
-                <span class="text-[11px] text-slate-500">Trees, Graphs, Dynamic Programming, Greedy</span>
-              </div>
-              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <span class="font-bold text-slate-800 block">Database Management Systems</span>
-                <span class="text-[11px] text-slate-500">Relational SQL, Normalization, ACID Transactions</span>
-              </div>
-              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <span class="font-bold text-slate-800 block">Operating Systems &amp; Concurrency</span>
-                <span class="text-[11px] text-slate-500">Process Scheduling, Threading, Virtual Memory</span>
-              </div>
-              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <span class="font-bold text-slate-800 block">Object-Oriented Design (OOD)</span>
-                <span class="text-[11px] text-slate-500">SOLID Principles, Gang-of-Four Design Patterns</span>
-              </div>
-              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <span class="font-bold text-slate-800 block">Computer Networks &amp; Security</span>
-                <span class="text-[11px] text-slate-500">TCP/IP, HTTP/3, TLS/SSL, Socket Programming</span>
-              </div>
-              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
-                <span class="font-bold text-slate-800 block">Cloud Computing Architecture</span>
-                <span class="text-[11px] text-slate-500">Distributed Storage, Virtualization, Containers</span>
-              </div>
+        <!-- Core Academic Curriculum & Laboratory Coursework -->
+        <div class="dashboard-panel p-6 sm:p-7 space-y-4">
+          <h5 class="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-solid fa-book-bookmark text-blue-600"></i>
+            <span>Core Academic Curriculum &amp; Laboratory Coursework</span>
+          </h5>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="font-bold text-slate-800 block">Data Structures &amp; Algorithms</span>
+              <span class="text-[11px] text-slate-500">Trees, Graphs, Dynamic Programming, Greedy</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="font-bold text-slate-800 block">Database Management Systems</span>
+              <span class="text-[11px] text-slate-500">Relational SQL, Normalization, ACID Transactions</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="font-bold text-slate-800 block">Operating Systems &amp; Concurrency</span>
+              <span class="text-[11px] text-slate-500">Process Scheduling, Threading, Virtual Memory</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="font-bold text-slate-800 block">Object-Oriented Design (OOD)</span>
+              <span class="text-[11px] text-slate-500">SOLID Principles, Gang-of-Four Design Patterns</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="font-bold text-slate-800 block">Computer Networks &amp; Security</span>
+              <span class="text-[11px] text-slate-500">TCP/IP, HTTP/3, TLS/SSL, Socket Programming</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="font-bold text-slate-800 block">Cloud Computing Architecture</span>
+              <span class="text-[11px] text-slate-500">Distributed Storage, Virtualization, Containers</span>
             </div>
           </div>
         </div>
@@ -621,6 +609,9 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/data-store.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

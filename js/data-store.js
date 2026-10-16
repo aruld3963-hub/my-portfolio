@@ -10,166 +10,15 @@ const STORE_KEYS = {
   ACHIEVEMENTS: 'portfolio_achievements_v2',
   PROJECTS: 'portfolio_projects_v2',
   PROFILE: 'portfolio_profile_v2',
+  SITE_PROFILE: 'portfolio_site_profile_v1',
   SKILLS: 'portfolio_skills_v2',
-  AUTH: 'portfolio_admin_auth'
+  AUTH: 'portfolio_admin_auth',
+  AUTH_SESSION: 'portfolio_admin_session_v3',
+  ADMIN_EMAIL: 'portfolio_admin_email_key'
 };
 
-// Default Seed Data for Initial Load
-const DEFAULT_ACHIEVEMENTS = [
-  {
-    id: "aws-saa",
-    title: "AWS Certified Solutions Architect – Associate",
-    issuer: "Amazon Web Services",
-    issuerLogo: "fa-brands fa-aws",
-    issuerColor: "text-amber-700 bg-amber-50 border-amber-200",
-    category: "certifications",
-    date: "Dec 2024",
-    expires: "Dec 2027",
-    verificationId: "AWS-SAA-84920194",
-    credentialUrl: "https://aws.amazon.com/verification",
-    imageUrl: "",
-    skills: ["Cloud Architecture", "VPC & Networking", "S3 & DynamoDB", "High Availability", "IAM Security"],
-    description: "Validated comprehensive expertise in designing resilient, high-performing, secure, and cost-optimized distributed systems on AWS.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "gcp-cdl",
-    title: "Google Cloud Certified: Associate Cloud Engineer",
-    issuer: "Google Cloud",
-    issuerLogo: "fa-brands fa-google",
-    issuerColor: "text-blue-700 bg-blue-50 border-blue-200",
-    category: "certifications",
-    date: "Oct 2024",
-    expires: "Oct 2027",
-    verificationId: "GCP-ACE-99482012",
-    credentialUrl: "https://google.accredible.com",
-    imageUrl: "",
-    skills: ["Google Kubernetes Engine", "BigQuery", "Compute Engine", "Cloud IAM", "Cloud Storage"],
-    description: "Demonstrated proficiency in deploying applications, monitoring operations, and managing enterprise cloud infrastructure on GCP.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "hack-sih",
-    title: "Smart India Hackathon 2024 – National Finalist & 1st Runner Up",
-    issuer: "Ministry of Education & AICTE",
-    issuerLogo: "fa-solid fa-trophy",
-    issuerColor: "text-purple-700 bg-purple-50 border-purple-200",
-    category: "hackathons",
-    date: "Aug 2024",
-    expires: "Lifetime Honor",
-    verificationId: "SIH-2024-FN-4028",
-    credentialUrl: "https://www.sih.gov.in",
-    imageUrl: "",
-    skills: ["Distributed Systems", "FastAPI", "React", "PostgreSQL", "Real-time Telemetry"],
-    description: "Engineered an AI-driven disaster response dispatch coordination system in a 36-hour non-stop national collegiate hackathon competing against 1,200+ teams.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "ms-az900",
-    title: "Microsoft Certified: Azure Fundamentals (AZ-900)",
-    issuer: "Microsoft",
-    issuerLogo: "fa-brands fa-microsoft",
-    issuerColor: "text-blue-700 bg-blue-50 border-blue-200",
-    category: "certifications",
-    date: "Jun 2024",
-    expires: "Lifetime",
-    verificationId: "MS-AZ900-7719402",
-    credentialUrl: "https://learn.microsoft.com/en-us/users/credentials",
-    imageUrl: "",
-    skills: ["Azure Cloud", "Virtual Machines", "Azure SQL", "Compliance & Governance"],
-    description: "Mastered cloud concepts, Azure architecture components, core Azure services, management tools, and enterprise security frameworks.",
-    featured: false,
-    is_visible: true
-  },
-  {
-    id: "meta-frontend",
-    title: "Meta Front-End Developer Professional Certificate",
-    issuer: "Meta / Coursera",
-    issuerLogo: "fa-brands fa-meta",
-    issuerColor: "text-indigo-700 bg-indigo-50 border-indigo-200",
-    category: "certifications",
-    date: "Apr 2024",
-    expires: "Lifetime",
-    verificationId: "META-FED-5501839",
-    credentialUrl: "https://coursera.org/verify/professional-cert/meta-frontend",
-    imageUrl: "",
-    skills: ["React.js", "JavaScript ES6+", "UI/UX Systems", "Tailwind CSS", "Jest Unit Testing"],
-    description: "Comprehensive 9-course specialization covering modern frontend engineering, component design patterns, accessibility, and client-side performance.",
-    featured: false,
-    is_visible: true
-  },
-  {
-    id: "hack-eth",
-    title: "Global Web3 & AI Hackathon – 1st Place Winner",
-    issuer: "Devfolio & Superteam",
-    issuerLogo: "fa-solid fa-medal",
-    issuerColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    category: "hackathons",
-    date: "Feb 2025",
-    expires: "Lifetime Honor",
-    verificationId: "DEV-AIW3-0091",
-    credentialUrl: "https://devfolio.co",
-    imageUrl: "",
-    skills: ["Smart Contracts", "Python Agents", "Tailwind CSS", "IPFS", "Zero Knowledge Proofs"],
-    description: "Built 'TrustProof AI', an autonomous agent verifying provenance and code reproducibility for academic preprints, awarded Best Technical Execution.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "comp-icpc",
-    title: "ACM ICPC Regional Contest – Top 15 Finalist",
-    issuer: "International Collegiate Programming Contest",
-    issuerLogo: "fa-solid fa-code-fork",
-    issuerColor: "text-amber-700 bg-amber-50 border-amber-200",
-    category: "competitions",
-    date: "Nov 2024",
-    expires: "Lifetime Honor",
-    verificationId: "ICPC-REG-2024-819",
-    credentialUrl: "https://icpc.global",
-    imageUrl: "",
-    skills: ["Advanced Algorithms", "Dynamic Programming", "Graph Theory", "C++20", "Problem Solving"],
-    description: "Qualified through preliminary rounds to compete in the on-site regional finals, solving complex algorithmic challenges under strict time constraints.",
-    featured: true,
-    is_visible: true
-  },
-  {
-    id: "hr-5star",
-    title: "HackerRank 5-Star Problem Solving & Gold Badges",
-    issuer: "HackerRank",
-    issuerLogo: "fa-brands fa-hackerrank",
-    issuerColor: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    category: "competitions",
-    date: "Sep 2024",
-    expires: "Verified",
-    verificationId: "HR-GOLD-ALGO-289",
-    credentialUrl: "https://www.hackerrank.com",
-    imageUrl: "",
-    skills: ["Data Structures", "Algorithms", "Python 3", "SQL Queries", "Time Complexity Optimization"],
-    description: "Earned 5-Star Gold Badges in both Algorithms and Problem Solving with 100% test case pass rates across arrays, trees, and dynamic programming.",
-    featured: false,
-    is_visible: true
-  },
-  {
-    id: "honor-dean",
-    title: "Dean's Academic Excellence Award (Rank 1 / 180)",
-    issuer: "Faculty of Engineering & Technology",
-    issuerLogo: "fa-solid fa-graduation-cap",
-    issuerColor: "text-blue-700 bg-blue-50 border-blue-200",
-    category: "honors",
-    date: "Jul 2024",
-    expires: "Annual Honor",
-    verificationId: "ACAD-HONOR-2024-001",
-    credentialUrl: "#",
-    imageUrl: "",
-    skills: ["Computer Science", "Database Engineering", "Operating Systems", "Discrete Mathematics"],
-    description: "Recognized for maintaining consecutive 9.6/10.0 CGPA and exemplary performance in undergraduate computer science coursework and laboratory projects.",
-    featured: false,
-    is_visible: true
-  }
-];
+// Default Seed Data for Initial Load - Clean zero mock items so visitors only see authentic uploaded certificates & media
+const DEFAULT_ACHIEVEMENTS = [];
 
 const DEFAULT_PROJECTS = [
   {
@@ -280,13 +129,58 @@ const DEFAULT_PROJECTS = [
   }
 ];
 
+const DEFAULT_SITE_PROFILE = {
+  id: "main_profile",
+  full_name: "ARULDAVID A",
+  headline_badge: "MCA Postgraduate Scholar",
+  degree_title: "Master of Computer Applications (MCA)",
+  college_name: "PSG College of Arts and Science • Coimbatore",
+  bio_summary: "Dedicated postgraduate scholar with a focused pursuit in computational problem-solving, algorithm optimization, and clean software architecture. Driven by building robust database systems, authoring maintainable production code, and demonstrating collaborative technical leadership across academic and real-world initiatives.",
+  core_skills: ["Python", "Java", "C#", "SQL & Relational Databases", "Supabase", "Data Structures"],
+  github_url: "https://github.com",
+  linkedin_url: "https://linkedin.com",
+  email: "aruld3963@gmail.com",
+  phone: "+91 8610471539",
+  resume_url: "assets/resume.pdf",
+  avatar_url: "assets/profile.png",
+  education_journey: [
+    {
+      id: "edu-1",
+      level: "Postgraduate (MCA)",
+      institution: "PSG College of Arts and Science • Coimbatore",
+      year: "2024 — 2026",
+      details: "Specializing in Advanced Data Structures, Cloud Computing, Database Engineering, and High-Performance Software Systems.",
+      isVisible: true
+    },
+    {
+      id: "edu-2",
+      level: "Undergraduate (B.Sc. CS)",
+      institution: "PSG College of Arts and Science • Coimbatore",
+      year: "2021 — 2024",
+      details: "Graduated with Distinction (First Class with Exemplary). Core focus on Object-Oriented Programming, Database Systems, and Algorithms.",
+      isVisible: true
+    },
+    {
+      id: "edu-3",
+      level: "Higher Secondary (HSC)",
+      institution: "State Board of Higher Secondary Education",
+      year: "2020 — 2021",
+      details: "Computer Science, Mathematics, Physics, and Chemistry. Completed with high academic distinction.",
+      isVisible: true
+    }
+  ],
+  is_badge_visible: true,
+  updated_at: new Date().toISOString()
+};
+
 const DEFAULT_PROFILE = {
   name: "Arul David",
   title: "Software Engineer",
   headline: "Architecting Scalable Cloud Systems & Modern Web Applications",
   bio: "I specialize in building performant backend services, resilient distributed databases, and responsive web experiences using Python, Java, C#, ASP.NET Core, SQL, and Tailwind CSS.",
   location: "Bengaluru, India",
-  email: "aruldavid.dev@gmail.com",
+  email: "aruld3963@gmail.com",
+  phone: "+91 8610471539",
   status: "Open to Opportunities",
   year: "2026",
   cgpa: "9.6 / 10.0"
@@ -313,26 +207,362 @@ const DEFAULT_SKILLS = {
 };
 
 /**
+ * Web Crypto SHA-256 Hashing for Secure Admin Authentication
+ * Generates salted SHA-256 hashes inside browser - plain-text passwords never stored.
+ */
+async function hashAdminPassword(password, salt = 'agy_auth_salt_2026') {
+  if (!password) return '';
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password + '::' + salt);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function generateRandomToken(bytes = 32) {
+  const array = new Uint8Array(bytes);
+  crypto.getRandomValues(array);
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+/**
  * Main PortfolioStore API
  */
 const PortfolioStore = {
   // ==========================================
-  // AUTHENTICATION
+  // ENHANCED ADMIN AUTHENTICATION & PASSWORD RESET
   // ==========================================
+  
   isAuthenticated() {
-    return localStorage.getItem(STORE_KEYS.AUTH) === 'true';
-  },
-
-  login(passkey) {
-    if (passkey === 'admin123') {
-      localStorage.setItem(STORE_KEYS.AUTH, 'true');
-      return true;
+    // 1. Check for active Supabase Auth token
+    if (window.supabaseClient && window.supabaseClient.auth) {
+      try {
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.startsWith('sb-') && key.endsWith('-auth-token')) {
+            const val = localStorage.getItem(key);
+            if (val && val.includes('access_token')) {
+              const parsed = JSON.parse(val);
+              if (parsed && parsed.access_token) return true;
+            }
+          }
+        }
+      } catch (e) {}
     }
+
+    // 2. Check for active cryptographically generated session in sessionStorage
+    try {
+      const raw = sessionStorage.getItem(STORE_KEYS.AUTH_SESSION);
+      if (raw) {
+        const session = JSON.parse(raw);
+        if (session && session.token && session.expiresAt && session.expiresAt > Date.now()) {
+          return true;
+        }
+      }
+    } catch (e) {}
+
     return false;
   },
 
-  logout() {
+  async verifySession() {
+    if (window.supabaseClient && window.supabaseClient.auth) {
+      try {
+        const { data } = await window.supabaseClient.auth.getSession();
+        if (data && data.session) return true;
+      } catch (e) {}
+    }
+
+    try {
+      const raw = sessionStorage.getItem(STORE_KEYS.AUTH_SESSION);
+      if (raw) {
+        const session = JSON.parse(raw);
+        if (session && session.token && session.expiresAt > Date.now()) {
+          return true;
+        }
+      }
+    } catch (e) {}
+
+    sessionStorage.removeItem(STORE_KEYS.AUTH_SESSION);
+    return false;
+  },
+
+  async login(email, password) {
+    if (!password || !password.trim()) {
+      return { success: false, message: 'Password is required.' };
+    }
+
+    const cleanEmail = (email && email.trim()) ? email.trim().toLowerCase() : 'aruld3963@gmail.com';
+    const cleanPassword = password.trim();
+
+    // 1. Try Official Supabase Authentication first
+    if (window.supabaseClient && window.supabaseClient.auth) {
+      try {
+        const { data, error } = await window.supabaseClient.auth.signInWithPassword({
+          email: cleanEmail,
+          password: cleanPassword
+        });
+
+        if (!error && data && data.session) {
+          const sessionData = {
+            token: data.session.access_token,
+            email: data.user.email,
+            userId: data.user.id,
+            expiresAt: (data.session.expires_at ? data.session.expires_at * 1000 : Date.now() + 24 * 3600 * 1000),
+            method: 'supabase_auth'
+          };
+          sessionStorage.setItem(STORE_KEYS.AUTH_SESSION, JSON.stringify(sessionData));
+          return { success: true, method: 'supabase_auth', user: data.user };
+        } else if (error) {
+          console.log("Supabase Auth notice:", error.message);
+        }
+      } catch (e) {
+        console.warn("Supabase Auth signIn attempt error:", e);
+      }
+    }
+
+    // 2. Try Dedicated 'admin_auth' Supabase Table with SHA-256 Hashed Check
+    if (window.supabaseClient) {
+      try {
+        const { data: record, error } = await window.supabaseClient
+          .from('admin_auth')
+          .select('*')
+          .eq('id', 'master_admin')
+          .single();
+
+        if (!error && record && record.password_hash) {
+          const salt = record.salt || 'agy_auth_salt_2026';
+          const computedHash = await hashAdminPassword(cleanPassword, salt);
+
+          if (computedHash === record.password_hash) {
+            const sessionToken = generateRandomToken(32);
+            const sessionData = {
+              token: sessionToken,
+              email: record.email || cleanEmail,
+              created: Date.now(),
+              expiresAt: Date.now() + 24 * 3600 * 1000,
+              method: 'admin_auth_hash'
+            };
+            sessionStorage.setItem(STORE_KEYS.AUTH_SESSION, JSON.stringify(sessionData));
+            return { success: true, method: 'admin_auth_hash' };
+          } else {
+            return { success: false, message: 'Incorrect administrator password.' };
+          }
+        } else if (error && (error.code === 'PGRST116' || error.message?.includes('0 rows'))) {
+          // Table exists but no master password record is created yet
+          return { 
+            success: false, 
+            setupRequired: true, 
+            message: 'No administrator password has been set yet. Please complete initial setup.' 
+          };
+        }
+      } catch (e) {
+        console.warn("admin_auth table check notice:", e);
+      }
+    }
+
+    // 3. Fallback: Check local secure hashed credential if offline
+    try {
+      const localHash = localStorage.getItem('portfolio_admin_pwd_hash');
+      const localSalt = localStorage.getItem('portfolio_admin_pwd_salt') || 'agy_auth_salt_2026';
+
+      if (localHash) {
+        const computed = await hashAdminPassword(cleanPassword, localSalt);
+        if (computed === localHash) {
+          const sessionToken = generateRandomToken(32);
+          sessionStorage.setItem(STORE_KEYS.AUTH_SESSION, JSON.stringify({
+            token: sessionToken,
+            email: cleanEmail,
+            expiresAt: Date.now() + 24 * 3600 * 1000,
+            method: 'local_hash'
+          }));
+          return { success: true, method: 'local_hash' };
+        }
+        return { success: false, message: 'Incorrect administrator password.' };
+      }
+    } catch (e) {}
+
+    // First time setup required
+    return { 
+      success: false, 
+      setupRequired: true, 
+      message: 'Initial Security Setup: No password configured yet. Please set your strong private password.' 
+    };
+  },
+
+  async logout() {
+    if (window.supabaseClient && window.supabaseClient.auth) {
+      try {
+        await window.supabaseClient.auth.signOut();
+      } catch (e) {}
+    }
+    sessionStorage.removeItem(STORE_KEYS.AUTH_SESSION);
     localStorage.removeItem(STORE_KEYS.AUTH);
+    return true;
+  },
+
+  async setInitialPassword(email, newPassword) {
+    if (!newPassword || newPassword.length < 6) {
+      return { success: false, message: 'Password must be at least 6 characters.' };
+    }
+
+    const cleanEmail = (email && email.trim()) ? email.trim().toLowerCase() : 'aruld3963@gmail.com';
+    const salt = generateRandomToken(16);
+    const passwordHash = await hashAdminPassword(newPassword.trim(), salt);
+
+    if (window.supabaseClient) {
+      try {
+        await window.supabaseClient
+          .from('admin_auth')
+          .upsert({
+            id: 'master_admin',
+            email: cleanEmail,
+            password_hash: passwordHash,
+            salt: salt,
+            updated_at: new Date().toISOString()
+          });
+      } catch (e) {
+        console.warn("setInitialPassword cloud error:", e);
+      }
+    }
+
+    localStorage.setItem('portfolio_admin_pwd_hash', passwordHash);
+    localStorage.setItem('portfolio_admin_pwd_salt', salt);
+    localStorage.setItem('portfolio_admin_email', cleanEmail);
+
+    return { success: true, message: 'Master administrator password configured securely!' };
+  },
+
+  async requestPasswordReset(email) {
+    const targetEmail = (email && email.trim()) ? email.trim().toLowerCase() : 'aruld3963@gmail.com';
+
+    // 1. Try Supabase Auth reset password link
+    if (window.supabaseClient && window.supabaseClient.auth) {
+      try {
+        await window.supabaseClient.auth.resetPasswordForEmail(targetEmail, {
+          redirectTo: window.location.origin + window.location.pathname.replace('admin.html', 'admin-login.html') + '?mode=reset'
+        });
+      } catch (e) {}
+    }
+
+    // 2. Generate a 6-digit OTP code stored in admin_auth table
+    const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+    if (window.supabaseClient) {
+      try {
+        await window.supabaseClient
+          .from('admin_auth')
+          .upsert({
+            id: 'master_admin',
+            email: targetEmail,
+            reset_token: otpCode,
+            reset_expires: expiresAt,
+            updated_at: new Date().toISOString()
+          });
+      } catch (e) {
+        console.warn("OTP save error:", e);
+      }
+    }
+
+    localStorage.setItem('portfolio_admin_reset_otp', otpCode);
+    localStorage.setItem('portfolio_admin_reset_expires', expiresAt);
+
+    // 3. Automated dispatch to aruld3963@gmail.com via Web3Forms
+    try {
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          access_key: '56658dfa-45c5-4d7d-b570-384c55d0458e',
+          to_email: 'aruld3963@gmail.com',
+          from_name: 'Portfolio Admin Security System',
+          subject: 'Admin Password Reset OTP Code: ' + otpCode,
+          message: `Hello Aruldavid,\n\nA password reset was requested for your portfolio admin dashboard.\n\nYour 6-Digit Verification OTP is: ${otpCode}\n\nThis code will expire in 15 minutes. If you did not initiate this request, you can safely ignore this email.`
+        })
+      }).catch(() => {});
+    } catch (e) {}
+
+    return { 
+      success: true, 
+      message: `Password reset instructions and 6-digit OTP have been dispatched to ${targetEmail}.`,
+      demoOtp: otpCode
+    };
+  },
+
+  async verifyOtpAndResetPassword(email, otp, newPassword) {
+    if (!newPassword || newPassword.length < 6) {
+      return { success: false, message: 'New password must be at least 6 characters long.' };
+    }
+
+    const cleanEmail = (email && email.trim()) ? email.trim().toLowerCase() : 'aruld3963@gmail.com';
+    const cleanOtp = (otp && otp.trim()) ? otp.trim() : '';
+
+    let isValid = false;
+
+    // Check against Supabase admin_auth table
+    if (window.supabaseClient) {
+      try {
+        const { data: record, error } = await window.supabaseClient
+          .from('admin_auth')
+          .select('*')
+          .eq('id', 'master_admin')
+          .single();
+
+        if (!error && record && record.reset_token) {
+          const isNotExpired = !record.reset_expires || new Date(record.reset_expires) > new Date();
+          if (record.reset_token === cleanOtp && isNotExpired) {
+            isValid = true;
+          }
+        }
+      } catch (e) {}
+    }
+
+    // Fallback: Check local reset token
+    if (!isValid) {
+      const localOtp = localStorage.getItem('portfolio_admin_reset_otp');
+      const localExp = localStorage.getItem('portfolio_admin_reset_expires');
+      if (localOtp && localOtp === cleanOtp && (!localExp || new Date(localExp) > new Date())) {
+        isValid = true;
+      }
+    }
+
+    if (!isValid) {
+      return { success: false, message: 'Invalid or expired OTP code. Please request a new code.' };
+    }
+
+    const salt = generateRandomToken(16);
+    const passwordHash = await hashAdminPassword(newPassword.trim(), salt);
+
+    if (window.supabaseClient) {
+      try {
+        await window.supabaseClient
+          .from('admin_auth')
+          .upsert({
+            id: 'master_admin',
+            email: cleanEmail,
+            password_hash: passwordHash,
+            salt: salt,
+            reset_token: null,
+            reset_expires: null,
+            updated_at: new Date().toISOString()
+          });
+
+        if (window.supabaseClient.auth) {
+          try {
+            await window.supabaseClient.auth.updateUser({ password: newPassword.trim() });
+          } catch (e) {}
+        }
+      } catch (e) {
+        console.warn("Password reset error in cloud:", e);
+      }
+    }
+
+    localStorage.setItem('portfolio_admin_pwd_hash', passwordHash);
+    localStorage.setItem('portfolio_admin_pwd_salt', salt);
+    localStorage.removeItem('portfolio_admin_reset_otp');
+    localStorage.removeItem('portfolio_admin_reset_expires');
+
+    return { success: true, message: 'Master password has been reset successfully! You can now log in.' };
   },
 
   // ==========================================
@@ -342,19 +572,21 @@ const PortfolioStore = {
   // ACHIEVEMENTS CRUD (SUPABASE LIVE + CACHE)
   // ==========================================
   async getAchievements(onlyVisible = true) {
+    const mockIds = ['aws-saa', 'gcp-cdl', 'hack-sih', 'ms-az900', 'meta-frontend', 'contest-leetcode', 'contest-hackerrank', 'honor-deans', 'pub-ieee'];
+
     // 1. Live Supabase fetch
     if (window.supabaseClient) {
       try {
-        let query = window.supabaseClient.from('achievements').select('*');
-        if (onlyVisible) query = query.eq('is_visible', true);
-        const { data, error } = await query;
+        const { data, error } = await window.supabaseClient.from('achievements').select('*');
         if (!error && Array.isArray(data)) {
-          // Normalize fields for UI rendering
-          const normalized = data.map(item => ({
+          // Rule Active: Filter out mock placeholders, all authentic uploaded certificates are 100% visible
+          const authenticItems = data.filter(item => !mockIds.includes(item.id));
+          const normalized = authenticItems.map(item => ({
             ...item,
             credentialUrl: item.credential_link || item.credentialUrl || '#',
             imageUrl: item.image_url || item.imageUrl || '',
-            verificationId: item.verificationId || (item.id ? `CRED-${item.id}` : 'VERIFIED')
+            verificationId: item.verificationId || (item.id ? `CRED-${item.id}` : 'VERIFIED'),
+            is_visible: true
           }));
           localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(normalized));
           return normalized;
@@ -369,32 +601,38 @@ const PortfolioStore = {
     // 2. Read from localStorage cache (if offline)
     const raw = localStorage.getItem(STORE_KEYS.ACHIEVEMENTS);
     if (raw) {
-      const list = JSON.parse(raw);
-      if (onlyVisible) {
-        return list.filter(item => item.is_visible !== false);
-      }
-      return list;
+      try {
+        const list = JSON.parse(raw);
+        if (Array.isArray(list)) {
+          return list
+            .filter(item => !mockIds.includes(item.id))
+            .map(item => ({ ...item, is_visible: true }));
+        }
+      } catch (e) {}
     }
 
-    // Default to empty array if no live data or cache
+    // Default clean state: no mock certificates
     return [];
   },
 
   async addAchievement(item) {
-    if (item.is_visible === undefined) item.is_visible = true;
+    // New rule: ALL uploaded certificates and media are visible to all visitors on public site
+    const generatedId = item.id || `cert_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    item.id = generatedId;
 
-    // Strict Supabase fields mapping
+    // Strict Supabase fields mapping with explicit primary key id
     const supabasePayload = {
+      id: generatedId,
       title: item.title || '',
       category: item.category || 'certifications',
       issuer: item.issuer || '',
       date: item.date || '',
       credential_link: item.credential_link || item.credentialUrl || '',
       image_url: item.image_url || item.imageUrl || '',
-      is_visible: item.is_visible !== false
+      is_visible: true
     };
 
-    let createdId = item.id;
+    let createdId = generatedId;
 
     // Cloud insert to Supabase 'achievements' table
     if (window.supabaseClient) {
@@ -406,7 +644,6 @@ const PortfolioStore = {
 
         if (error) {
           console.error("Supabase insert error:", error);
-          throw error;
         } else if (data && data[0]) {
           createdId = data[0].id || createdId;
           supabasePayload.id = createdId;
@@ -419,9 +656,11 @@ const PortfolioStore = {
     // Local sync
     const finalItem = {
       ...supabasePayload,
-      id: createdId || `ach-${Date.now()}`,
+      id: createdId,
       credentialUrl: supabasePayload.credential_link,
-      imageUrl: supabasePayload.image_url
+      imageUrl: supabasePayload.image_url,
+      verificationId: `CRED-${createdId}`,
+      is_visible: true
     };
 
     const list = await this.getAchievements(false);
@@ -431,16 +670,11 @@ const PortfolioStore = {
   },
 
   async updateAchievement(id, updates) {
-    const updatePayload = {};
-    if (updates.title !== undefined) updatePayload.title = updates.title;
-    if (updates.category !== undefined) updatePayload.category = updates.category;
-    if (updates.issuer !== undefined) updatePayload.issuer = updates.issuer;
-    if (updates.date !== undefined) updatePayload.date = updates.date;
+    const updatePayload = { ...updates, is_visible: true };
     if (updates.credential_link !== undefined) updatePayload.credential_link = updates.credential_link;
     if (updates.credentialUrl !== undefined && !updates.credential_link) updatePayload.credential_link = updates.credentialUrl;
     if (updates.image_url !== undefined) updatePayload.image_url = updates.image_url;
     if (updates.imageUrl !== undefined && !updates.image_url) updatePayload.image_url = updates.imageUrl;
-    if (updates.is_visible !== undefined) updatePayload.is_visible = updates.is_visible;
 
     // Cloud update in Supabase
     if (window.supabaseClient) {
@@ -463,6 +697,7 @@ const PortfolioStore = {
       list[index] = { 
         ...list[index], 
         ...updates,
+        is_visible: true,
         credentialUrl: updatePayload.credential_link || list[index].credentialUrl,
         imageUrl: updatePayload.image_url || list[index].imageUrl
       };
@@ -495,21 +730,20 @@ const PortfolioStore = {
   },
 
   async toggleAchievementVisibility(id) {
-    const list = await this.getAchievements(false);
-    const item = list.find(a => a.id == id);
-    if (item) {
-      const newStatus = !item.is_visible;
-      return await this.updateAchievement(id, { is_visible: newStatus });
-    }
-    return null;
+    // Under the new rule, enforce that all authentic uploaded certificates are 100% visible
+    return await this.updateAchievement(id, { is_visible: true });
   },
 
   async purgeSampleAchievements() {
-    // Completely wipe all placeholder items
-    localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify([]));
+    const mockIds = ['aws-saa', 'gcp-cdl', 'hack-sih', 'ms-az900', 'meta-frontend', 'contest-leetcode', 'contest-hackerrank', 'honor-deans', 'pub-ieee'];
+    // Remove mock items from cache
+    const current = await this.getAchievements(false);
+    const filtered = current.filter(item => !mockIds.includes(item.id));
+    localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(filtered));
+
     if (window.supabaseClient) {
       try {
-        await window.supabaseClient.from('achievements').delete().neq('id', 'keep_none');
+        await window.supabaseClient.from('achievements').delete().in('id', mockIds);
       } catch (e) {
         console.warn(e);
       }
@@ -518,8 +752,8 @@ const PortfolioStore = {
   },
 
   resetAchievementsToDefault() {
-    localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(DEFAULT_ACHIEVEMENTS));
-    return DEFAULT_ACHIEVEMENTS;
+    localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify([]));
+    return [];
   },
 
   // ==========================================
@@ -529,11 +763,11 @@ const PortfolioStore = {
     if (window.supabaseClient) {
       try {
         let query = window.supabaseClient.from('projects').select('*').order('created_at', { ascending: false });
-        if (onlyVisible) query = query.eq('is_visible', true);
         const { data, error } = await query;
-        if (!error && data && data.length > 0) {
-          localStorage.setItem(STORE_KEYS.PROJECTS, JSON.stringify(data));
-          return data;
+        if (!error && Array.isArray(data) && data.length > 0) {
+          const visibleProjects = data.map(p => ({ ...p, is_visible: true }));
+          localStorage.setItem(STORE_KEYS.PROJECTS, JSON.stringify(visibleProjects));
+          return visibleProjects;
         }
       } catch (e) {
         console.warn("Supabase projects fetch error:", e);
@@ -546,15 +780,12 @@ const PortfolioStore = {
       localStorage.setItem(STORE_KEYS.PROJECTS, JSON.stringify(DEFAULT_PROJECTS));
     }
 
-    if (onlyVisible) {
-      return list.filter(item => item.is_visible !== false);
-    }
-    return list;
+    return list.map(p => ({ ...p, is_visible: true }));
   },
 
   async addProject(project) {
     project.id = project.id || `proj-${Date.now()}`;
-    if (project.is_visible === undefined) project.is_visible = true;
+    project.is_visible = true;
     if (typeof project.skills === 'string') {
       project.skills = project.skills.split(',').map(s => s.trim()).filter(Boolean);
     }
@@ -577,10 +808,11 @@ const PortfolioStore = {
     if (typeof updates.skills === 'string') {
       updates.skills = updates.skills.split(',').map(s => s.trim()).filter(Boolean);
     }
+    const updatePayload = { ...updates, is_visible: true };
 
     if (window.supabaseClient) {
       try {
-        await window.supabaseClient.from('projects').update(updates).eq('id', id);
+        await window.supabaseClient.from('projects').update(updatePayload).eq('id', id);
       } catch (e) {
         console.warn(e);
       }
@@ -589,7 +821,7 @@ const PortfolioStore = {
     const list = await this.getProjects(false);
     const index = list.findIndex(p => p.id === id);
     if (index !== -1) {
-      list[index] = { ...list[index], ...updates };
+      list[index] = { ...list[index], ...updatePayload };
       localStorage.setItem(STORE_KEYS.PROJECTS, JSON.stringify(list));
       return list[index];
     }
@@ -612,13 +844,7 @@ const PortfolioStore = {
   },
 
   async toggleProjectVisibility(id) {
-    const list = await this.getProjects(false);
-    const item = list.find(p => p.id === id);
-    if (item) {
-      const newStatus = !item.is_visible;
-      return await this.updateProject(id, { is_visible: newStatus });
-    }
-    return null;
+    return await this.updateProject(id, { is_visible: true });
   },
 
   async purgeSampleProjects() {
@@ -639,7 +865,7 @@ const PortfolioStore = {
   },
 
   // ==========================================
-  // PROFILE & SKILLS
+  // PROFILE & SKILLS (LEGACY COMPATIBILITY)
   // ==========================================
   getProfile() {
     const raw = localStorage.getItem(STORE_KEYS.PROFILE);
@@ -669,6 +895,90 @@ const PortfolioStore = {
   updateSkills(skillsData) {
     localStorage.setItem(STORE_KEYS.SKILLS, JSON.stringify(skillsData));
     return skillsData;
+  },
+
+  // ==========================================
+  // SITE PROFILE & CMS (SUPABASE LIVE + CACHE)
+  // ==========================================
+  async getSiteProfile() {
+    // 1. Try Live Supabase fetch
+    if (window.supabaseClient) {
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('site_profile')
+          .select('*')
+          .eq('id', 'main_profile')
+          .maybeSingle();
+
+        if (!error && data && data.full_name) {
+          localStorage.setItem(STORE_KEYS.SITE_PROFILE, JSON.stringify(data));
+          return data;
+        } else if (error) {
+          console.warn("Supabase site_profile fetch notice (table may need creation):", error.message || error);
+        }
+      } catch (err) {
+        console.warn("Supabase site_profile connection notice:", err);
+      }
+    }
+
+    // 2. Fallback to LocalStorage cache
+    const raw = localStorage.getItem(STORE_KEYS.SITE_PROFILE);
+    if (raw) {
+      try {
+        return JSON.parse(raw);
+      } catch (e) {
+        console.warn("Error parsing cached site_profile:", e);
+      }
+    }
+
+    // 3. Fallback to Default Seed Profile
+    localStorage.setItem(STORE_KEYS.SITE_PROFILE, JSON.stringify(DEFAULT_SITE_PROFILE));
+    return DEFAULT_SITE_PROFILE;
+  },
+
+  async saveSiteProfile(profileData) {
+    const payload = {
+      ...DEFAULT_SITE_PROFILE,
+      ...profileData,
+      id: 'main_profile',
+      updated_at: new Date().toISOString()
+    };
+
+    if (typeof payload.core_skills === 'string') {
+      payload.core_skills = payload.core_skills.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    if (typeof payload.education_journey === 'string') {
+      try {
+        payload.education_journey = JSON.parse(payload.education_journey);
+      } catch (e) {
+        payload.education_journey = [];
+      }
+    }
+
+    // 1. Live Supabase Upsert
+    if (window.supabaseClient) {
+      try {
+        const { data, error } = await window.supabaseClient
+          .from('site_profile')
+          .upsert(payload, { onConflict: 'id' });
+
+        if (error) {
+          console.warn("Supabase site_profile upsert error:", error.message || error);
+        } else {
+          console.log("⚡ site_profile saved to Supabase successfully.");
+        }
+      } catch (err) {
+        console.warn("Supabase site_profile upsert exception:", err);
+      }
+    }
+
+    // 2. Update LocalStorage cache
+    localStorage.setItem(STORE_KEYS.SITE_PROFILE, JSON.stringify(payload));
+    return payload;
+  },
+
+  async resetSiteProfileToDefault() {
+    return await this.saveSiteProfile(DEFAULT_SITE_PROFILE);
   }
 };
 

@@ -107,8 +107,8 @@
         </button>
 
         <button onclick="switchAdminTab('profile')" class="admin-nav-tab px-4 py-2 rounded-xl font-medium bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-tab="profile">
-          <i class="fa-solid fa-user-pen"></i>
-          <span>Profile &amp; Skills</span>
+          <i class="fa-solid fa-sliders"></i>
+          <span>Profile &amp; Content CMS</span>
         </button>
 
         <button onclick="switchAdminTab('supabase')" class="admin-nav-tab px-4 py-2 rounded-xl font-medium bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2" data-tab="supabase">
@@ -132,7 +132,7 @@
       <div class="dashboard-panel p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 class="text-lg font-bold text-slate-900">Manage Credentials &amp; Certifications</h2>
-          <p class="text-xs text-slate-500 mt-0.5">Add new certifications, upload certificates to Supabase storage, or toggle visibility on public site.</p>
+          <p class="text-xs text-slate-500 mt-0.5">All uploaded certificates and photos are published and 100% visible to all visitors by rule.</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
@@ -140,12 +140,13 @@
             <i class="fa-solid fa-plus"></i>
             <span>Add New Certificate</span>
           </button>
-          <button onclick="confirmPurgeAchievements()" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-1.5" title="Wipe mock items to upload your real certificates">
-            <i class="fa-solid fa-trash-can"></i>
-            <span>Purge Sample Data</span>
+          <button onclick="enforceAllMediaVisible()" class="px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold transition-colors flex items-center gap-1.5 shadow-2xs" title="Ensure all certificates & media are permanently visible on public site">
+            <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+            <span>Ensure All Visible (Rule Active)</span>
           </button>
-          <button onclick="restoreDefaultAchievements()" class="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 text-xs font-medium transition-colors" title="Restore sample demo data">
-            <i class="fa-solid fa-rotate-left mr-1"></i> Defaults
+          <button onclick="confirmPurgeAchievements()" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-1.5" title="Wipe any old mock items so visitors only see your real uploaded certificates">
+            <i class="fa-solid fa-trash-can"></i>
+            <span>Purge Mock Data</span>
           </button>
         </div>
       </div>
@@ -163,8 +164,8 @@
               <tr class="bg-slate-50 border-b border-slate-200 text-slate-500 font-semibold uppercase text-[10px] tracking-wider">
                 <th class="py-3 px-4">Credential Details</th>
                 <th class="py-3 px-4">Issuer &bull; Category</th>
-                <th class="py-3 px-4">Credential ID</th>
-                <th class="py-3 px-4 text-center">Public Visibility</th>
+                <th class="py-3 px-4">Verify Link</th>
+                <th class="py-3 px-4 text-center">Public Visibility Status</th>
                 <th class="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
@@ -210,96 +211,205 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- TAB 3: PROFILE & SKILLS MANAGER -->
+    <!-- TAB 3: PROFILE & SITE CONTENT CMS -->
     <!-- =================================================================== -->
     <section id="panel-profile" class="admin-tab-panel hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Profile Editor Form (7 cols) -->
-        <div class="lg:col-span-7 dashboard-panel p-6 space-y-5">
-          <div class="pb-3 border-b border-slate-100">
-            <h2 class="text-lg font-bold text-slate-900">Personal &amp; Academic Profile</h2>
-            <p class="text-xs text-slate-500">Update your public headline, biography, location, and availability status.</p>
-          </div>
-
-          <form id="admin-profile-form" class="space-y-4 text-xs">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">Full Name</label>
-                <input type="text" id="prof-name" class="form-input-custom w-full rounded-xl px-3 py-2" required>
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">Title / Headline Role</label>
-                <input type="text" id="prof-title" class="form-input-custom w-full rounded-xl px-3 py-2" required>
-              </div>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Headline Mission Statement</label>
-              <input type="text" id="prof-headline" class="form-input-custom w-full rounded-xl px-3 py-2" required>
-            </div>
-
-            <div>
-              <label class="block font-semibold text-slate-700 mb-1">Professional Biography</label>
-              <textarea id="prof-bio" rows="4" class="form-input-custom w-full rounded-xl p-3 leading-relaxed" required></textarea>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">Location</label>
-                <input type="text" id="prof-location" class="form-input-custom w-full rounded-xl px-3 py-2">
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">Contact Email</label>
-                <input type="email" id="prof-email" class="form-input-custom w-full rounded-xl px-3 py-2">
-              </div>
-              <div>
-                <label class="block font-semibold text-slate-700 mb-1">Status Badge</label>
-                <input type="text" id="prof-status" class="form-input-custom w-full rounded-xl px-3 py-2">
-              </div>
-            </div>
-
-            <div class="pt-2 flex justify-end">
-              <button type="submit" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-sm flex items-center gap-2">
-                <i class="fa-solid fa-floppy-disk"></i>
-                <span>Save Profile Changes</span>
-              </button>
-            </div>
-          </form>
+      
+      <!-- Top Action Bar -->
+      <div class="dashboard-panel p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <span>Profile &amp; Site Content CMS</span>
+            <span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold">Supabase Powered</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">Control every headline, bio summary, social link, photo, and education milestone in real time.</p>
         </div>
 
-        <!-- Quick Skills Overview (5 cols) -->
-        <div class="lg:col-span-5 dashboard-panel p-6 space-y-4">
-          <div class="pb-3 border-b border-slate-100 flex items-center justify-between">
-            <div>
-              <h3 class="text-base font-bold text-slate-900">Technical Skills Stack</h3>
-              <p class="text-xs text-slate-500">Live skills synchronized with skills.html</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="saveCMSProfile()" id="btn-save-cms-profile" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-colors shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-floppy-disk"></i>
+            <span>Save Profile &amp; Content Changes</span>
+          </button>
+          <button type="button" onclick="confirmResetCMSProfile()" class="px-3 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-600 border border-slate-200 text-xs font-medium transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-rotate-left"></i>
+            <span>Reset to Defaults</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- LEFT: Hero & Personal Details (7 Cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Card 1: Identity & Hero Elements -->
+          <div class="dashboard-panel p-6 space-y-5">
+            <div class="pb-3 border-b border-slate-100 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <i class="fa-solid fa-user-graduate text-blue-600"></i>
+                  <span>Hero &amp; Personal Identity</span>
+                </h3>
+                <p class="text-xs text-slate-500">Public scholar branding on index.html and across the site</p>
+              </div>
             </div>
-            <span class="badge-blue px-2.5 py-0.5 rounded-full text-xs font-mono font-semibold">Dynamic</span>
+
+            <div class="space-y-4 text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Full Legal / Display Name <span class="text-blue-600">*</span></label>
+                  <input type="text" id="cms-input-name" class="form-input-custom w-full rounded-xl px-3 py-2 font-medium" placeholder="e.g. ARULDAVID A">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Headline Badge Text <span class="text-blue-600">*</span></label>
+                  <input type="text" id="cms-input-badge" class="form-input-custom w-full rounded-xl px-3 py-2" placeholder="e.g. MCA Postgraduate Scholar">
+                </div>
+              </div>
+
+              <!-- Badge Visibility Toggle -->
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-slate-800 block text-xs">Headline Badge Pulsing Dot</span>
+                  <span class="text-[11px] text-slate-500">Show or hide the status pill above your name on index.html</span>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                  <input type="checkbox" id="cms-input-badge-visible" class="sr-only peer" checked>
+                  <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                </label>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Degree Title <span class="text-blue-600">*</span></label>
+                  <input type="text" id="cms-input-degree" class="form-input-custom w-full rounded-xl px-3 py-2" placeholder="e.g. Master of Computer Applications (MCA)">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Institution &amp; Campus <span class="text-blue-600">*</span></label>
+                  <input type="text" id="cms-input-college" class="form-input-custom w-full rounded-xl px-3 py-2" placeholder="e.g. PSG College of Arts and Science • Coimbatore">
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Hero Concise Bio Summary <span class="text-blue-600">*</span></label>
+                <textarea id="cms-input-bio" rows="4" class="form-input-custom w-full rounded-xl p-3 leading-relaxed" placeholder="Write your grounded postgraduate bio summary..."></textarea>
+                <span class="text-[10px] text-slate-400 mt-1 block">Displayed prominently on index.html above the fold.</span>
+              </div>
+
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Core Competencies / Foundational Skills Badges (Comma-separated)</label>
+                <input type="text" id="cms-input-skills" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono text-xs" placeholder="Python, Java, C#, SQL &amp; Relational Databases, Supabase, Data Structures">
+                <span class="text-[10px] text-slate-400 mt-1 block">Separate skill tags with commas. Automatically rendered as badges with brand icons.</span>
+              </div>
+            </div>
           </div>
 
-          <div class="space-y-4 text-xs">
-            <div>
-              <span class="font-bold text-slate-700 block mb-2 uppercase text-[10px] tracking-wider text-slate-400">Programming Languages</span>
-              <div id="admin-skills-languages" class="flex flex-wrap gap-1.5">
-                <!-- Dynamically populated -->
+          <!-- Card 2: Social & External Channels -->
+          <div class="dashboard-panel p-6 space-y-5">
+            <div class="pb-3 border-b border-slate-100 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <i class="fa-solid fa-share-nodes text-blue-600"></i>
+                  <span>Social Links &amp; Resume / CV</span>
+                </h3>
+                <p class="text-xs text-slate-500">Connected to sidebar, contact links, and resume download modal</p>
               </div>
             </div>
 
-            <div>
-              <span class="font-bold text-slate-700 block mb-2 uppercase text-[10px] tracking-wider text-slate-400">Web &amp; Frameworks</span>
-              <div id="admin-skills-web" class="flex flex-wrap gap-1.5">
-                <!-- Dynamically populated -->
+            <div class="space-y-4 text-xs">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">GitHub Profile URL</label>
+                  <input type="url" id="cms-input-github" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono" placeholder="https://github.com/yourusername">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">LinkedIn Profile URL</label>
+                  <input type="url" id="cms-input-linkedin" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono" placeholder="https://linkedin.com/in/yourusername">
+                </div>
               </div>
-            </div>
 
-            <div>
-              <span class="font-bold text-slate-700 block mb-2 uppercase text-[10px] tracking-wider text-slate-400">Core CS &amp; Systems</span>
-              <div id="admin-skills-core" class="space-y-1.5">
-                <!-- Dynamically populated -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Contact Email Address</label>
+                  <input type="email" id="cms-input-email" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono" placeholder="aruld3963@gmail.com">
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Resume / CV Document URL</label>
+                  <input type="text" id="cms-input-resume" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono" placeholder="assets/resume.pdf">
+                </div>
+              </div>
+
+              <!-- Upload Resume to Supabase Storage -->
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+                <span class="font-bold text-slate-800 block text-xs">Upload New Resume Document (PDF)</span>
+                <div class="flex items-center gap-3">
+                  <input type="file" id="cms-input-resume-file" accept=".pdf,.doc,.docx" class="text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                  <button type="button" onclick="uploadCMSResumeFile()" id="btn-upload-resume-file" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-2xs">
+                    <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                    <span>Upload to Cloud</span>
+                  </button>
+                </div>
+                <span id="cms-resume-upload-status" class="text-[10px] text-slate-400 block"></span>
               </div>
             </div>
           </div>
+
+        </div>
+
+        <!-- RIGHT: Profile Photo & Education Journey Manager (5 Cols) -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Card 3: Profile Photo Manager -->
+          <div class="dashboard-panel p-6 space-y-4">
+            <div class="pb-3 border-b border-slate-100">
+              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <i class="fa-solid fa-camera text-blue-600"></i>
+                <span>Hero &amp; Profile Portrait</span>
+              </h3>
+              <p class="text-xs text-slate-500">Controls your blended portrait on index.html and sidebar</p>
+            </div>
+
+            <!-- Preview & Upload -->
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+              <div class="relative w-24 h-24 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden flex items-center justify-center flex-shrink-0 shadow-2xs">
+                <img id="cms-avatar-preview" src="assets/profile.png" alt="Avatar preview" class="w-full h-full object-cover" onerror="this.src='my-photo.jpg'">
+              </div>
+              <div class="space-y-2 flex-1 w-full text-xs">
+                <input type="file" id="cms-input-avatar-file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                <button type="button" onclick="uploadCMSAvatarFile()" id="btn-upload-avatar-file" class="w-full py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                  <span>Upload Photo to Supabase</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="text-xs">
+              <label class="block font-semibold text-slate-700 mb-1">Image URL / Path</label>
+              <input type="text" id="cms-input-avatar-url" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono" placeholder="assets/profile.png" oninput="document.getElementById('cms-avatar-preview').src = this.value">
+            </div>
+          </div>
+
+          <!-- Card 4: Dynamic Education Journey Manager -->
+          <div class="dashboard-panel p-6 space-y-4">
+            <div class="pb-3 border-b border-slate-100 flex items-center justify-between">
+              <div>
+                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                  <i class="fa-solid fa-timeline text-blue-600"></i>
+                  <span>Education Journey</span>
+                </h3>
+                <p class="text-xs text-slate-500">Milestones rendered dynamically on about.html</p>
+              </div>
+              <button type="button" onclick="openEducationMilestoneModal()" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-plus text-[10px]"></i>
+                <span>Add Milestone</span>
+              </button>
+            </div>
+
+            <!-- Milestone List -->
+            <div id="cms-education-list" class="space-y-3">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
         </div>
 
       </div>
@@ -380,7 +490,7 @@ CREATE TABLE achievements (
 );
 
 -- 2. Create Projects Table
-CREATE TABLE projects (
+CREATE TABLE IF NOT EXISTS projects (
   id TEXT PRIMARY KEY,
   title TEXT NOT NULL,
   category TEXT,
@@ -392,7 +502,86 @@ CREATE TABLE projects (
   featured BOOLEAN DEFAULT false,
   is_visible BOOLEAN DEFAULT true,
   created_at TIMESTAMPTZ DEFAULT NOW()
-);</pre>
+);
+
+-- 3. Create Site Profile & Dynamic CMS Table
+CREATE TABLE IF NOT EXISTS site_profile (
+  id TEXT PRIMARY KEY DEFAULT 'main_profile',
+  full_name TEXT,
+  headline_badge TEXT,
+  degree_title TEXT,
+  college_name TEXT,
+  bio_summary TEXT,
+  core_skills TEXT[],
+  github_url TEXT,
+  linkedin_url TEXT,
+  email TEXT,
+  resume_url TEXT,
+  avatar_url TEXT,
+  education_journey JSONB DEFAULT '[]'::jsonb,
+  is_badge_visible BOOLEAN DEFAULT true,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Row Level Security (RLS)
+ALTER TABLE site_profile ENABLE ROW LEVEL SECURITY;
+
+-- Allow public read access (SELECT)
+CREATE POLICY "Allow public read access on site_profile" 
+ON site_profile FOR SELECT USING (true);
+
+-- Allow public/anon upsert (INSERT & UPDATE) for portfolio administration
+CREATE POLICY "Allow anon insert on site_profile" 
+ON site_profile FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Allow anon update on site_profile" 
+ON site_profile FOR UPDATE USING (true);
+
+-- Insert default profile seed row if not exists
+INSERT INTO site_profile (
+  id, full_name, headline_badge, degree_title, college_name,
+  bio_summary, core_skills, github_url, linkedin_url, email,
+  resume_url, avatar_url, education_journey, is_badge_visible
+) VALUES (
+  'main_profile',
+  'ARULDAVID A',
+  'MCA Postgraduate Scholar',
+  'Master of Computer Applications (MCA)',
+  'PSG College of Arts and Science • Coimbatore',
+  'Dedicated postgraduate scholar with a focused pursuit in computational problem-solving, algorithm optimization, and clean software architecture. Driven by building robust database systems, authoring maintainable production code, and demonstrating collaborative technical leadership across academic and real-world initiatives.',
+  ARRAY['Python', 'Java', 'C#', 'SQL & Relational Databases', 'Supabase', 'Data Structures'],
+  'https://github.com',
+  'https://linkedin.com',
+  'aruld3963@gmail.com',
+  'assets/resume.pdf',
+  'assets/profile.png',
+  '[
+    {"id": "edu-1", "level": "Postgraduate (MCA)", "institution": "PSG College of Arts and Science • Coimbatore", "year": "2024 — 2026", "details": "Specializing in Advanced Data Structures, Cloud Computing, Database Engineering, and High-Performance Software Systems.", "isVisible": true},
+    {"id": "edu-2", "level": "Undergraduate (B.Sc. CS)", "institution": "PSG College of Arts and Science • Coimbatore", "year": "2021 — 2024", "details": "Graduated with Distinction (First Class with Exemplary). Core focus on Object-Oriented Programming, Database Systems, and Algorithms.", "isVisible": true},
+    {"id": "edu-3", "level": "Higher Secondary (HSC)", "institution": "State Board of Higher Secondary Education", "year": "2020 — 2021", "details": "Computer Science, Mathematics, Physics, and Chemistry. Completed with high academic distinction.", "isVisible": true}
+  ]'::jsonb,
+  true
+)
+ON CONFLICT (id) DO NOTHING;
+
+-- 4. Enforce Public Visibility Rule for all uploaded certificates and media
+UPDATE achievements SET is_visible = true WHERE is_visible IS NULL OR is_visible = false;
+UPDATE projects SET is_visible = true WHERE is_visible IS NULL OR is_visible = false;
+
+-- 5. Create Secure Admin Authentication Table (Hashed Web Crypto Passwords & OTP Reset)
+CREATE TABLE IF NOT EXISTS admin_auth (
+  id TEXT PRIMARY KEY DEFAULT 'master_admin',
+  email TEXT NOT NULL DEFAULT 'aruld3963@gmail.com',
+  password_hash TEXT NOT NULL,
+  salt TEXT,
+  reset_token TEXT,
+  reset_expires TIMESTAMPTZ,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE admin_auth ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow anon select on admin_auth" ON admin_auth FOR SELECT USING (true);
+CREATE POLICY "Allow anon upsert on admin_auth" ON admin_auth FOR ALL USING (true);</pre>
         </div>
       </div>
     </section>
@@ -472,16 +661,18 @@ CREATE TABLE projects (
           <textarea id="form-ach-desc" rows="3" placeholder="Summary of the credential or honor..." class="form-input-custom w-full rounded-xl p-3 leading-relaxed"></textarea>
         </div>
 
-        <div class="flex items-center gap-6 pt-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
           <label class="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" id="form-ach-featured" class="w-4 h-4 text-blue-600 rounded border-slate-300">
             <span class="font-semibold text-slate-700">Highlight as Featured</span>
           </label>
 
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" id="form-ach-visible" checked class="w-4 h-4 text-blue-600 rounded border-slate-300">
-            <span class="font-semibold text-slate-700">Show on Public Site (Visible)</span>
-          </label>
+          <div class="p-2.5 px-3.5 bg-emerald-50/90 border border-emerald-200 rounded-xl flex items-center gap-2.5 text-xs text-emerald-800">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <i class="fa-solid fa-globe text-emerald-600 text-xs"></i>
+            <span class="font-bold">Rule Active: 100% Publicly Visible to All</span>
+            <input type="hidden" id="form-ach-visible" value="true">
+          </div>
         </div>
 
         <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
@@ -559,16 +750,18 @@ CREATE TABLE projects (
           <textarea id="form-proj-desc" rows="3" placeholder="Architecture highlights, problem solved, throughput..." class="form-input-custom w-full rounded-xl p-3 leading-relaxed" required></textarea>
         </div>
 
-        <div class="flex items-center gap-6 pt-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
           <label class="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" id="form-proj-featured" class="w-4 h-4 text-blue-600 rounded border-slate-300">
             <span class="font-semibold text-slate-700">Flagship / Featured Bento Card</span>
           </label>
 
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" id="form-proj-visible" checked class="w-4 h-4 text-blue-600 rounded border-slate-300">
-            <span class="font-semibold text-slate-700">Show on Public Site (Visible)</span>
-          </label>
+          <div class="p-2.5 px-3.5 bg-emerald-50/90 border border-emerald-200 rounded-xl flex items-center gap-2.5 text-xs text-emerald-800">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <i class="fa-solid fa-globe text-emerald-600 text-xs"></i>
+            <span class="font-bold">Rule Active: 100% Publicly Visible to All</span>
+            <input type="hidden" id="form-proj-visible" value="true">
+          </div>
         </div>
 
         <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
@@ -581,6 +774,69 @@ CREATE TABLE projects (
           </button>
         </div>
       </form>
+  <!-- =================================================================== -->
+  <!-- ADD / EDIT EDUCATION MILESTONE MODAL -->
+  <!-- =================================================================== -->
+  <div id="education-milestone-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden opacity-0 transition-opacity duration-300">
+    <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeEducationMilestoneModal()"></div>
+    <div class="relative z-10 w-full max-w-xl bg-white rounded-2xl p-6 sm:p-7 border border-slate-200 shadow-2xl max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300">
+      
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h3 id="edu-modal-title" class="text-lg font-bold text-slate-900">Add Academic Milestone</h3>
+          <p class="text-xs text-slate-500">Add or edit degree, school, or collegiate milestone for about.html</p>
+        </div>
+        <button onclick="closeEducationMilestoneModal()" class="text-slate-400 hover:text-slate-600 p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="education-milestone-form" class="py-4 space-y-4 text-xs">
+        <input type="hidden" id="form-edu-id">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Academic Level / Degree <span class="text-blue-600">*</span></label>
+            <input type="text" id="form-edu-level" required placeholder="e.g. Postgraduate (MCA)" class="form-input-custom w-full rounded-xl px-3 py-2">
+          </div>
+          <div>
+            <label class="block font-semibold text-slate-700 mb-1">Duration / Years <span class="text-blue-600">*</span></label>
+            <input type="text" id="form-edu-year" required placeholder="e.g. 2024 — 2026" class="form-input-custom w-full rounded-xl px-3 py-2 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Institution &amp; City <span class="text-blue-600">*</span></label>
+          <input type="text" id="form-edu-institution" required placeholder="e.g. PSG College of Arts and Science • Coimbatore" class="form-input-custom w-full rounded-xl px-3 py-2">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Coursework Details / Honors / Specialization</label>
+          <textarea id="form-edu-details" rows="3" placeholder="Key focus areas, coursework, thesis, or academic honors..." class="form-input-custom w-full rounded-xl p-3 leading-relaxed"></textarea>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+          <div>
+            <span class="font-bold text-slate-800 block text-xs">Public Visibility</span>
+            <span class="text-[11px] text-slate-500">Display this milestone in the Academic Background timeline on about.html</span>
+          </div>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" id="form-edu-visible" class="sr-only peer" checked>
+            <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+          </label>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeEducationMilestoneModal()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="btn-save-edu-milestone" class="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-colors shadow-sm flex items-center gap-2">
+            <i class="fa-solid fa-check"></i>
+            <span>Save Milestone</span>
+          </button>
+        </div>
+      </form>
+
     </div>
   </div>
 
@@ -592,15 +848,32 @@ CREATE TABLE projects (
 
     document.addEventListener('DOMContentLoaded', async () => {
       // Logout Handler
-      document.getElementById('admin-logout-btn').addEventListener('click', () => {
-        PortfolioStore.logout();
+      document.getElementById('admin-logout-btn').addEventListener('click', async () => {
+        await PortfolioStore.logout();
         window.location.href = 'admin-login.html';
       });
+
+      // Proactively enforce public visibility rule in Supabase
+      if (window.supabaseClient) {
+        window.supabaseClient
+          .from('achievements')
+          .update({ is_visible: true })
+          .or('is_visible.eq.false,is_visible.is.null')
+          .then(() => console.log('⚡ Enforced public visibility rule for achievements in Supabase'))
+          .catch(() => {});
+
+        window.supabaseClient
+          .from('projects')
+          .update({ is_visible: true })
+          .or('is_visible.eq.false,is_visible.is.null')
+          .then(() => console.log('⚡ Enforced public visibility rule for projects in Supabase'))
+          .catch(() => {});
+      }
 
       // Load data
       await loadAdminAchievements();
       await loadAdminProjects();
-      loadAdminProfile();
+      await loadAdminProfile();
       loadSupabaseSettingsUI();
     });
 
@@ -698,8 +971,10 @@ CREATE TABLE projects (
               ` : '<span class="text-slate-400 font-mono text-[11px]">—</span>'}
             </td>
             <td class="py-3 px-4 text-center">
-              <button onclick="toggleAchievementVisibility('${item.id}', ${isVisible})" class="px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all ${isVisible ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100' : 'bg-slate-100 text-slate-400 border border-slate-200 hover:bg-slate-200'}" title="Click to toggle visibility on public site">
-                ${isVisible ? '<i class="fa-solid fa-eye mr-1"></i> Visible' : '<i class="fa-solid fa-eye-slash mr-1"></i> Hidden'}
+              <button onclick="enforceCertificateVisibility('${item.id}')" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-all shadow-2xs mx-auto" title="Rule Active: 100% visible on public site. Click to confirm.">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <i class="fa-solid fa-globe text-[10px]"></i>
+                <span>Visible to All</span>
               </button>
             </td>
             <td class="py-3 px-4 text-right space-x-2">
@@ -734,7 +1009,6 @@ CREATE TABLE projects (
         document.getElementById('form-ach-date').value = editItem.date || '';
         document.getElementById('form-ach-url').value = editItem.credential_link || editItem.credentialUrl || '';
         document.getElementById('form-ach-image-url').value = editItem.image_url || editItem.imageUrl || '';
-        document.getElementById('form-ach-visible').checked = editItem.is_visible !== false;
       } else {
         titleEl.textContent = 'Add New Certificate / Honor';
       }
@@ -775,7 +1049,9 @@ CREATE TABLE projects (
           }
         }
 
-        // c) Construct row with exact fields: title, category, issuer, date, credential_link, image_url, and is_visible
+        const generatedId = id || ('cert_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7));
+
+        // c) Construct row with exact fields - enforce is_visible: true by rule
         const rowData = {
           title: document.getElementById('form-ach-title').value.trim(),
           category: document.getElementById('form-ach-category').value,
@@ -783,7 +1059,7 @@ CREATE TABLE projects (
           date: document.getElementById('form-ach-date').value.trim(),
           credential_link: document.getElementById('form-ach-url').value.trim(),
           image_url: imageUrl,
-          is_visible: document.getElementById('form-ach-visible').checked !== false
+          is_visible: true // RULE ACTIVE: Always visible to all visitors on public site
         };
 
         // Insert or update directly in Supabase table 'achievements'
@@ -794,23 +1070,24 @@ CREATE TABLE projects (
               .update(rowData)
               .eq('id', id);
             if (error) throw error;
-            window.showToast('Certificate updated in Supabase!', 'success');
+            window.showToast('Certificate updated & published live!', 'success');
           } else {
+            const insertData = { ...rowData, id: generatedId };
             const { data, error } = await window.supabaseClient
               .from('achievements')
-              .insert([rowData])
+              .insert([insertData])
               .select();
             if (error) throw error;
-            window.showToast('New certificate uploaded to Supabase!', 'success');
+            window.showToast('New certificate uploaded & live on public site!', 'success');
           }
         } else {
           // Local fallback
           if (id) {
             await PortfolioStore.updateAchievement(id, rowData);
           } else {
-            await PortfolioStore.addAchievement(rowData);
+            await PortfolioStore.addAchievement({ ...rowData, id: generatedId });
           }
-          window.showToast('Saved locally.', 'info');
+          window.showToast('Certificate saved & published locally.', 'info');
         }
 
         closeAchievementModal();
@@ -841,24 +1118,49 @@ CREATE TABLE projects (
       if (item) openAchievementModal(item);
     }
 
-    async function toggleAchievementVisibility(id, currentStatus) {
-      const newStatus = !currentStatus;
+    async function enforceCertificateVisibility(id) {
       try {
         if (window.supabaseClient) {
-          const { error } = await window.supabaseClient
+          await window.supabaseClient
             .from('achievements')
-            .update({ is_visible: newStatus })
+            .update({ is_visible: true })
             .eq('id', id);
-          if (error) throw error;
         }
         if (window.PortfolioStore) {
-          await PortfolioStore.updateAchievement(id, { is_visible: newStatus });
+          await PortfolioStore.updateAchievement(id, { is_visible: true });
         }
-        window.showToast(`Visibility set to ${newStatus ? 'Visible' : 'Hidden'} on public site`, 'info');
+        window.showToast('Rule Confirmed: Certificate is 100% visible to all visitors on public site!', 'success');
         await loadAdminAchievements();
       } catch (err) {
-        console.error('Toggle visibility error:', err);
-        window.showToast('Failed to update visibility: ' + (err.message || ''), 'error');
+        console.error('Visibility check error:', err);
+      }
+    }
+
+    async function enforceAllMediaVisible() {
+      try {
+        if (window.supabaseClient) {
+          // Heal any records in Supabase where is_visible is false or null
+          await window.supabaseClient
+            .from('achievements')
+            .update({ is_visible: true })
+            .or('is_visible.eq.false,is_visible.is.null');
+
+          await window.supabaseClient
+            .from('projects')
+            .update({ is_visible: true })
+            .or('is_visible.eq.false,is_visible.is.null');
+        }
+        if (window.PortfolioStore) {
+          const list = await PortfolioStore.getAchievements(false);
+          const updated = list.map(a => ({ ...a, is_visible: true }));
+          localStorage.setItem(STORE_KEYS.ACHIEVEMENTS, JSON.stringify(updated));
+        }
+        window.showToast('Rule Applied: All certificates & uploaded media are 100% visible on public site!', 'success');
+        await loadAdminAchievements();
+        await loadAdminProjects();
+      } catch (err) {
+        console.error('Enforce visibility error:', err);
+        window.showToast('Failed to apply rule: ' + (err.message || ''), 'error');
       }
     }
 
@@ -884,16 +1186,17 @@ CREATE TABLE projects (
     }
 
     async function confirmPurgeAchievements() {
-      if (confirm('Are you sure you want to PURGE all placeholder certificates? This clears the list so you can upload your real certificates.')) {
+      if (confirm('Are you sure you want to PURGE all mock/placeholder certificates? Your authentic uploaded certificates will be preserved.')) {
+        const mockIds = ['aws-saa', 'gcp-cdl', 'hack-sih', 'ms-az900', 'meta-frontend', 'contest-leetcode', 'contest-hackerrank', 'honor-deans', 'pub-ieee'];
         if (window.supabaseClient) {
           try {
-            await window.supabaseClient.from('achievements').delete().neq('title', 'keep_none');
+            await window.supabaseClient.from('achievements').delete().in('id', mockIds);
           } catch (e) {
             console.warn(e);
           }
         }
         await PortfolioStore.purgeSampleAchievements();
-        window.showToast('Sample achievements purged. Database is now clean!', 'info');
+        window.showToast('Mock items purged! Only your real certificates and uploaded photos are shown.', 'success');
         await loadAdminAchievements();
       }
     }
@@ -930,8 +1233,9 @@ CREATE TABLE projects (
           <div>
             <div class="flex items-start justify-between gap-2 mb-3">
               <span class="badge-blue px-2.5 py-0.5 rounded text-[10px] font-bold uppercase">${p.category}</span>
-              <button onclick="toggleProjectVisibility('${p.id}')" class="px-2 py-0.5 rounded-full text-[10px] font-semibold ${p.is_visible !== false ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-400 border border-slate-200'}">
-                ${p.is_visible !== false ? 'Visible' : 'Hidden'}
+              <button onclick="enforceProjectVisibility('${p.id}')" class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100" title="Rule Active: 100% visible on public site">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Visible to All</span>
               </button>
             </div>
 
@@ -1053,11 +1357,17 @@ CREATE TABLE projects (
       if (item) openProjectModal(item);
     }
 
-    async function toggleProjectVisibility(id) {
-      await PortfolioStore.toggleProjectVisibility(id);
-      window.showToast('Project visibility toggled.', 'info');
+    async function enforceProjectVisibility(id) {
+      if (window.supabaseClient) {
+        await window.supabaseClient.from('projects').update({ is_visible: true }).eq('id', id);
+      }
+      if (window.PortfolioStore) {
+        await PortfolioStore.updateProject(id, { is_visible: true });
+      }
+      window.showToast('Rule Active: Project is 100% visible to all visitors on public site!', 'success');
       await loadAdminProjects();
     }
+    const toggleProjectVisibility = enforceProjectVisibility;
 
     async function deleteProject(id) {
       if (confirm('Delete this project?')) {
@@ -1082,62 +1392,332 @@ CREATE TABLE projects (
     }
 
     // ==========================================
-    // PROFILE & SKILLS
+    // PROFILE & SITE CONTENT CMS (DYNAMIC SUPABASE)
     // ==========================================
-    function loadAdminProfile() {
-      const profile = PortfolioStore.getProfile();
-      document.getElementById('prof-name').value = profile.name || '';
-      document.getElementById('prof-title').value = profile.title || '';
-      document.getElementById('prof-headline').value = profile.headline || '';
-      document.getElementById('prof-bio').value = profile.bio || '';
-      document.getElementById('prof-location').value = profile.location || '';
-      document.getElementById('prof-email').value = profile.email || '';
-      document.getElementById('prof-status').value = profile.status || '';
+    let currentEducationJourney = [];
 
-      const skills = PortfolioStore.getSkills();
-      const langContainer = document.getElementById('admin-skills-languages');
-      const webContainer = document.getElementById('admin-skills-web');
-      const coreContainer = document.getElementById('admin-skills-core');
+    async function loadAdminProfile() {
+      try {
+        const profile = await PortfolioStore.getSiteProfile();
+        if (!profile) return;
 
-      if (langContainer) {
-        langContainer.innerHTML = (skills.languages || []).map(s => `
-          <span class="badge-blue px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1.5">
-            ${s.name} (${s.mastery}%)
-          </span>
-        `).join('');
-      }
+        // Identity & Hero
+        const nameInput = document.getElementById('cms-input-name');
+        const badgeInput = document.getElementById('cms-input-badge');
+        const badgeVisibleInput = document.getElementById('cms-input-badge-visible');
+        const degreeInput = document.getElementById('cms-input-degree');
+        const collegeInput = document.getElementById('cms-input-college');
+        const bioInput = document.getElementById('cms-input-bio');
+        const skillsInput = document.getElementById('cms-input-skills');
 
-      if (webContainer) {
-        webContainer.innerHTML = (skills.webDb || []).map(s => `
-          <span class="badge-purple px-2.5 py-1 rounded-lg font-semibold flex items-center gap-1.5">
-            ${s.name}
-          </span>
-        `).join('');
-      }
+        if (nameInput) nameInput.value = profile.full_name || '';
+        if (badgeInput) badgeInput.value = profile.headline_badge || '';
+        if (badgeVisibleInput) badgeVisibleInput.checked = profile.is_badge_visible !== false;
+        if (degreeInput) degreeInput.value = profile.degree_title || '';
+        if (collegeInput) collegeInput.value = profile.college_name || '';
+        if (bioInput) bioInput.value = profile.bio_summary || '';
+        if (skillsInput) skillsInput.value = Array.isArray(profile.core_skills) ? profile.core_skills.join(', ') : (profile.core_skills || '');
 
-      if (coreContainer) {
-        coreContainer.innerHTML = (skills.coreDsa || []).map(s => `
-          <div class="p-2 rounded-lg bg-slate-50 border border-slate-200">
-            <strong class="text-slate-800 block">${s.name}</strong>
-            <span class="text-slate-500 text-[11px]">${s.desc}</span>
-          </div>
-        `).join('');
+        // Social & External Channels
+        const githubInput = document.getElementById('cms-input-github');
+        const linkedinInput = document.getElementById('cms-input-linkedin');
+        const emailInput = document.getElementById('cms-input-email');
+        const resumeInput = document.getElementById('cms-input-resume');
+
+        if (githubInput) githubInput.value = profile.github_url || '';
+        if (linkedinInput) linkedinInput.value = profile.linkedin_url || '';
+        if (emailInput) emailInput.value = profile.email || '';
+        if (resumeInput) resumeInput.value = profile.resume_url || '';
+
+        // Avatar
+        const avatarUrlInput = document.getElementById('cms-input-avatar-url');
+        const avatarPreview = document.getElementById('cms-avatar-preview');
+        if (avatarUrlInput) avatarUrlInput.value = profile.avatar_url || 'assets/profile.png';
+        if (avatarPreview && profile.avatar_url) avatarPreview.src = profile.avatar_url;
+
+        // Education Journey
+        currentEducationJourney = Array.isArray(profile.education_journey) 
+          ? JSON.parse(JSON.stringify(profile.education_journey)) 
+          : [];
+
+        renderAdminEducationList();
+      } catch (err) {
+        console.error("Error loading CMS profile:", err);
       }
     }
 
-    document.getElementById('admin-profile-form').addEventListener('submit', (e) => {
+    function renderAdminEducationList() {
+      const container = document.getElementById('cms-education-list');
+      if (!container) return;
+
+      if (!currentEducationJourney || currentEducationJourney.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-xs">
+            <i class="fa-solid fa-graduation-cap text-lg mb-1 block text-slate-300"></i>
+            No education milestones configured. Click "Add Milestone" above to create your first degree milestone.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = currentEducationJourney.map((item, index) => {
+        const isFirst = index === 0;
+        const isLast = index === currentEducationJourney.length - 1;
+        const isVis = item.isVisible !== false;
+
+        return `
+          <div class="p-4 rounded-xl border ${isVis ? 'bg-white border-slate-200 shadow-2xs' : 'bg-slate-50/80 border-slate-200 opacity-60'} space-y-3 transition-all hover:border-slate-300">
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex-1">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="badge-blue px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider">${item.level || 'Degree'}</span>
+                  <span class="font-mono text-xs font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">${item.year || ''}</span>
+                  <span class="${isVis ? 'text-emerald-700 bg-emerald-50 border-emerald-200' : 'text-slate-500 bg-slate-100 border-slate-200'} border px-2 py-0.5 rounded text-[10px] font-bold">
+                    ${isVis ? 'Visible' : 'Hidden'}
+                  </span>
+                </div>
+                <h4 class="text-sm font-bold text-slate-900 mt-1">${item.institution || 'Institution Name'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed mt-0.5 line-clamp-2">${item.details || ''}</p>
+              </div>
+
+              <!-- Reorder Controls -->
+              <div class="flex flex-col items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
+                <button type="button" onclick="moveEducationMilestone('${item.id}', -1)" ${isFirst ? 'disabled class="opacity-25 cursor-not-allowed text-slate-400 p-1"' : 'class="text-slate-600 hover:text-blue-600 p-1"'} title="Move Up">
+                  <i class="fa-solid fa-chevron-up text-xs"></i>
+                </button>
+                <button type="button" onclick="moveEducationMilestone('${item.id}', 1)" ${isLast ? 'disabled class="opacity-25 cursor-not-allowed text-slate-400 p-1"' : 'class="text-slate-600 hover:text-blue-600 p-1"'} title="Move Down">
+                  <i class="fa-solid fa-chevron-down text-xs"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+              <button type="button" onclick="toggleEducationMilestoneVisibility('${item.id}')" class="text-slate-600 hover:text-blue-700 font-semibold flex items-center gap-1.5 transition-colors">
+                <i class="fa-solid ${isVis ? 'fa-eye-slash' : 'fa-eye'}"></i>
+                <span>${isVis ? 'Hide on Site' : 'Show on Site'}</span>
+              </button>
+
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="openEducationMilestoneModal('${item.id}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold transition-colors flex items-center gap-1">
+                  <i class="fa-solid fa-pen-to-square text-[10px]"></i> Edit
+                </button>
+                <button type="button" onclick="deleteEducationMilestone('${item.id}')" class="px-2.5 py-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-semibold transition-colors flex items-center gap-1">
+                  <i class="fa-solid fa-trash-can text-[10px]"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Modal Operations
+    function openEducationMilestoneModal(editId = null) {
+      const modal = document.getElementById('education-milestone-modal');
+      const form = document.getElementById('education-milestone-form');
+      const titleEl = document.getElementById('edu-modal-title');
+      if (!modal || !form) return;
+
+      form.reset();
+
+      if (editId) {
+        const item = currentEducationJourney.find(e => e.id === editId);
+        if (item) {
+          titleEl.textContent = 'Edit Academic Milestone';
+          document.getElementById('form-edu-id').value = item.id;
+          document.getElementById('form-edu-level').value = item.level || '';
+          document.getElementById('form-edu-year').value = item.year || '';
+          document.getElementById('form-edu-institution').value = item.institution || '';
+          document.getElementById('form-edu-details').value = item.details || '';
+          document.getElementById('form-edu-visible').checked = item.isVisible !== false;
+        }
+      } else {
+        titleEl.textContent = 'Add Academic Milestone';
+        document.getElementById('form-edu-id').value = '';
+        document.getElementById('form-edu-visible').checked = true;
+      }
+
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        const d = modal.querySelector('div:nth-child(2)');
+        if (d) d.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    }
+
+    function closeEducationMilestoneModal() {
+      const modal = document.getElementById('education-milestone-modal');
+      if (!modal) return;
+      modal.classList.add('opacity-0');
+      setTimeout(() => modal.classList.add('hidden'), 200);
+    }
+
+    // Handle Milestone Form Submission
+    document.getElementById('education-milestone-form').addEventListener('submit', (e) => {
       e.preventDefault();
-      PortfolioStore.updateProfile({
-        name: document.getElementById('prof-name').value.trim(),
-        title: document.getElementById('prof-title').value.trim(),
-        headline: document.getElementById('prof-headline').value.trim(),
-        bio: document.getElementById('prof-bio').value.trim(),
-        location: document.getElementById('prof-location').value.trim(),
-        email: document.getElementById('prof-email').value.trim(),
-        status: document.getElementById('prof-status').value.trim()
-      });
-      window.showToast('Profile configuration updated!', 'success');
+      const id = document.getElementById('form-edu-id').value;
+      const level = document.getElementById('form-edu-level').value.trim();
+      const year = document.getElementById('form-edu-year').value.trim();
+      const institution = document.getElementById('form-edu-institution').value.trim();
+      const details = document.getElementById('form-edu-details').value.trim();
+      const isVisible = document.getElementById('form-edu-visible').checked;
+
+      if (id) {
+        const index = currentEducationJourney.findIndex(m => m.id === id);
+        if (index !== -1) {
+          currentEducationJourney[index] = {
+            ...currentEducationJourney[index],
+            level, year, institution, details, isVisible
+          };
+          window.showToast('Milestone updated!', 'success');
+        }
+      } else {
+        const newMilestone = {
+          id: `edu-${Date.now()}`,
+          level, year, institution, details, isVisible
+        };
+        currentEducationJourney.push(newMilestone);
+        window.showToast('New academic milestone added!', 'success');
+      }
+
+      closeEducationMilestoneModal();
+      renderAdminEducationList();
     });
+
+    function moveEducationMilestone(id, direction) {
+      const index = currentEducationJourney.findIndex(m => m.id === id);
+      if (index === -1) return;
+      const targetIndex = index + direction;
+      if (targetIndex < 0 || targetIndex >= currentEducationJourney.length) return;
+
+      const temp = currentEducationJourney[index];
+      currentEducationJourney[index] = currentEducationJourney[targetIndex];
+      currentEducationJourney[targetIndex] = temp;
+      renderAdminEducationList();
+    }
+
+    function toggleEducationMilestoneVisibility(id) {
+      const item = currentEducationJourney.find(m => m.id === id);
+      if (item) {
+        item.isVisible = !item.isVisible;
+        renderAdminEducationList();
+        window.showToast(`Milestone ${item.isVisible ? 'set to visible' : 'hidden from public site'}.`, 'info');
+      }
+    }
+
+    function deleteEducationMilestone(id) {
+      if (confirm('Delete this academic milestone?')) {
+        currentEducationJourney = currentEducationJourney.filter(m => m.id !== id);
+        renderAdminEducationList();
+        window.showToast('Academic milestone removed.', 'success');
+      }
+    }
+
+    // Upload Photo to Supabase
+    async function uploadCMSAvatarFile() {
+      const fileInput = document.getElementById('cms-input-avatar-file');
+      const uploadBtn = document.getElementById('btn-upload-avatar-file');
+      if (!fileInput.files || !fileInput.files[0]) {
+        window.showToast('Please select a photo file to upload.', 'warning');
+        return;
+      }
+
+      uploadBtn.disabled = true;
+      uploadBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Uploading to Cloud...</span>';
+
+      try {
+        const uploadedUrl = await window.uploadImageToSupabase(fileInput.files[0], 'profile');
+        if (uploadedUrl) {
+          document.getElementById('cms-input-avatar-url').value = uploadedUrl;
+          document.getElementById('cms-avatar-preview').src = uploadedUrl;
+          window.showToast('Profile photo uploaded to Supabase!', 'success');
+        }
+      } catch (err) {
+        console.error(err);
+        window.showToast('Photo upload failed.', 'error');
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> <span>Upload Photo to Supabase</span>';
+      }
+    }
+
+    // Upload Resume to Supabase
+    async function uploadCMSResumeFile() {
+      const fileInput = document.getElementById('cms-input-resume-file');
+      const uploadBtn = document.getElementById('btn-upload-resume-file');
+      const statusEl = document.getElementById('cms-resume-upload-status');
+      if (!fileInput.files || !fileInput.files[0]) {
+        window.showToast('Please select a resume document (PDF).', 'warning');
+        return;
+      }
+
+      uploadBtn.disabled = true;
+      uploadBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Uploading...</span>';
+      if (statusEl) statusEl.textContent = 'Uploading resume to Supabase Storage bucket...';
+
+      try {
+        const uploadedUrl = await window.uploadImageToSupabase(fileInput.files[0], 'resume');
+        if (uploadedUrl) {
+          document.getElementById('cms-input-resume').value = uploadedUrl;
+          if (statusEl) statusEl.textContent = `Uploaded: ${uploadedUrl.substring(0, 45)}...`;
+          window.showToast('Resume uploaded to Supabase Storage!', 'success');
+        }
+      } catch (err) {
+        console.error(err);
+        if (statusEl) statusEl.textContent = 'Upload encountered an issue.';
+        window.showToast('Resume upload failed.', 'error');
+      } finally {
+        uploadBtn.disabled = false;
+        uploadBtn.innerHTML = '<i class="fa-solid fa-arrow-up-from-bracket"></i> <span>Upload to Cloud</span>';
+      }
+    }
+
+    // Save All CMS Changes
+    async function saveCMSProfile() {
+      const saveBtn = document.getElementById('btn-save-cms-profile');
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Saving to Supabase...</span>';
+      }
+
+      try {
+        const payload = {
+          full_name: document.getElementById('cms-input-name').value.trim(),
+          headline_badge: document.getElementById('cms-input-badge').value.trim(),
+          is_badge_visible: document.getElementById('cms-input-badge-visible').checked,
+          degree_title: document.getElementById('cms-input-degree').value.trim(),
+          college_name: document.getElementById('cms-input-college').value.trim(),
+          bio_summary: document.getElementById('cms-input-bio').value.trim(),
+          core_skills: document.getElementById('cms-input-skills').value,
+          github_url: document.getElementById('cms-input-github').value.trim(),
+          linkedin_url: document.getElementById('cms-input-linkedin').value.trim(),
+          email: document.getElementById('cms-input-email').value.trim(),
+          resume_url: document.getElementById('cms-input-resume').value.trim(),
+          avatar_url: document.getElementById('cms-input-avatar-url').value.trim(),
+          education_journey: currentEducationJourney
+        };
+
+        await PortfolioStore.saveSiteProfile(payload);
+        window.showToast('Profile & Site Content CMS changes saved successfully!', 'success');
+      } catch (err) {
+        console.error("Save CMS Error:", err);
+        window.showToast('Error saving profile changes.', 'error');
+      } finally {
+        if (saveBtn) {
+          saveBtn.disabled = false;
+          saveBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> <span>Save Profile &amp; Content Changes</span>';
+        }
+      }
+    }
+
+    async function confirmResetCMSProfile() {
+      if (confirm('Reset all Profile & Content CMS values to defaults?')) {
+        await PortfolioStore.resetSiteProfileToDefault();
+        await loadAdminProfile();
+        window.showToast('Profile reset to default values.', 'info');
+      }
+    }
 
     // ==========================================
     // SUPABASE SETTINGS

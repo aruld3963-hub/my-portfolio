@@ -163,3 +163,4 @@ async function uploadImageToSupabase(file, folder = 'certificates') {
 if (typeof window !== 'undefined') {
   window.uploadImageToSupabase = uploadImageToSupabase;
 }
+

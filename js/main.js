@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initCommandPalette();
   initResumeModal();
   initGlobalCopyHandlers();
+  initLiveSiteProfileSync();
 });
 
 /**
@@ -317,4 +318,194 @@ function initGlobalCopyHandlers() {
       }
     });
   });
+}
+
+/**
+ * ============================================================================
+ * LIVE SITE PROFILE & CMS SYNC (js/main.js)
+ * Synchronizes hero elements, badges, bio, social links, avatar, and
+ * education journey from Supabase / PortfolioStore.
+ * ============================================================================
+ */
+async function initLiveSiteProfileSync() {
+  if (typeof PortfolioStore === 'undefined' || !PortfolioStore.getSiteProfile) {
+    return;
+  }
+
+  try {
+    const profile = await PortfolioStore.getSiteProfile();
+    if (!profile) return;
+
+    // 1. Full Name
+    if (profile.full_name) {
+      document.querySelectorAll('.cms-full-name').forEach(el => {
+        el.textContent = profile.full_name;
+      });
+      if (document.title && document.title.includes('Arul David')) {
+        document.title = document.title.replace(/Arul David/gi, profile.full_name);
+      }
+    }
+
+    // 2. Headline Badge & Visibility
+    const badgeContainers = document.querySelectorAll('.cms-badge-container');
+    const badgeTexts = document.querySelectorAll('.cms-headline-badge');
+
+    if (profile.is_badge_visible === false) {
+      badgeContainers.forEach(container => {
+        container.classList.add('hidden');
+        container.style.display = 'none';
+      });
+    } else {
+      badgeContainers.forEach(container => {
+        container.classList.remove('hidden');
+        container.style.display = 'inline-flex';
+      });
+      if (profile.headline_badge) {
+        badgeTexts.forEach(el => {
+          el.textContent = profile.headline_badge;
+        });
+      }
+    }
+
+    // 3. Degree Title
+    if (profile.degree_title) {
+      document.querySelectorAll('.cms-degree-title').forEach(el => {
+        el.textContent = profile.degree_title;
+      });
+    }
+
+    // 4. College Name / Institution
+    if (profile.college_name) {
+      document.querySelectorAll('.cms-college-name').forEach(el => {
+        el.textContent = profile.college_name;
+      });
+    }
+
+    // 5. Bio Summary
+    if (profile.bio_summary) {
+      document.querySelectorAll('.cms-bio-summary').forEach(el => {
+        el.textContent = profile.bio_summary;
+      });
+    }
+
+    // 6. Avatar Image
+    if (profile.avatar_url) {
+      document.querySelectorAll('.cms-avatar-img').forEach(img => {
+        img.src = profile.avatar_url;
+      });
+    }
+
+    // 7. Core Skills Badges
+    const skillsContainers = document.querySelectorAll('.cms-core-skills-container');
+    if (skillsContainers.length > 0 && Array.isArray(profile.core_skills) && profile.core_skills.length > 0) {
+      const skillsHtml = profile.core_skills.map(s => {
+        const item = s.trim();
+        if (!item) return '';
+        let icon = 'fa-solid fa-code';
+        let color = 'text-blue-600';
+        const lower = item.toLowerCase();
+
+        if (lower.includes('python')) {
+          icon = 'fa-brands fa-python';
+          color = 'text-blue-600';
+        } else if (lower.includes('java') && !lower.includes('script')) {
+          icon = 'fa-brands fa-java';
+          color = 'text-rose-600';
+        } else if (lower.includes('c#')) {
+          icon = 'fa-solid fa-code';
+          color = 'text-indigo-600';
+        } else if (lower.includes('sql') || lower.includes('database')) {
+          icon = 'fa-solid fa-database';
+          color = 'text-emerald-600';
+        } else if (lower.includes('supabase')) {
+          icon = 'fa-solid fa-bolt';
+          color = 'text-amber-500';
+        } else if (lower.includes('data structure') || lower.includes('algo')) {
+          icon = 'fa-solid fa-diagram-project';
+          color = 'text-purple-600';
+        } else if (lower.includes('cloud') || lower.includes('aws') || lower.includes('gcp') || lower.includes('azure')) {
+          icon = 'fa-solid fa-cloud';
+          color = 'text-sky-600';
+        }
+
+        return `
+          <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+            <i class="${icon} ${color}"></i> ${item}
+          </span>
+        `;
+      }).filter(Boolean).join('');
+
+      skillsContainers.forEach(container => {
+        container.innerHTML = skillsHtml;
+      });
+    }
+
+    // 8. Social Links
+    if (profile.github_url) {
+      document.querySelectorAll('.cms-github-link').forEach(el => {
+        el.href = profile.github_url;
+      });
+    }
+
+    if (profile.linkedin_url) {
+      document.querySelectorAll('.cms-linkedin-link').forEach(el => {
+        el.href = profile.linkedin_url;
+      });
+    }
+
+    if (profile.email) {
+      document.querySelectorAll('.cms-email-link').forEach(el => {
+        if (el.tagName === 'A') {
+          el.href = `mailto:${profile.email}`;
+        }
+        if (el.hasAttribute('data-copy')) {
+          el.setAttribute('data-copy', profile.email);
+        }
+      });
+    }
+
+    if (profile.resume_url) {
+      document.querySelectorAll('.cms-resume-link').forEach(el => {
+        el.href = profile.resume_url;
+        el.setAttribute('download', 'Arul_David_Resume.pdf');
+      });
+    }
+
+    // 9. Dynamic Education Journey in about.html
+    const eduTimelineContainer = document.getElementById('cms-education-timeline');
+    if (eduTimelineContainer && Array.isArray(profile.education_journey)) {
+      const visibleJourney = profile.education_journey.filter(item => item.isVisible !== false);
+      if (visibleJourney.length === 0) {
+        eduTimelineContainer.innerHTML = `
+          <div class="p-8 text-center text-slate-400 bg-slate-50 rounded-2xl border border-slate-200 text-xs">
+            No education milestones currently set to visible.
+          </div>
+        `;
+      } else {
+        eduTimelineContainer.innerHTML = visibleJourney.map((item) => {
+          return `
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-sm transition-all">
+              <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-xl text-blue-700 flex-shrink-0">
+                  <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div class="space-y-1">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="badge-blue px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">${item.level || 'Academic Milestone'}</span>
+                  </div>
+                  <h4 class="text-base font-bold text-slate-900">${item.institution || ''}</h4>
+                  <p class="text-xs text-slate-600 leading-relaxed max-w-2xl">${item.details || ''}</p>
+                </div>
+              </div>
+              <div class="flex flex-col sm:items-end text-xs font-mono flex-shrink-0">
+                <span class="text-blue-700 font-bold bg-blue-50/80 px-2.5 py-1 rounded-lg border border-blue-100">${item.year || ''}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    }
+  } catch (err) {
+    console.warn("Notice in initLiveSiteProfileSync:", err);
+  }
 }

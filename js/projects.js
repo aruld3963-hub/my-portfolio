@@ -12,8 +12,10 @@ let allProjects = [];
 async function getProjectsData() {
   if (window.supabaseClient) {
     try {
-      const { data, error } = await window.supabaseClient.from('projects').select('*').eq('is_visible', true);
-      if (!error && Array.isArray(data)) return data;
+      const { data, error } = await window.supabaseClient.from('projects').select('*').order('created_at', { ascending: false });
+      if (!error && Array.isArray(data) && data.length > 0) {
+        return data.map(p => ({ ...p, is_visible: true }));
+      }
     } catch (e) {
       console.warn("Direct Supabase projects fetch error:", e);
     }
@@ -21,8 +23,8 @@ async function getProjectsData() {
 
   if (window.PortfolioStore && typeof window.PortfolioStore.getProjects === 'function') {
     try {
-      const data = await window.PortfolioStore.getProjects(true); // only visible
-      if (Array.isArray(data)) return data;
+      const data = await window.PortfolioStore.getProjects(false);
+      if (Array.isArray(data)) return data.map(p => ({ ...p, is_visible: true }));
     } catch (e) {
       console.warn("PortfolioStore projects fetch error:", e);
     }

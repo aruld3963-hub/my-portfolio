@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Arul David | Software Engineer &amp; Architect Dashboard</title>
-  <meta name="description" content="Professional SaaS dashboard portfolio of Arul David. Highlighting full-stack engineering, cloud architecture, and algorithmic mastery.">
+  <title>ARULDAVID A | MCA Postgraduate Scholar Portfolio</title>
+  <meta name="description" content="Portfolio of ARULDAVID A, MCA Postgraduate Scholar at PSG College of Arts and Science. Demonstrating algorithmic problem-solving, clean software architecture, and database systems.">
   
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -37,7 +37,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern relative">
+<body class="bg-slate-50 text-slate-800 min-h-screen selection:bg-blue-100 selection:text-blue-900 bg-soft-pattern relative overflow-x-hidden">
 
   <!-- Mobile Backdrop -->
   <div id="sidebar-backdrop" class="fixed inset-0 bg-slate-900/30 backdrop-blur-sm z-40 hidden opacity-0 transition-opacity duration-300 md:hidden"></div>
@@ -54,14 +54,15 @@
         <div class="flex items-center gap-3.5">
           <div class="relative">
             <!-- Professional Clean Avatar -->
-            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
-              AD
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm overflow-hidden">
+              <img src="assets/profile.jpg" alt="ARULDAVID A" class="cms-avatar-img w-full h-full object-cover object-top" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+              <span class="hidden font-mono font-bold text-blue-700">AD</span>
             </div>
             <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
           </div>
           <div class="overflow-hidden">
-            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
-            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+            <h1 class="cms-full-name font-bold text-base text-slate-900 truncate tracking-tight">ARULDAVID A</h1>
+            <p class="cms-headline-badge text-xs text-blue-600 font-semibold truncate">MCA Postgraduate Scholar</p>
           </div>
         </div>
 
@@ -85,7 +86,7 @@
         </a>
 
         <a href="about.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
-          <i class="fa-solid fa-user w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+          <i class="fa-solid fa-user-graduate w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
           <span>Profile &amp; Journey</span>
         </a>
 
@@ -97,13 +98,13 @@
         <a href="achievements.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
           <i class="fa-solid fa-award w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
           <span class="flex-1">Achievements</span>
-          <span id="sidebar-cert-badge" class="text-[10px] px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono font-semibold border border-blue-200">9</span>
+          <span id="sidebar-cert-badge" class="text-[10px] px-1.5 py-0.5 rounded-md bg-blue-50 text-blue-700 font-mono font-semibold border border-blue-200">Live</span>
         </a>
 
         <a href="projects.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
           <i class="fa-solid fa-layer-group w-5 text-center text-slate-400 group-hover:text-blue-600 transition-colors"></i>
           <span class="flex-1">Featured Projects</span>
-          <span id="sidebar-proj-badge" class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold">6</span>
+          <span id="sidebar-proj-badge" class="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-600 font-mono font-semibold">Live</span>
         </a>
 
         <a href="contact.html" class="nav-menu-link flex items-center gap-3.5 px-3.5 py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-all font-medium group">
@@ -115,35 +116,30 @@
 
     <!-- Sidebar Bottom Info & Socials -->
     <div class="p-4 border-t border-slate-100 space-y-3">
-      <!-- Quick System Telemetry Card -->
-      <div class="p-3 rounded-xl bg-slate-50 border border-slate-200/80 text-xs">
-        <div class="flex items-center justify-between text-slate-500 font-mono text-[11px] mb-1.5">
-          <span>SYSTEM STATUS</span>
-          <span class="text-blue-600 font-semibold">99.98%</span>
-        </div>
-        <div class="w-full bg-slate-200 rounded-full h-1.5 overflow-hidden">
-          <div class="bg-blue-600 h-1.5 rounded-full" style="width: 88%"></div>
-        </div>
-        <div class="flex justify-between items-center mt-2 text-[10px] text-slate-500">
-          <span class="flex items-center gap-1 text-emerald-600 font-medium">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Available
+      <!-- Scholar Identity Card -->
+      <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200/80 text-xs space-y-1">
+        <div class="flex items-center justify-between text-slate-500 font-mono text-[10px] uppercase">
+          <span>ACADEMIC STATUS</span>
+          <span class="text-emerald-600 font-bold flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> ACTIVE
           </span>
-          <span class="font-mono text-slate-400">v2.4.0</span>
         </div>
+        <p class="cms-degree-title font-bold text-slate-800 text-[11px] leading-tight">Master of Computer Applications</p>
+        <p class="cms-college-name text-[10px] text-slate-500 truncate">PSG College of Arts &amp; Science</p>
       </div>
 
       <!-- Quick Social Icons -->
       <div class="flex items-center justify-around pt-1 text-slate-400">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="cms-github-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
           <i class="fa-brands fa-github text-base"></i>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="cms-linkedin-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
           <i class="fa-brands fa-linkedin text-base"></i>
         </a>
-        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
-          <i class="fa-brands fa-hackerrank text-base"></i>
+        <a href="tel:+918610471539" class="p-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 text-emerald-600 transition-colors" title="Call Me: +91 8610471539">
+          <i class="fa-solid fa-phone text-base"></i>
         </a>
-        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+        <button data-copy="aruld3963@gmail.com" data-copy-label="Email copied!" class="cms-email-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email: aruld3963@gmail.com">
           <i class="fa-solid fa-envelope text-base"></i>
         </button>
         <a href="admin-login.html" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Admin Portal">
@@ -157,7 +153,7 @@
   <div class="md:pl-64 lg:pl-72 flex flex-col min-h-screen">
     
     <!-- TOP HEADER BAR -->
-    <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+    <header class="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 sm:px-6 lg:px-8 flex items-center justify-between shadow-2xs">
       <div class="flex items-center gap-3">
         <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 border border-slate-200 focus:outline-none" aria-label="Open Sidebar Menu">
           <i class="fa-solid fa-bars-staggered text-base"></i>
@@ -165,11 +161,11 @@
 
         <div>
           <div class="flex items-center gap-2 text-xs text-slate-500">
-            <span>Dashboard</span>
+            <span>Portfolio</span>
             <i class="fa-solid fa-chevron-right text-[9px] text-slate-400"></i>
             <span class="text-blue-600 font-semibold">Overview</span>
           </div>
-          <h2 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Mission Control</h2>
+          <h2 class="text-sm sm:text-base font-bold text-slate-900 tracking-tight">Scholar Profile</h2>
         </div>
       </div>
 
@@ -178,7 +174,7 @@
         <!-- Live Clock -->
         <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 text-xs font-mono">
           <i class="fa-regular fa-clock text-blue-600 text-[11px]"></i>
-          <span id="header-live-clock">19:30:00</span>
+          <span id="header-live-clock">--:--:--</span>
         </div>
 
         <!-- Command Palette Trigger -->
@@ -197,430 +193,140 @@
       </div>
     </header>
 
-    <!-- MAIN DASHBOARD CONTENT -->
-    <main class="flex-1 p-4 sm:p-6 lg:p-8 space-y-6">
+    <!-- MAIN STUDENT-CENTRIC HERO CONTENT (Fits above the fold) -->
+    <main class="flex-1 flex flex-col justify-between p-4 sm:p-6 lg:p-10 min-h-[calc(100vh-4rem)] relative">
+      
+      <!-- Ambient Ocean-Blue Radial Background Glows -->
+      <div class="absolute -top-16 right-1/4 w-96 h-96 bg-blue-100/60 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div class="absolute bottom-16 left-1/3 w-80 h-80 bg-sky-100/50 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-      <!-- WELCOME HERO BANNER -->
-      <div class="dashboard-panel p-6 sm:p-8 relative overflow-hidden bg-gradient-to-r from-white via-white to-blue-50/50">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          <div class="lg:col-span-7 space-y-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
-              <i class="fa-solid fa-bolt-lightning text-blue-600"></i>
-              <span>Full-Stack Engineer &amp; System Architect</span>
-            </div>
-
-            <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Architecting Scalable Cloud Systems &amp; <span class="text-blue-600">Modern Web Applications</span>
-            </h1>
-
-            <p class="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
-              Hello! I'm <strong class="text-slate-900 font-semibold">Arul David</strong>. I specialize in building performant backend services, resilient distributed databases, and responsive web experiences using Python, Java, C#, ASP.NET Core, SQL, and Tailwind CSS.
-            </p>
-
-            <div class="pt-2 flex flex-wrap gap-3">
-              <a href="projects.html" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-colors shadow-sm flex items-center gap-2">
-                <i class="fa-solid fa-rocket"></i>
-                <span>Explore Projects</span>
-              </a>
-              <a href="contact.html" class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm border border-slate-300 transition-colors shadow-sm flex items-center gap-2">
-                <i class="fa-regular fa-comment-dots text-blue-600"></i>
-                <span>Start a Conversation</span>
-              </a>
-              <button class="trigger-resume-modal px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-medium text-xs sm:text-sm border border-slate-200 transition-colors flex items-center gap-2">
-                <i class="fa-solid fa-file-pdf text-rose-500"></i>
-                <span>Get CV</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Code Snapshot Interactive Configuration Widget -->
-          <div class="lg:col-span-5">
-            <div class="rounded-2xl bg-slate-900 text-slate-100 shadow-md overflow-hidden font-mono text-xs border border-slate-800">
-              <div class="bg-slate-800/80 px-4 py-2.5 border-b border-slate-700 flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
-                  <span class="text-[11px] text-slate-300 ml-2 font-mono">engineer@workstation:~</span>
-                </div>
-                <span class="text-[10px] text-blue-400 font-semibold uppercase">zsh</span>
-              </div>
-              
-              <div class="p-4 space-y-2 text-slate-300 leading-relaxed overflow-x-auto text-[11px]">
-                <p class="text-slate-400"># Active profile parameters</p>
-                <p><span class="text-blue-400 font-bold">$</span> cat ~/.config/profile.json</p>
-                <pre class="font-mono text-slate-200">{
-  <span class="text-blue-400">"engineer"</span>: <span class="text-emerald-400">"Arul David"</span>,
-  <span class="text-blue-400">"coreStack"</span>: [<span class="text-amber-300">"Python"</span>, <span class="text-amber-300">"Java"</span>, <span class="text-amber-300">"C#"</span>, <span class="text-amber-300">"SQL"</span>],
-  <span class="text-blue-400">"frameworks"</span>: [<span class="text-amber-300">"ASP.NET Core"</span>, <span class="text-amber-300">"FastAPI"</span>, <span class="text-amber-300">"Tailwind"</span>],
-  <span class="text-blue-400">"availability"</span>: <span class="text-emerald-400">"Full-Time Engineering Roles"</span>
-}</pre>
-                <div class="pt-2 flex items-center justify-between text-[11px] text-slate-400 border-t border-slate-800">
-                  <span class="flex items-center gap-1.5 text-emerald-400">
-                    <i class="fa-solid fa-check text-[10px]"></i> Ready to ship code
-                  </span>
-                  <span class="text-slate-400">UTF-8</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- QUICK METRIC CARDS (4 Columns) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Metric 1: Certifications -->
-        <div class="dashboard-card p-5 group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Certifications</span>
-            <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-base border border-blue-100 group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-certificate"></i>
-            </div>
-          </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span id="overview-cert-count" class="text-3xl font-extrabold text-slate-900 font-mono">12+</span>
-            <span class="text-xs font-semibold text-emerald-600 flex items-center">
-              <i class="fa-solid fa-arrow-trend-up mr-1 text-[10px]"></i> Verified
-            </span>
-          </div>
-          <p class="text-xs text-slate-500 mt-1">AWS, Google Cloud &amp; Microsoft</p>
-          <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-            <a href="achievements.html" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1">
-              <span>View credentials</span>
-              <i class="fa-solid fa-arrow-right text-[9px]"></i>
-            </a>
-            <span class="text-slate-400 font-mono">100% active</span>
-          </div>
-        </div>
-
-        <!-- Metric 2: Shipped Projects -->
-        <div class="dashboard-card p-5 group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Shipped Projects</span>
-            <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-base border border-indigo-100 group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-cubes-stacked"></i>
-            </div>
-          </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span id="overview-proj-count" class="text-3xl font-extrabold text-slate-900 font-mono">24+</span>
-            <span class="text-xs font-semibold text-blue-600">Production</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-1">Full-stack web apps, cloud APIs &amp; CLI tools</p>
-          <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-            <a href="projects.html" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1">
-              <span>Inspect portfolio</span>
-              <i class="fa-solid fa-arrow-right text-[9px]"></i>
-            </a>
-            <span class="text-slate-400 font-mono">6 Featured</span>
-          </div>
-        </div>
-
-        <!-- Metric 3: Solved Algorithmic Problems -->
-        <div class="dashboard-card p-5 group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Solved Problems</span>
-            <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-base border border-amber-100 group-hover:scale-105 transition-transform">
-              <i class="fa-solid fa-brain"></i>
-            </div>
-          </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span class="text-3xl font-extrabold text-slate-900 font-mono">850+</span>
-            <span class="text-xs font-semibold text-amber-600">Top 4% Global</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-1">LeetCode, HackerRank &amp; Codeforces</p>
-          <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-            <span class="text-slate-600 font-medium">5-Star Gold Badge</span>
-            <span class="text-blue-600 font-mono font-semibold">DSA Master</span>
-          </div>
-        </div>
-
-        <!-- Metric 4: Contributions & Commits -->
-        <div class="dashboard-card p-5 group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">GitHub Commits</span>
-            <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-base border border-emerald-100 group-hover:scale-105 transition-transform">
-              <i class="fa-brands fa-git-alt"></i>
-            </div>
-          </div>
-          <div class="mt-4 flex items-baseline gap-2">
-            <span class="text-3xl font-extrabold text-slate-900 font-mono">1,420+</span>
-            <span class="text-xs font-semibold text-emerald-600">+18 this week</span>
-          </div>
-          <p class="text-xs text-slate-500 mt-1">Active commits across 18 public repositories</p>
-          <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px]">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1">
-              <span>GitHub profile</span>
-              <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-            </a>
-            <span class="text-slate-400 font-mono">Active streak</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAIN SECTION: FEATURED PROJECT SPOTLIGHT & RECENT ACTIVITY -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-        <!-- LEFT (8 cols): FEATURED SPOTLIGHT CARD -->
-        <div class="lg:col-span-8 space-y-6">
-          <div class="dashboard-panel p-6 sm:p-7">
-            <div class="flex items-center justify-between mb-5 pb-3 border-b border-slate-100">
-              <div class="flex items-center gap-2.5">
-                <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-                <h3 class="text-base sm:text-lg font-bold text-slate-900">Featured Architecture Spotlight</h3>
-              </div>
-              <span class="badge-blue px-3 py-1 rounded-full text-xs font-semibold">Flagship Project</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-              <div class="md:col-span-6 space-y-3.5">
-                <div class="flex items-center gap-2 text-xs text-slate-500 font-mono">
-                  <span>ENTERPRISE BACKEND</span>
-                  <span>&bull;</span>
-                  <span class="text-emerald-600 font-semibold">PRODUCTION READY</span>
-                </div>
-
-                <h4 class="text-xl font-bold text-slate-900 hover:text-blue-600 transition-colors">
-                  NexusEngine: Distributed Event Pipeline
-                </h4>
-
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  High-throughput telemetry ingestion backend built with Python, FastAPI, and PostgreSQL. Features real-time WebSocket dashboarding, Redis caching, and automated Docker orchestration with sub-40ms response latency.
-                </p>
-
-                <!-- Tech Pills -->
-                <div class="flex flex-wrap gap-1.5 pt-1">
-                  <span class="badge-slate px-2.5 py-1 rounded-lg text-xs font-mono font-medium">Python</span>
-                  <span class="badge-slate px-2.5 py-1 rounded-lg text-xs font-mono font-medium">ASP.NET</span>
-                  <span class="badge-slate px-2.5 py-1 rounded-lg text-xs font-mono font-medium">PostgreSQL</span>
-                  <span class="badge-slate px-2.5 py-1 rounded-lg text-xs font-mono font-medium">Tailwind</span>
-                </div>
-
-                <!-- Action Links -->
-                <div class="pt-2 flex items-center gap-3">
-                  <a href="projects.html" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-colors shadow-sm flex items-center gap-2">
-                    <span>Live Showcase</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                  </a>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold transition-colors flex items-center gap-2 shadow-sm">
-                    <i class="fa-brands fa-github text-sm"></i>
-                    <span>Repository</span>
-                  </a>
-                </div>
-              </div>
-
-              <!-- Graphic Mockup Container -->
-              <div class="md:col-span-6">
-                <div class="rounded-2xl bg-slate-50 p-4 border border-slate-200 space-y-3 font-mono">
-                  <div class="flex items-center justify-between text-[11px] text-slate-500 border-b border-slate-200 pb-2">
-                    <span>CLUSTER TELEMETRY</span>
-                    <span class="text-emerald-600 font-semibold flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 100% Healthy
-                    </span>
-                  </div>
-                  <div class="space-y-2 text-xs">
-                    <div>
-                      <div class="flex justify-between text-[11px] text-slate-600 mb-1">
-                        <span>Event Throughput (TPS)</span>
-                        <span class="text-blue-700 font-bold">14,200 msg/sec</span>
-                      </div>
-                      <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                        <div class="bg-blue-600 h-2 rounded-full" style="width: 78%"></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div class="flex justify-between text-[11px] text-slate-600 mb-1">
-                        <span>Query Latency p99</span>
-                        <span class="text-emerald-700 font-bold">18.4 ms</span>
-                      </div>
-                      <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                        <div class="bg-emerald-500 h-2 rounded-full" style="width: 92%"></div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <div class="flex justify-between text-[11px] text-slate-600 mb-1">
-                        <span>Database Memory Buffer</span>
-                        <span class="text-purple-700 font-bold">42% utilized</span>
-                      </div>
-                      <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
-                        <div class="bg-purple-500 h-2 rounded-full" style="width: 42%"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="pt-2 text-[10px] text-slate-500 flex items-center justify-between">
-                    <span>Active Ingestion Nodes: 8</span>
-                    <span class="text-blue-700 font-semibold">AWS ECS Fargate</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Navigation Hub -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <a href="about.html" class="dashboard-card p-4 group flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-purple-50 border border-purple-100 text-purple-700 flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
-                <i class="fa-solid fa-graduation-cap"></i>
-              </div>
-              <div>
-                <h5 class="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Academic Story</h5>
-                <span class="text-[11px] text-slate-500">Timeline &amp; Honors</span>
-              </div>
-            </a>
-
-            <a href="skills.html" class="dashboard-card p-4 group flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-blue-700 flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
-                <i class="fa-solid fa-microchip"></i>
-              </div>
-              <div>
-                <h5 class="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Tech Matrix</h5>
-                <span class="text-[11px] text-slate-500">Python, C#, SQL, DSA</span>
-              </div>
-            </a>
-
-            <a href="contact.html" class="dashboard-card p-4 group flex items-center gap-3.5">
-              <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-700 flex items-center justify-center text-lg group-hover:scale-105 transition-transform">
-                <i class="fa-solid fa-comments"></i>
-              </div>
-              <div>
-                <h5 class="text-sm font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Let's Connect</h5>
-                <span class="text-[11px] text-slate-500">Inquire &amp; Collaborate</span>
-              </div>
-            </a>
-          </div>
-        </div>
-
-        <!-- RIGHT (4 cols): RECENT ACTIVITY TIMELINE & STACK -->
-        <div class="lg:col-span-4 space-y-6">
+      <!-- HERO ROW: LEFT DETAILS & RIGHT BLENDED PORTRAIT -->
+      <div class="my-auto py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- LEFT COLUMN: STUDENT IDENTITY & BIO DETAILS (7 Cols) -->
+        <div class="lg:col-span-7 space-y-5">
           
-          <!-- Recent Activity Card -->
-          <div class="dashboard-panel p-6">
-            <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
-              <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
-                <span>Activity Feed</span>
-              </h3>
-              <span class="text-[10px] text-blue-700 font-mono uppercase bg-blue-50 px-2 py-0.5 rounded border border-blue-200 font-semibold">Live</span>
-            </div>
+          <!-- 1. Status Badge -->
+          <div class="cms-badge-container inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-700 text-xs font-semibold shadow-2xs">
+            <span class="w-2 h-2 rounded-full bg-blue-600 status-dot-pulse"></span>
+            <span class="cms-headline-badge">MCA Postgraduate Scholar</span>
+          </div>
 
-            <!-- Feed Items -->
-            <div class="space-y-4 text-xs">
-              <div class="flex items-start gap-3 relative pb-4 border-b border-slate-100">
-                <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-solid fa-trophy text-[11px]"></i>
-                </div>
-                <div class="flex-1">
-                  <span class="text-slate-800 font-semibold block">Won 1st Place at Web3 AI Hackathon</span>
-                  <span class="text-[11px] text-slate-500">Built preprint provenance agent 'TrustProof'</span>
-                  <span class="text-[10px] text-slate-400 font-mono block mt-1">2 weeks ago</span>
-                </div>
-              </div>
+          <!-- 2. Prominent Typography Name -->
+          <div>
+            <h1 class="cms-full-name text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight uppercase font-sans">
+              ARULDAVID A
+            </h1>
+          </div>
 
-              <div class="flex items-start gap-3 relative pb-4 border-b border-slate-100">
-                <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-brands fa-aws text-[11px]"></i>
-                </div>
-                <div class="flex-1">
-                  <span class="text-slate-800 font-semibold block">AWS Solutions Architect Certified</span>
-                  <span class="text-[11px] text-slate-500">Passed Associate credential with high distinction</span>
-                  <span class="text-[10px] text-slate-400 font-mono block mt-1">1 month ago</span>
-                </div>
-              </div>
+          <!-- 3. Degree & Institution -->
+          <div class="space-y-1.5">
+            <p class="text-base sm:text-lg font-bold text-blue-600 flex items-center gap-2.5">
+              <i class="fa-solid fa-graduation-cap text-blue-600 text-base"></i>
+              <span class="cms-degree-title">Master of Computer Applications (MCA)</span>
+            </p>
+            <p class="text-xs sm:text-sm font-medium text-slate-600 flex items-center gap-2">
+              <i class="fa-solid fa-building-columns text-slate-400"></i>
+              <span class="cms-college-name">PSG College of Arts and Science &bull; Coimbatore</span>
+            </p>
+          </div>
 
-              <div class="flex items-start gap-3 relative pb-4 border-b border-slate-100">
-                <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-brands fa-github text-[11px]"></i>
-                </div>
-                <div class="flex-1">
-                  <span class="text-slate-800 font-semibold block">Released ASP.NET Boilerplate</span>
-                  <span class="text-[11px] text-slate-500">Open-sourced clean architecture template on GitHub</span>
-                  <span class="text-[10px] text-slate-400 font-mono block mt-1">1 month ago</span>
-                </div>
-              </div>
+          <!-- 4. Concise Grounded Bio -->
+          <p class="cms-bio-summary text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl font-normal">
+            Dedicated postgraduate scholar with a focused pursuit in computational problem-solving, algorithm optimization, and clean software architecture. Driven by building robust database systems, authoring maintainable production code, and demonstrating collaborative technical leadership across academic and real-world initiatives.
+          </p>
 
-              <div class="flex items-start gap-3 relative">
-                <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-700 border border-purple-200 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <i class="fa-solid fa-code text-[11px]"></i>
-                </div>
-                <div class="flex-1">
-                  <span class="text-slate-800 font-semibold block">Surpassed 850 Solved Problems</span>
-                  <span class="text-[11px] text-slate-500">Achieved 5-star algorithmic badge on HackerRank</span>
-                  <span class="text-[10px] text-slate-400 font-mono block mt-1">2 months ago</span>
-                </div>
-              </div>
+          <!-- 5. Core Skills Badges -->
+          <div class="space-y-2 pt-1">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 block font-mono">Foundational Stack &amp; Core Competencies</span>
+            <div class="cms-core-skills-container flex flex-wrap gap-2 text-xs">
+              <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-brands fa-python text-blue-600"></i> Python
+              </span>
+              <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-brands fa-java text-rose-600"></i> Java
+              </span>
+              <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-code text-indigo-600"></i> C#
+              </span>
+              <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-database text-emerald-600"></i> SQL &amp; Relational Databases
+              </span>
+              <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-bolt text-amber-500"></i> Supabase
+              </span>
+              <span class="badge-blue px-3 py-1.5 rounded-xl font-mono font-semibold flex items-center gap-1.5 shadow-2xs">
+                <i class="fa-solid fa-diagram-project text-purple-600"></i> Data Structures
+              </span>
             </div>
           </div>
 
-          <!-- Quick Skills Distribution Card -->
-          <div class="dashboard-panel p-6 space-y-4">
-            <h3 class="text-base font-bold text-slate-900 flex items-center justify-between pb-2 border-b border-slate-100">
-              <span>Core Stack Competency</span>
-              <a href="skills.html" class="text-xs text-blue-600 hover:underline font-semibold">View Matrix &rarr;</a>
-            </h3>
-
-            <div class="space-y-3 text-xs">
-              <div>
-                <div class="flex justify-between text-slate-600 mb-1">
-                  <span class="font-medium">Backend &amp; Distributed Systems</span>
-                  <span class="text-blue-700 font-mono font-bold">92%</span>
-                </div>
-                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-blue-600 h-1.5 rounded-full" style="width: 92%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-slate-600 mb-1">
-                  <span class="font-medium">Algorithms &amp; Data Structures</span>
-                  <span class="text-emerald-700 font-mono font-bold">95%</span>
-                </div>
-                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 95%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-slate-600 mb-1">
-                  <span class="font-medium">Cloud Infrastructure &amp; DevOps</span>
-                  <span class="text-indigo-700 font-mono font-bold">88%</span>
-                </div>
-                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-indigo-600 h-1.5 rounded-full" style="width: 88%"></div>
-                </div>
-              </div>
-
-              <div>
-                <div class="flex justify-between text-slate-600 mb-1">
-                  <span class="font-medium">Frontend &amp; Responsive UI</span>
-                  <span class="text-purple-700 font-mono font-bold">85%</span>
-                </div>
-                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                  <div class="bg-purple-600 h-1.5 rounded-full" style="width: 85%"></div>
-                </div>
-              </div>
-            </div>
+          <!-- 6. Action Buttons -->
+          <div class="pt-3 flex flex-wrap items-center gap-3">
+            <a href="achievements.html" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-all shadow-sm hover:shadow-md flex items-center gap-2">
+              <i class="fa-solid fa-award text-xs"></i>
+              <span>View Credentials</span>
+            </a>
+            <a href="projects.html" class="px-5 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs sm:text-sm border border-slate-300 transition-all shadow-2xs hover:shadow-sm flex items-center gap-2">
+              <i class="fa-solid fa-layer-group text-blue-600 text-xs"></i>
+              <span>Explore Projects</span>
+            </a>
+            <a href="contact.html" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm transition-colors flex items-center gap-2">
+              <i class="fa-regular fa-paper-plane text-xs"></i>
+              <span>Get in Touch</span>
+            </a>
           </div>
+        </div>
 
+        <!-- RIGHT COLUMN: SEAMLESS BLENDED PORTRAIT (5 Cols) -->
+        <!-- No card, No border box, No hard circular/square frame - Organic edge blend -->
+        <div class="lg:col-span-5 flex items-center justify-center relative">
+          
+          <!-- Soft Ambient Radial Ocean Glow Behind Portrait -->
+          <div class="absolute w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-tr from-blue-300/25 via-sky-200/30 to-transparent rounded-full blur-3xl pointer-events-none -z-10 animate-pulse" style="animation-duration: 5s;"></div>
+          
+          <!-- Portrait Container with CSS Gradient Masking & Seamless Blend -->
+          <div class="relative w-full max-w-xs sm:max-w-sm lg:max-w-md flex items-center justify-center">
+            <img 
+              id="hero-profile-image"
+              src="assets/profile.png" 
+              alt="ARULDAVID A - MCA Postgraduate Scholar"
+              class="cms-avatar-img w-full max-w-[280px] sm:max-w-sm lg:max-w-[360px] h-auto object-cover object-top select-none pointer-events-none mix-blend-multiply drop-shadow-sm transition-all duration-700 [mask-image:radial-gradient(ellipse_at_center,black_60%,transparent_98%)]"
+              style="-webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, black 50%, transparent 90%), linear-gradient(to bottom, black 80%, transparent 98%); mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, black 50%, transparent 90%), linear-gradient(to bottom, black 80%, transparent 98%);"
+              onerror="if(!this.dataset.triedPhoto){ this.dataset.triedPhoto='1'; this.src='assets/profile.jpg'; } else if(this.dataset.triedPhoto==='1'){ this.dataset.triedPhoto='2'; this.src='my-photo.jpg'; }"
+            >
+          </div>
+        </div>
+
+      </div>
+
+      <!-- MINIMALIST QUICK-NAV ROW (Bottom Footer Area) -->
+      <div class="mt-auto pt-6 border-t border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+        <div class="flex items-center gap-2 text-slate-500">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+          <span class="font-semibold text-slate-700">ARULDAVID A</span>
+          <span>&bull;</span>
+          <span>MCA Scholar Portfolio &bull; 2026</span>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-6 text-slate-600 font-medium">
+          <a href="about.html" class="hover:text-blue-600 transition-colors flex items-center gap-1.5 group">
+            <i class="fa-solid fa-user-graduate text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+            <span>Academic Background &rarr;</span>
+          </a>
+          <a href="achievements.html" class="hover:text-blue-600 transition-colors flex items-center gap-1.5 group">
+            <i class="fa-solid fa-award text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+            <span>Credentials &amp; Honors &rarr;</span>
+          </a>
+          <a href="projects.html" class="hover:text-blue-600 transition-colors flex items-center gap-1.5 group">
+            <i class="fa-solid fa-cubes text-slate-400 group-hover:text-blue-600 transition-colors"></i>
+            <span>Technical Projects &rarr;</span>
+          </a>
         </div>
       </div>
+
     </main>
 
-    <!-- DASHBOARD FOOTER -->
-    <footer class="mt-auto border-t border-slate-200 bg-white p-4 sm:px-8 text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="font-semibold text-slate-700">Arul David Portfolio</span>
-        <span>&bull;</span>
-        <span>Clean SaaS Architecture</span>
-      </div>
-      <div class="flex items-center gap-4 text-slate-500">
-        <span class="flex items-center gap-1.5 text-blue-600 font-mono">
-          <i class="fa-solid fa-code text-[11px]"></i> Tailwind CSS &amp; Vanilla JS
-        </span>
-        <a href="#top" class="hover:text-slate-800 transition-colors">Back to top &uarr;</a>
-      </div>
-    </footer>
   </div>
 
   <!-- RESUME MODAL -->
@@ -634,7 +340,7 @@
           </div>
           <div>
             <h3 class="text-lg font-bold text-slate-900">Curriculum Vitae</h3>
-            <span class="text-xs text-slate-500">Arul David &bull; Software Engineer (2026 Edition)</span>
+            <span class="text-xs text-slate-500">ARULDAVID A &bull; MCA Postgraduate Scholar</span>
           </div>
         </div>
         <button class="close-resume-modal text-slate-400 hover:text-slate-600 p-1" aria-label="Close modal">
@@ -644,25 +350,25 @@
 
       <div class="py-5 space-y-4 text-xs sm:text-sm text-slate-600">
         <p class="leading-relaxed">
-          Download the verified resume detailing academic achievements, production software engineering, AWS/GCP certifications, and open-source contributions.
+          Download the verified academic resume detailing postgraduate coursework, programming proficiencies, cloud certifications, and technical projects.
         </p>
 
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2 font-mono text-xs">
           <div class="flex justify-between text-slate-500">
             <span>Format:</span>
-            <span class="text-slate-800 font-semibold">PDF (ATS-Optimized)</span>
+            <span class="text-slate-800 font-semibold">PDF (Clean Format)</span>
           </div>
           <div class="flex justify-between text-slate-500">
-            <span>File Size:</span>
-            <span class="text-slate-800 font-semibold">142 KB</span>
+            <span>Institution:</span>
+            <span class="text-slate-800 font-semibold">PSG College of Arts and Science</span>
           </div>
           <div class="flex justify-between text-slate-500">
-            <span>Last Updated:</span>
-            <span class="text-blue-700 font-semibold">October 2026</span>
+            <span>Discipline:</span>
+            <span class="text-blue-700 font-semibold">MCA (Computer Applications)</span>
           </div>
           <div class="flex justify-between text-slate-500">
-            <span>Status:</span>
-            <span class="text-emerald-700 font-semibold">Digitally Verified</span>
+            <span>Verification:</span>
+            <span class="text-emerald-700 font-semibold">Digitally Certified</span>
           </div>
         </div>
       </div>
@@ -696,7 +402,7 @@
           <span class="text-xs text-slate-400 font-mono">index.html</span>
         </a>
         <a href="about.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
-          <span class="flex items-center gap-3"><i class="fa-solid fa-user text-purple-600"></i> Profile &amp; Academic Timeline</span>
+          <span class="flex items-center gap-3"><i class="fa-solid fa-user-graduate text-purple-600"></i> Profile &amp; Academic Timeline</span>
           <span class="text-xs text-slate-400 font-mono">about.html</span>
         </a>
         <a href="skills.html" class="palette-nav-item flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
@@ -719,7 +425,7 @@
     </div>
   </div>
 
-  <!-- Supabase & Centralized Data Store -->
+  <!-- Supabase & Centralized Data Store Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
   <script src="js/data-store.js"></script>
@@ -730,19 +436,12 @@
         try {
           const achs = await window.PortfolioStore.getAchievements(true);
           const projs = await window.PortfolioStore.getProjects(true);
-          const profile = window.PortfolioStore.getProfile();
-
-          const certCountEl = document.getElementById('overview-cert-count');
-          if (certCountEl) certCountEl.textContent = `${achs.length}+`;
-
-          const projCountEl = document.getElementById('overview-proj-count');
-          if (projCountEl) projCountEl.textContent = `${projs.length}+`;
 
           const certBadge = document.getElementById('sidebar-cert-badge');
-          if (certBadge) certBadge.textContent = achs.length;
+          if (certBadge && achs) certBadge.textContent = achs.length;
 
           const projBadge = document.getElementById('sidebar-proj-badge');
-          if (projBadge) projBadge.textContent = projs.length;
+          if (projBadge && projs) projBadge.textContent = projs.length;
         } catch (e) {
           console.warn("Index metrics sync error:", e);
         }

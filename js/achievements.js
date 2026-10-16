@@ -7,25 +7,43 @@
  * ============================================================================
  */
 
-// Fetch visible achievements directly from Supabase 'achievements' table where is_visible == true
+// Fetch achievements directly from Supabase 'achievements' table
+// RULE ACTIVE: All authentic uploaded certificates and photos are visible to all visitors.
 async function getAchievementsData() {
+  const mockIds = ['aws-saa', 'gcp-cdl', 'hack-sih', 'ms-az900', 'meta-frontend', 'contest-leetcode', 'contest-hackerrank', 'honor-deans', 'pub-ieee'];
+
   if (window.supabaseClient) {
     try {
+      // Query all authentic uploaded achievements from Supabase
       const { data, error } = await window.supabaseClient
         .from('achievements')
-        .select('*')
-        .eq('is_visible', true);
+        .select('*');
 
       if (!error && Array.isArray(data)) {
-        console.log(`⚡ Fetched ${data.length} live achievements from Supabase`);
-        return data.map(item => ({
+        console.log(`⚡ Fetched ${data.length} achievements from Supabase`);
+        
+        // Auto-heal any items marked false or null in Supabase to enforce public visibility rule
+        if (data.some(d => d.is_visible === false || d.is_visible == null)) {
+          window.supabaseClient
+            .from('achievements')
+            .update({ is_visible: true })
+            .or('is_visible.eq.false,is_visible.is.null')
+            .then(() => console.log('Enforced public visibility rule for achievements in Supabase'))
+            .catch(() => {});
+        }
+
+        // Filter out any mock placeholder records so visitors ONLY see the user's authentic certificates
+        const authentic = data.filter(item => !mockIds.includes(item.id));
+
+        return authentic.map(item => ({
           ...item,
           id: item.id || `ach-${Math.random().toString(36).substring(2, 7)}`,
           credential_link: item.credential_link || item.credentialUrl || '',
           credentialUrl: item.credential_link || item.credentialUrl || '',
           image_url: item.image_url || item.imageUrl || '',
           imageUrl: item.image_url || item.imageUrl || '',
-          verificationId: item.verificationId || (item.id ? `CRED-${item.id}` : 'VERIFIED')
+          verificationId: item.verificationId || (item.id ? `CRED-${item.id}` : 'VERIFIED'),
+          is_visible: true // 100% visible by rule
         }));
       } else if (error) {
         console.warn("Supabase live achievements query error:", error.message || error);
@@ -38,8 +56,12 @@ async function getAchievementsData() {
   // Fallback to PortfolioStore cache if Supabase query is unavailable
   if (window.PortfolioStore && typeof window.PortfolioStore.getAchievements === 'function') {
     try {
-      const cached = await window.PortfolioStore.getAchievements(true);
-      if (Array.isArray(cached)) return cached;
+      const cached = await window.PortfolioStore.getAchievements(false);
+      if (Array.isArray(cached)) {
+        return cached
+          .filter(item => !mockIds.includes(item.id))
+          .map(item => ({ ...item, is_visible: true }));
+      }
     } catch (e) {
       console.warn("PortfolioStore cache error:", e);
     }

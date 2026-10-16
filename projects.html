@@ -53,14 +53,15 @@
 
         <div class="flex items-center gap-3.5">
           <div class="relative">
-            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm">
-              AD
+            <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 flex items-center justify-center font-bold text-base font-mono shadow-sm overflow-hidden">
+              <img src="assets/profile.jpg" alt="ARULDAVID A" class="cms-avatar-img w-full h-full object-cover object-top" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+              <span class="hidden font-mono font-bold text-blue-700">AD</span>
             </div>
             <span class="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-white status-dot-pulse" title="Available for hire"></span>
           </div>
           <div class="overflow-hidden">
-            <h1 class="font-bold text-base text-slate-900 truncate tracking-tight">Arul David</h1>
-            <p class="text-xs text-blue-600 font-semibold truncate">Software Engineer</p>
+            <h1 class="cms-full-name font-bold text-base text-slate-900 truncate tracking-tight">ARULDAVID A</h1>
+            <p class="cms-headline-badge text-xs text-blue-600 font-semibold truncate">MCA Postgraduate Scholar</p>
           </div>
         </div>
 
@@ -128,16 +129,16 @@
       </div>
 
       <div class="flex items-center justify-around pt-1 text-slate-400">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="cms-github-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="GitHub">
           <i class="fa-brands fa-github text-base"></i>
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="cms-linkedin-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="LinkedIn">
           <i class="fa-brands fa-linkedin text-base"></i>
         </a>
-        <a href="https://hackerrank.com" target="_blank" rel="noopener noreferrer" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="HackerRank">
-          <i class="fa-brands fa-hackerrank text-base"></i>
+        <a href="tel:+918610471539" class="p-2 rounded-lg hover:text-emerald-600 hover:bg-emerald-50 text-emerald-600 transition-colors" title="Call Me: +91 8610471539">
+          <i class="fa-solid fa-phone text-base"></i>
         </a>
-        <button data-copy="aruldavid.dev@gmail.com" data-copy-label="Email copied!" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email">
+        <button data-copy="aruld3963@gmail.com" data-copy-label="Email copied!" class="cms-email-link p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Copy Email: aruld3963@gmail.com">
           <i class="fa-solid fa-envelope text-base"></i>
         </button>
         <a href="admin-login.html" class="p-2 rounded-lg hover:text-blue-600 hover:bg-slate-100 transition-colors" title="Admin Portal">
@@ -210,7 +211,7 @@
           <!-- Project Filter Tabs -->
           <div class="flex flex-wrap items-center gap-2 text-xs">
             <button onclick="filterProjects('all')" class="proj-tab active-proj-tab px-3.5 py-2 rounded-xl font-semibold bg-blue-50 text-blue-700 border border-blue-500 shadow-sm transition-all" data-filter="all">
-              All Projects (6)
+              All Projects
             </button>
             <button onclick="filterProjects('backend')" class="proj-tab px-3.5 py-2 rounded-xl font-semibold bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 transition-all" data-filter="backend">
               Cloud &amp; Backend
